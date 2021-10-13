@@ -110,6 +110,18 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<!-- Mybaits -->
+		<dependency>
+    		<groupId>org.mybatis</groupId>
+    		<artifactId>mybatis</artifactId>
+    		<version>3.4.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>2.0.6</version>
+		</dependency>
+		
 		<!-- lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
