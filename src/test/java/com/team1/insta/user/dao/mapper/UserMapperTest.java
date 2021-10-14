@@ -1,10 +1,5 @@
 package com.team1.insta.user.dao.mapper;
 
-import java.sql.Connection;
-
-import javax.sql.DataSource;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +18,10 @@ public class UserMapperTest {
 	@Autowired
 	UserMapper userMapper;
 	
-	@Autowired
-	HikariConnector hikari;
-	
-	@Ignore
 	@Test
 	public void getUser() {
 		for(User user : userMapper.getList()) {
 			log.info(user);
 		}
-	}
-
-	@Test
-	public void testConnection() {
-
-		Connection con = hikari.getConnection();	
-
-			
-		System.out.println("con="+con);
-		
 	}
 }

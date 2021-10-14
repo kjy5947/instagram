@@ -8,7 +8,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="config" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="jdbcUrl" value="database-1.cxc98ia1oha4.us-east-2.rds.amazonaws.com"/>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@database-1.cxc98ia1oha4.us-east-2.rds.amazonaws.com:1521/ORCL"/>
 		<property name="username" value="cafe"/>
 		<property name="password" value="!!22Qorthdud"/>
 	</bean>
