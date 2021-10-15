@@ -8,6 +8,7 @@ import lombok.Data;
 public class User {
 
 	private String user_id;
+	private String real_name;
 	private String uname;
 	private String uemail;
 	private Date join_date;

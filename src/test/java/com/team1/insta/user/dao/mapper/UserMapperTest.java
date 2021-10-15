@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.team1.insta.user.dto.User;
+import com.team1.insta.user.dto.UserName;
 
 import lombok.extern.log4j.Log4j;
 
@@ -22,6 +23,13 @@ public class UserMapperTest {
 	public void getUser() {
 		for(User user : userMapper.getList()) {
 			log.info(user);
+		}
+	}
+	
+	@Test
+	public void getUname() {
+		for(UserName uname : userMapper.getUname()) {
+			log.info(uname);
 		}
 	}
 }

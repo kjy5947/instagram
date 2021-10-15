@@ -6,4 +6,18 @@
   <select id="getList" resultType="com.team1.insta.user.dto.User">
     select * from user_info
   </select>  
+  <insert id="newUser">
+  	INSERT INTO user_info(user_id, uname, uemail, real_name, password, phone_number)
+  	VALUES (
+  		user_id_seq.nextval,
+  		#{uname},
+  		#{uemail},
+  		#{real_name},
+  		#{password},
+  		#{phone_number}
+  	)
+  </insert>
+  <select id="getUname" resultType="com.team1.insta.user.dto.UserName">
+    select uname from user_info
+  </select> 
 </mapper>
