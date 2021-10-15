@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+#highBar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100%;
+    position: sticky;
+    top: 0;
+    
+    margin: 20px; 
+    color: white;
+    z-index: 1;
+    font-weight: bold;
+}
+
+#highlogo {
+	grid-column: 1/2;
+    text-align: center;
+    margin: auto;
+	width: 100px;
+	height: auto;
+}
+
