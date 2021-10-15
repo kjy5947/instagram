@@ -20,4 +20,19 @@
   <select id="getUname" resultType="com.team1.insta.user.dto.UserName">
     select uname from user_info
   </select> 
+  <select id="getUser" resultType="com.team1.insta.user.dto.User">
+  	SELECT * FROM user_info
+  	<choose>
+  		<when test="keyType == 'email'">
+  			WHERE uemail = #{key}
+  		</when>
+  		<when test="keyType == 'phone'">
+  			WHERE phone_number = #{key}
+  		</when>
+  		<otherwise>
+  			WHERE uname = #{key}
+  		</otherwise>
+  		
+  	</choose>
+  </select>
 </mapper>
