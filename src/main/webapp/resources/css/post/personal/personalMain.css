@@ -3,18 +3,21 @@
 
 
 html, body{
+  box-sizing : border-box;
 	width : 100%;
 	height : 100%;
+	margin : 0 auto;
 }
 
 .profile {
-  box-sizing : border-box;
+
   height: 170px;
   display: flex;
   margin: 54px 0 44px;
+  align-items: center;
 }
 
-.profileContainer {
+.topProfile {
   border : red 1px solid;
   display: flex;
   justify-content: space-between;
@@ -28,7 +31,7 @@ html, body{
 
 
 
-.profile > .profileContainer {
+.profile > .topProfile {
   padding: 30px 20px 0;
 }
 .profile .profile-left,
@@ -67,7 +70,8 @@ html, body{
 }
 .profile .profile-right .name-group .subbtn {
   margin-right: 10px;
-  padding: 5px 9px;
+  /*padding: 5px 3px;*/
+  height : 15px;
   border: 1px solid rgba(191, 191, 191, 1);
   border-radius: 4px;
   color: #262626;
@@ -81,7 +85,8 @@ html, body{
 .profile .profile-right .name-group .modified i {
   font-size: 20px;
   padding: 8px;
-}
+}// 오른쪽 부분의 i내용
+
 .profile .profile-right .subscribe {
   height: 28px;
   margin-bottom: 5px;
@@ -98,7 +103,7 @@ html, body{
 }
 .profile .profile-right .subscribe ul li a span {
   font-weight: bold;
-  margin-left: 4px;
+  margin-left: 4px; 
 }
 .profile .profile-right .state h4 {
   margin-bottom: 2px;
