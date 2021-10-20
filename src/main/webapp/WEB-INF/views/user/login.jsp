@@ -21,10 +21,10 @@
                 <div>
                     <h1>Instagram</h1>
                     <div>
-                        <form>
-                            <input type="text" id="email" placeholder=" 전화번호, 사용자 이름 또는 이메일">
-                            <input type="text" id="password" placeholder=" 비밀번호"> <br>
-                            <button type="submit" id="login">로그인</button>
+                        <form action="" method=post>
+                            <input type="text" id="email" name="idvalue" placeholder=" 전화번호, 사용자 이름 또는 이메일" oninput="idLengthCheck(this)">
+                            <input type="password" id="password" name="pwvalue" placeholder=" 비밀번호" oninput="pwLengthCheck(this)"> <br>
+                            <button type="submit" id="login" disalbed="disabled">로그인</button>
                         </form>
                         <div>
                             <div><hr></div>
@@ -32,18 +32,18 @@
                             <div><hr></div>
                         </div>
                         <div>
-                            <a href="www.naver.com">비밀번호를 잊으셨나요 ?</a>
+                            <a href="<c:url value="/password"/>">비밀번호를 잊으셨나요 ?</a>
                         </div>
                     </div>
                     <div>
-                        계정이 없으신가요? <a href="www.naver.com">가입하기</a>
+                        계정이 없으신가요? <a href="<c:url value="/join"/>">가입하기</a>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <script src="./instajs.js"></script>
+    	<script src="<c:url value="/resources/js/user/login/loginjs.js"/>" charset="UTF-8"></script>
 
 </body>
 </html>
