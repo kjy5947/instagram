@@ -35,4 +35,11 @@
   		
   	</choose>
   </select>
+  
+  <update id="setPassword">
+ 	UPDATE  user_info SET password = #{newPassword} WHERE user_id = #{userId}
+ 
+  
+  </update>
+  
 </mapper>

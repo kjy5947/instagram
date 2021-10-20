@@ -57,11 +57,10 @@
 
 	<div id="popup" class="hide">
 		<div class="content">
-			<h3>SMS 전송함</h3>
-			<div class="contentText">계정에 다시 로그인할 수 있는 링크가 포함된 SMS를</div>
-			<div class="contentText" id="out"></div>
-			<div class="contentText" >보내드렸습니다.</div>
-			<div class="contentText" >&nbsp</div>
+			<h3 id="h3">알림</h3>
+			<div class="contentText" id="out">
+				잠시만 기다려 주세요...
+			</div>
 			<div id="popupClose" onclick="closePopup()">닫기</div>
 		</div>
 	</div>
