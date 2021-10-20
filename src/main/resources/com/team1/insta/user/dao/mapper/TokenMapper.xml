@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team1.insta.user.dao.mapper.TokenMapper">
+
+  <select id="getToken" resultType="com.team1.insta.user.dto.PasswordToken">
+    select * from password_token where id = #{tokenId}
+  </select>  
+  
+  <insert id="createToken">
+  	INSERT INTO password_token(id, user_id, expiration_date)
+  	VALUES (
+  		#{tokenId},
+  		#{userId},
+  		sysdate + 5/24/60 + 9/24
+  	)
+  </insert>
+  
+  <delete id="deleteToken">
+  		delete from password_token where id = #{tokenId}
+  </delete>
+</mapper>
