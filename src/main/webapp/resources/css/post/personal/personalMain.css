@@ -2,23 +2,17 @@
 
 
 
-html, body{
-  box-sizing : border-box;
-	width : 100%;
-	height : 100%;
-	margin : 0 auto;
-}
 
-.profile {
-
-  height: 170px;
-  display: flex;
-  margin: 54px 0 44px;
-  align-items: center;
+body{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	margin:0;
+	
 }
 
 .topProfile {
-  border : red 1px solid;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,6 +23,13 @@ html, body{
 
 /* Profile */
 
+.profile {
+
+  height: 170px;
+  display: flex;
+  margin: 54px 0 44px;
+  align-items: center;
+}
 
 
 .profile > .topProfile {
@@ -70,7 +71,7 @@ html, body{
 }
 .profile .profile-right .name-group .subbtn {
   margin-right: 10px;
-  /*padding: 5px 3px;*/
+  padding: 5px 8px;
   height : 15px;
   border: 1px solid rgba(191, 191, 191, 1);
   border-radius: 4px;
@@ -109,5 +110,86 @@ html, body{
   margin-bottom: 2px;
 }
 
+.subbtn {
+  margin-right: 10px;
+  padding: 10px 10px;
+  border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
+  border-radius: 4px;
+  color: #262626;
+  font-weight: bold;
+  background: transparent;
+}
 
 
+
+
+/* 모델 모양 */
+.modal-image {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  
+  align-items: center;
+  justify-content: center;
+}
+.modal-image .modal {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-image .modal button {
+  border: 0;
+  background-color: transparent;
+  height: 48px;
+  cursor: pointer;
+}
+.modal-image .modal button:first-child {
+  line-height: 50px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  color: #222;
+  font-size: 18px;
+}
+
+
+
+@media screen and (max-width: 935px) {
+  .topProfile {
+    width: 100%;
+  }
+}
+
+
+
+/* .modal-info 내용. */
+.modal-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-info .modal {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-info .modal button {
+  border: 0;
+  background-color: transparent;
+  height: 48px;
+  cursor: pointer;
+}
