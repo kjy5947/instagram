@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team1.insta.user.dao.mapper.UserMapper;
 import com.team1.insta.user.dto.User;
@@ -22,11 +22,8 @@ public class UserController {
 	UserMapper userMapper;
 	
 	@GetMapping("/join")
-	public ModelAndView join() {
-		ModelAndView mnv = new ModelAndView();
-		mnv.addObject("unames", userMapper.getUname());
-		mnv.setViewName("user/join");
-		return mnv;
+	public String join() {
+		return "user/join";
 	}
 	
 	@PostMapping("/user/input")
@@ -45,4 +42,15 @@ public class UserController {
 		log.info(user);
 		return "user/login";
 	}
+	
+	// 아이디 체크
+    @PostMapping("/idCheck")
+    @ResponseBody
+    public String idCheck(@RequestParam("uname") String uname){
+    	log.info("userIdCheck 진입");
+    	log.info("전달받은 uname:"+uname);
+        String cnt = Integer.toString(userMapper.idCheck(uname));
+        log.info("확인 결과:"+cnt);
+        return cnt;
+    }
 }

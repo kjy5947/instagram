@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team1.insta.user.dao.mapper.UserMapper">
   <select id="getList" resultType="com.team1.insta.user.dto.User">
-    select * from user_info
+    select * from user_info order by user_id
   </select>  
   <insert id="newUser">
   	INSERT INTO user_info(user_id, uname, uemail, real_name, password, phone_number)
@@ -17,8 +17,8 @@
   		#{phone_number}
   	)
   </insert>
-  <select id="getUname" resultType="com.team1.insta.user.dto.UserName">
-    select uname from user_info
+  <select id="idCheck" resultType="int">
+    SELECT COUNT(uname) FROM user_info WHERE uname = #{uname}
   </select> 
   <select id="getUser" resultType="com.team1.insta.user.dto.User">
   	SELECT * FROM user_info

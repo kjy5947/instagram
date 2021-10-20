@@ -28,8 +28,6 @@ public class UserMapperTest {
 	
 	@Test
 	public void getUname() {
-		for(UserName uname : userMapper.getUname()) {
-			log.info(uname);
-		}
+		log.info(userMapper.idCheck("melosa0520"));
 	}
 }

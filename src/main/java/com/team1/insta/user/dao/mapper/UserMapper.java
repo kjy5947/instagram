@@ -10,6 +10,6 @@ public interface UserMapper {
 
 	public List<User> getList();
 	public int newUser(User user);
-	public List<UserName> getUname();
+	public int idCheck(String uname);
 	public User getUser(KeyConfirm keyconfirm);
 }

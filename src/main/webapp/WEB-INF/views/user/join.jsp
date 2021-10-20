@@ -7,17 +7,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <!-- Latest compiled and minified CSS -->
+    <title>회원가입</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/user/join/join.css"/>" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<!-- 테스트중... -->
-	<script>
-		<c:forEach items="${unames }" var="uname">
-			console.log("${uname.uname}");
-		</c:forEach>
-	</script>
     <div>
         <div class="container p-5 mt-3 border" style="width: 450px">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png" class="mx-auto d-block" width="300" alt="instagram">
@@ -34,8 +29,9 @@
                   <div class="invalid-feedback">010-1234-5678 형식으로 입력해주세요.</div>
                 </div>
                 <div class="mb-3 mt-3">
-                  <input type="text" class="form-control" id="uname" placeholder="사용자 이름" name="uname" pattern="^[a-zA-Z0-9_]+$" required>
-                  <div class="invalid-feedback">영문, 숫자, _ 만 사용이 가능합니다.</div>
+                  <input type="text" class="form-control" id="uname" placeholder="사용자 이름" name="uname" oninput = "checkId()" required>
+                  <div class="pattern_failed invalid-feedback">영문, 숫자, _ 만 사용이 가능합니다.</div>
+                  <span class="uname_already invalid-feedback">불가능한 사용자 이름입니다.</span>
                 </div>
               <div class="mb-3">
                 <input type="password" class="form-control" id="pwd" placeholder="비밀번호" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required>
@@ -47,12 +43,12 @@
             </form>
           </div>
           <div class="container p-4 mt-3 border" style="width: 450px">
-            <p>계정이 있으신가요? <a href=""  class="text-primary">로그인</a></p> <!-- TODO: 로그인 페이지로 링크 연결하기. -->
+            <p>계정이 있으신가요? <a href="<%= request.getContextPath()%>/login/"  class="text-primary">로그인</a></p> <!-- TODO: 로그인 페이지로 링크 연결하기. -->
           </div>
     </div>
     
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./resources/js/join.js"></script>
+    <script src="<c:url value="/resources/js/user/join/join.js"/>"></script>
 </body>
 </html>
