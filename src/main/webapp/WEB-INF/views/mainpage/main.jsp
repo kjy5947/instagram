@@ -45,6 +45,16 @@
     </div>
     <hr>
     
+    <ul>
+		<c:forEach var="post" items="${posts }">
+			<li>${post.pid }</li>
+			<li>${post.user_id }</li>
+			<li>${post.post_time }</li>
+			<li>${post.modify_time }</li>
+			<li>${post.pcontents }</li>
+		</c:forEach>
+	</ul>
+    
 	<script src="<c:url value="/resources/css/post/main/main.js"/>" charset="UTF-8"></script>
     
 </body>
