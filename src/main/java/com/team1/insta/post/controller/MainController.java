@@ -17,7 +17,7 @@ public class MainController {
 	@Autowired
 	MainXMLMapper mainMapper;
 	
-//	@GetMapping("/mainpage/main") 
+//	@GetMapping("/mainpage/main")  
 //	public void getMain() {
 //		log.info("메인화면 정상적인 작동");
 //	}
