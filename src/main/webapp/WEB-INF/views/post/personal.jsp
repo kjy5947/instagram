@@ -19,7 +19,7 @@
 <!--프로필 섹션-->
 <section class="profile">
 	<!--유저정보 섹션-->
-	<div class="profileContainer">
+	<div class="topProfile">
 
 		<!--유저이미지-->
 		<div class="profile-left">
@@ -41,10 +41,10 @@
 			<div class="name-group">
 				<h2>kjy</h2>
 
-				<button class="subbtn" onclick="">사진등록</button>
+				<button class="subbtn" onclick="location.href='../post/upload'">사진등록</button>
 				<button class="subbtn" onclick="">구독하기</button>
-				<button class="modified" onclick="">
-					
+				<button class="modified" onclick="popup('.modal-info')">
+					<i class="fas fa-cog"></i>
 				</button>
 			</div>
 
@@ -67,4 +67,6 @@
 <!-- profile section 끝 -->
 
 </body>
+	<script src="../resources/js/post/personal/personalMain.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 </html>

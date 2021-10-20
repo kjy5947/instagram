@@ -29,4 +29,11 @@ public class PostController {
 		
 	    return "post/personal";
 	}
+	
+	@RequestMapping(value ={"/upload", "/upload/*"}, method= {RequestMethod.GET})
+	public String getUload() {
+		
+	    return "post/upload";
+	}
+	
 }
