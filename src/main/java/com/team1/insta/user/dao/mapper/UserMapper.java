@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.team1.insta.user.dto.KeyConfirm;
 import com.team1.insta.user.dto.User;
-import com.team1.insta.user.dto.UserName;
 
 public interface UserMapper {
 

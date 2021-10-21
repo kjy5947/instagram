@@ -29,16 +29,16 @@
                   <div class="invalid-feedback">010-1234-5678 형식으로 입력해주세요.</div>
                 </div>
                 <div class="mb-3 mt-3">
-                  <input type="text" class="form-control" id="uname" placeholder="사용자 이름" name="uname" oninput = "checkId()" required>
-                  <div class="pattern_failed invalid-feedback">영문, 숫자, _ 만 사용이 가능합니다.</div>
-                  <span class="uname_already invalid-feedback">불가능한 사용자 이름입니다.</span>
+                  <input type="text" class="form-control" id="uname" placeholder="사용자 이름" name="uname" oninput = "checkId()" pattern="^[a-z0-9_]+$" required>
+                  <div class="invalid-feedback">영문, 숫자, _ 만 사용이 가능합니다.</div>
+                  <div class="uname_already">이미 존재하는 사용자 이름입니다.</div>
                 </div>
               <div class="mb-3">
                 <input type="password" class="form-control" id="pwd" placeholder="비밀번호" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required>
                 <div class="invalid-feedback">영문, 숫자, 특수문자를 한 개 이상 포함하여 8자리 이상 입력해주세요.</div>
               </div>
               <div class="d-grid">
-              	<button type="submit" class="btn btn-primary btn-block submit-button">가입</button>
+              	<button type="submit" class="btn btn-primary btn-block submit-button" id="join-btn">가입</button>
               </div>
             </form>
           </div>
