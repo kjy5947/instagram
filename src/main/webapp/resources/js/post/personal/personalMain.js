@@ -41,5 +41,69 @@ function profileUpload() {
       reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
    });
 }
+
+// content
+
+const postBtn = document.getElementById('post');
+const videoBtn = document.getElementById('video');
+const bookMarkBtn = document.getElementById('bookMark');
+const taggedBtn = document.getElementById('tagged');
+const userId = document.getElementById('user_id').innerHTML;
+const param = 'userId=' +userId;
+const contentBtn = document.getElementsByClassName('contentBtn');
+
+function btnCssChange(e) {
+
+	const btn = document.getElementById(e.target.id);
+	
+	btnCssReset(postBtn);
+	btnCssReset(videoBtn);
+	btnCssReset(bookMarkBtn);
+	btnCssReset(taggedBtn);
+	btn.style.color = "black";
+	btn.style.borderTop = "1px solid black";
+	
+	const xhttp = new XMLHttpRequest();			
+	xhttp.addEventListener('readystatechange', (e) => {
 		
+		const readyState = e.target.readyState;
+		const httpStatus = e.target.status;
+				
+				if(readyState == 4 && httpStatus == 200) {
+					addToTableOut(JSON.parse(e.target.responseText));
+				}
+						
+			});
+			
+			xhttp.open('POST', '/insta/postRest/getPost', true);
+			
+			xhttp.setRequestHeader('content-type', "application/x-www-form-urlencoded");
+
+			xhttp.send(param);
+}
+
+postBtn.addEventListener('click', btnCssChange);
+videoBtn.addEventListener('click', btnCssChange);
+bookMarkBtn.addEventListener('click', btnCssChange);
+taggedBtn.addEventListener('click', btnCssChange);
+
+
+function btnCssReset(btn) {
+	btn.style.color = "gray";
+	btn.style.borderTop = "gray";
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 

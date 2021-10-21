@@ -8,6 +8,7 @@ body{
 	align-items:center;
 	justify-content:center;
 	margin:0;
+	flex-wrap: wrap;
 	
 }
 
@@ -19,6 +20,7 @@ body{
   width: 935px;
   margin: 0 auto;
   height: 100%;
+  padding: 30px 20px 0;
 }
 
 /* Profile */
@@ -32,9 +34,6 @@ body{
 }
 
 
-.profile > .topProfile {
-  padding: 30px 20px 0;
-}
 .profile .profile-left,
 .profile .profile-right {
   height: 100%;
@@ -86,7 +85,7 @@ body{
 .profile .profile-right .name-group .modified i {
   font-size: 20px;
   padding: 8px;
-}// 오른쪽 부분의 i내용
+} /* 오른쪽 부분의 i내용 */
 
 .profile .profile-right .subscribe {
   height: 28px;
@@ -118,6 +117,39 @@ body{
   color: #262626;
   font-weight: bold;
   background: transparent;
+}
+.subbtn:hover {
+	cursor: pointer;
+}
+
+
+/*  content     */
+
+#content {
+	display: block;
+	max-width: 935px;
+	text-align: center;
+	border-top: gray 1px solid;
+}
+
+.contentBtn {
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+	margin-right: 50px;
+	color: gray;
+	padding-top: 20px;
+}
+.contentBtn > i {
+	pointer-events: none;
+}
+
+#post {
+	color: black;
+	border-top: 1px solid black;
 }
 
 
