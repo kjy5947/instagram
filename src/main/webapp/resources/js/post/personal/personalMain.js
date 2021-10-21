@@ -35,7 +35,7 @@ function profileUpload() {
       let reader = new FileReader();
       var slct2 = document.getElementById("basicUserProfileImage");
       reader.onload = (e) => {
-      	console.log(f);
+
       	slct2.setAttribute('src', e.target.result);
       }
       reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.

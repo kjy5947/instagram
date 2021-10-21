@@ -3,7 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team1.insta.user.dao.mapper.UserMapper">
-  <select id="getList" resultType="com.team1.insta.user.dto.User">
-    select * from user_info
-  </select>  
+
+    	
+  	<select id="getUser" resultType="com.team1.insta.user.dto.User">
+  		select * from user_info where user_id = #{uid}
+  	</select>
+  
 </mapper>
