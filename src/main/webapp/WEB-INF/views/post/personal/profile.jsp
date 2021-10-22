@@ -29,7 +29,7 @@
 					<input type="file" name="imagesrc" style="display: none;"
 						id="userProfileImage" />
 				</form>
-				<img name="profileimage" value=${oneUser.profile_img} class="profile-image" src=${oneUser.profile_img}
+				<img name="profileimage" value=${oneUser2.profile_img} class="profile-image" src=${oneUser2.profile_img}
 					onerror="this.src='../resources/images/darami.jpg'" id="basicUserProfileImage" />
 					
 				<!-- <img class="profile-image" src="../resources/images/myprofile.png"
