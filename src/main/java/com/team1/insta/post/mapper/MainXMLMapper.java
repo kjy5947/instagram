@@ -8,5 +8,5 @@ import com.team1.insta.user.dto.User;
 public interface MainXMLMapper {
 	public List<Post> getPostList();
 	
-	public User getUserInfo(Integer id);
+
 }
