@@ -7,7 +7,7 @@ body{
 	display:flex;
 	align-items:center;
 	justify-content:center;
-	margin:0;
+	margin:0 auto;
 	flex-wrap: wrap;
 	
 }
@@ -127,7 +127,7 @@ body{
 
 #content {
 	display: block;
-	max-width: 935px;
+	width: 935px;
 	text-align: center;
 	border-top: gray 1px solid;
 }
@@ -152,6 +152,18 @@ body{
 	border-top: 1px solid black;
 }
 
+#contentOut {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	width: 935px;
+}
+.contentOutPost {
+	position: relative;
+	width: 33%;
+	height: 0;
+	padding-bottom: 33%;
+}
 
 
 

@@ -21,6 +21,24 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
+	
+	<!-- email beans -->
+		
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" /> <!-- gmail을 사용 -->
+		<property name="port" value="587" />
+		<property name="username" value="vmfhwprxm02@gmail.com" />
+		<property name="password" value="!1vmfhwprxm" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
 		
 	<mybatis-spring:scan base-package="com.team1.insta.user.dao.mapper"/>
 	<mybatis-spring:scan base-package="com.team1.insta.post.dao.mapper"/>

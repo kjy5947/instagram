@@ -48,9 +48,30 @@ const postBtn = document.getElementById('post');
 const videoBtn = document.getElementById('video');
 const bookMarkBtn = document.getElementById('bookMark');
 const taggedBtn = document.getElementById('tagged');
-const userId = document.getElementById('user_id').innerHTML;
-const param = 'userId=' +userId;
+const uname = document.getElementById('uname').innerHTML;
+const param = 'uname=' +uname;
 const contentBtn = document.getElementsByClassName('contentBtn');
+const contentOut = document.getElementById('contentOut');
+
+
+const addToContentOut  =  (postJoinImages) => {
+	
+		
+	const file = postJoinImages.pimg;
+	
+	const reader = new FileReader();
+	
+	reader.readAsDataURL(file);
+	
+	reader.onload = function() {
+		const newDiv = document.createElement('div');	
+		newDiv.setAttribute('class', 'contentOutPost');
+		newDiv.style = `background : url(${reader.result});`
+		contentOut.appendChild(newDiv);
+	}
+	
+}
+
 
 function btnCssChange(e) {
 
@@ -69,16 +90,19 @@ function btnCssChange(e) {
 		const readyState = e.target.readyState;
 		const httpStatus = e.target.status;
 				
-				if(readyState == 4 && httpStatus == 200) {
-					addToTableOut(JSON.parse(e.target.responseText));
-				}
-						
-			});
+			if(readyState == 4 && httpStatus == 200) {
+				const postJoinImageList  =  JSON.parse(e.target.responseText);
+				postJoinImageList.forEach(function(postJoinImages){
+				addToContentOut(postJoinImages);
+			});	
+		}				
+	});
 			
 			xhttp.open('POST', '/insta/postRest/getPost', true);
 			
 			xhttp.setRequestHeader('content-type', "application/x-www-form-urlencoded");
 
+			console.log(param);
 			xhttp.send(param);
 }
 

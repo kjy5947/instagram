@@ -9,6 +9,11 @@
   
   <select id="getImagesList" resultType="com.team1.insta.post.dto.Images">
     select * from images where pid = #{pId}
+  </select>
+  
+  <select id="getPostJoinImages" resultType="com.team1.insta.post.dto.PostJoinImages">
+    select * FROM post inner join images USING(pid) where pid = #{pId}
+     AND <![CDATA[ ROWNUM <= 1 ]]>order by iid;
   </select>  
     
 </mapper>

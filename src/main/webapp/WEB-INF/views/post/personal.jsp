@@ -45,7 +45,7 @@
 
 			<div class="profile-right">
 				<div class="name-group">
-					<h2 id="user_id">kjy</h2>
+					<h2 id="uname">usm368</h2>
 
 					<button class="subbtn" onclick="location.href='../post/upload'">사진등록</button>
 					<button class="subbtn" onclick="">구독하기</button>

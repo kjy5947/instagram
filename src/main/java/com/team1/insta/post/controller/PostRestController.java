@@ -1,5 +1,8 @@
 package com.team1.insta.post.controller;
 
+
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.team1.insta.post.dao.mapper.PostMapper;
 import com.team1.insta.post.dto.Post;
+import com.team1.insta.post.dto.PostJoinImages;
+import com.team1.insta.user.dao.mapper.UserMapper;
+import com.team1.insta.user.dto.KeyConfirm;
+import com.team1.insta.user.dto.User;
 
 @RestController
 @RequestMapping("/postRest")
@@ -28,22 +35,36 @@ public class PostRestController {
 	@Autowired
 	PostMapper postMapper;
 	
+	@Autowired
+	UserMapper userMapper;
+	
 	
 	
 	@RequestMapping(value = "/getPost", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded")
-	public ResponseEntity<List<Post>> getPostList(HttpServletRequest request){
-		String userId = request.getParameter("userId");
-
+	public ResponseEntity<List<PostJoinImages>> getPostList(HttpServletRequest request){
 		
 		
-		List<Post> postList =  postMapper.getPostList(userId);
-
-		ResponseEntity<List<Post>> PostListEntity =  ResponseEntity
+		String uname = request.getParameter("uname");
+		KeyConfirm keycf = new KeyConfirm();
+		keycf.setKeyType("id");
+		keycf.setKey(uname);
+		System.out.println(keycf);
+		
+		User user = userMapper.getUser(keycf);
+		
+		List<Post> postList =  postMapper.getPostList(user.getUser_id());
+		List<PostJoinImages> postJoinImagesList = new ArrayList<PostJoinImages>();
+		
+		for(Post post : postList) {
+			postJoinImagesList.add(postMapper.getPostJoinImages(post.getPid()));
+		}	
+		
+		ResponseEntity<List<PostJoinImages>> PostJoinImagesListEntity =  ResponseEntity
 				.status(HttpStatus.OK)
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(postList);
+				.body(postJoinImagesList);
 		
-		return PostListEntity;
+		return PostJoinImagesListEntity;
 		
 	}
 
