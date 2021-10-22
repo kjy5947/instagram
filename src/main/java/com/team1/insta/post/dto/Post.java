@@ -11,4 +11,7 @@ public class Post {
 	private Date post_time;
 	private Date modify_time;
 	private String pcontents;
+	private String uname;
+	private String profile_img;
+	private String follow_accept;
 }

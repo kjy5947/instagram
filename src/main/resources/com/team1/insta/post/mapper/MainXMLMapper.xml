@@ -4,6 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team1.insta.post.mapper.MainXMLMapper">
 	<select id="getPostList" resultType="com.team1.insta.post.dto.Post">
-	  	SELECT * FROM post WHERE status = 'Y'
+	  	SELECT * FROM user_info e
+    		INNER JOIN post d ON e.user_id = d.user_id
+    			WHERE status = 'Y' ORDER BY modify_time ASC
   	</select>
 </mapper>

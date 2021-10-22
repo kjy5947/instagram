@@ -6,4 +6,5 @@ import com.team1.insta.post.dto.Post;
 
 public interface MainXMLMapper {
 	public List<Post> getPostList();
+	
 }
