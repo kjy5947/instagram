@@ -29,8 +29,8 @@
 					<input type="file" name="profileImageFile" style="display: none;"
 						id="userProfileImage" />
 				</form>
-				<img class="profile-image" src="#"
-					onerror="this.src='../resources/images/myprofile.png'" id="basicUserProfileImage" />
+				<img class="profile-image" src=${oneUser.profile_img}
+					onerror="this.src='../resources/images/darami.jpg'" id="basicUserProfileImage" />
 					
 				<!-- <img class="profile-image" src="../resources/images/myprofile.png"
 					 id="userProfileImage" />
