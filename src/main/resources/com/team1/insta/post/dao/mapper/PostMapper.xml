@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team1.insta.post.dao.mapper.PostMapper">
   <select id="getPostList" resultType="com.team1.insta.post.dto.Post">
-    select * from post where uid = #{userId}
+    select * from post where user_id = #{userId}
   </select>
   
   <select id="getImagesList" resultType="com.team1.insta.post.dto.Images">
@@ -12,8 +12,12 @@
   </select>
   
   <select id="getPostJoinImages" resultType="com.team1.insta.post.dto.PostJoinImages">
-    select * FROM post inner join images USING(pid) where pid = #{pId}
-     AND <![CDATA[ ROWNUM <= 1 ]]>order by iid;
+    select * FROM post inner join images USING(pid) 
+    where pid = #{pId} AND <![CDATA[ ROWNUM <= 1 ]]>order by iid
+  </select>
+  
+    <select id="getLikeManage" resultType="com.team1.insta.post.dto.LikeManage">
+    SELECT * FROM like_manage where pid = #{pId}
   </select>  
     
 </mapper>

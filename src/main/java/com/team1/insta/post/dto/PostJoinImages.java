@@ -8,12 +8,13 @@ import lombok.Data;
 public class PostJoinImages {
 
 	private String pid;
-	private String uid;
+	private String user_id;
 	private Date post_time;
 	private Date modify_time;
 	private String pcontents;
 	private char status;
 	private String pimg;
 	private String iid;
+
 	
 }

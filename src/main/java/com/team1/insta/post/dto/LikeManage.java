@@ -5,13 +5,11 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Post {
+public class LikeManage {
 	
+	private String lid;
 	private String pid;
 	private String user_id;
-	private Date post_time;
-	private Date modify_time;
-	private String pcontents;
-	private char status;
-
+	private Date like_time;
+	
 }

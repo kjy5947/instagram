@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,7 @@
 
 			<div class="profile-right">
 				<div class="name-group">
-					<h2 id="uname">usm368</h2>
+					<h2 id="uname">suhwan12</h2>
 
 					<button class="subbtn" onclick="location.href='../post/upload'">사진등록</button>
 					<button class="subbtn" onclick="">구독하기</button>
@@ -80,6 +81,10 @@
 	
 	<div id="contentOut">
 		
+	</div>
+		${postLikeManageList.pid }
+	<div>
+			
 	</div>
 
 	<!-- 프로필 바꾸기 모달 -->

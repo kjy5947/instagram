@@ -1,6 +1,4 @@
 
-
-
 function popup(obj){
 	var op = document.getElementsByClassName(obj)[0];
 	op.style.display = "flex";	
@@ -42,7 +40,7 @@ function profileUpload() {
    });
 }
 
-// content
+/////////////////////////////////////////////////////////////content
 
 const postBtn = document.getElementById('post');
 const videoBtn = document.getElementById('video');
@@ -54,33 +52,49 @@ const contentBtn = document.getElementsByClassName('contentBtn');
 const contentOut = document.getElementById('contentOut');
 
 
+
 const addToContentOut  =  (postJoinImages) => {
 	
 		
+	
 	const file = postJoinImages.pimg;
 	
-	const reader = new FileReader();
+	const newImg = document.createElement('img');
+	newImg.src = file;
 	
-	reader.readAsDataURL(file);
+	const newDiv = document.createElement('div');
+	newDiv.setAttribute('class', 'contentOutPost');
+	newDiv.appendChild(newImg);
+	contentOut.appendChild(newDiv);
 	
-	reader.onload = function() {
-		const newDiv = document.createElement('div');	
-		newDiv.setAttribute('class', 'contentOutPost');
-		newDiv.style = `background : url(${reader.result});`
-		contentOut.appendChild(newDiv);
-	}
+	//const reader = new FileReader();
+	
+	//	reader.readAsDataURL(file);
+	
+	//reader.onload = function() {
+		//const newDiv = document.createElement('div');	
+		//newDiv.setAttribute('class', 'contentOutPost');
+		//newDiv.style = `background : url(${reader.result});`
+	//}
 	
 }
 
 
-function btnCssChange(e) {
-
-	const btn = document.getElementById(e.target.id);
+function BtnEventListener(e) {
+	
+	contentOut.innerHTML ="";
+		let btn = postBtn; 
+	try {
+		btn = document.getElementById(e.target.id);
+	} catch(error) {
+		btn = postBtn
+	}
 	
 	btnCssReset(postBtn);
 	btnCssReset(videoBtn);
 	btnCssReset(bookMarkBtn);
 	btnCssReset(taggedBtn);
+	
 	btn.style.color = "black";
 	btn.style.borderTop = "1px solid black";
 	
@@ -91,26 +105,37 @@ function btnCssChange(e) {
 		const httpStatus = e.target.status;
 				
 			if(readyState == 4 && httpStatus == 200) {
+				
 				const postJoinImageList  =  JSON.parse(e.target.responseText);
+				
+				console.log(getAttrub);
 				postJoinImageList.forEach(function(postJoinImages){
 				addToContentOut(postJoinImages);
 			});	
 		}				
 	});
-			
-			xhttp.open('POST', '/insta/postRest/getPost', true);
+			if(btn == postBtn) {
+				xhttp.open('POST', '/insta/postRest/getPost', true);
+			} else if (btn == videoBtn) {
+				xhttp.open('POST', '/insta/postRest/getPost', true);
+			} else if (btn == bookMarkBtn) {
+				xhttp.open('POST', '/insta/postRest/getPost', true);
+			} else if (btn == taggedBtn) {
+				xhttp.open('POST', '/insta/postRest/getPost', true);
+			}
 			
 			xhttp.setRequestHeader('content-type', "application/x-www-form-urlencoded");
-
-			console.log(param);
+			
 			xhttp.send(param);
+			
 }
 
-postBtn.addEventListener('click', btnCssChange);
-videoBtn.addEventListener('click', btnCssChange);
-bookMarkBtn.addEventListener('click', btnCssChange);
-taggedBtn.addEventListener('click', btnCssChange);
+postBtn.addEventListener('click', BtnEventListener);
+videoBtn.addEventListener('click', BtnEventListener);
+bookMarkBtn.addEventListener('click', BtnEventListener);
+taggedBtn.addEventListener('click', BtnEventListener);
 
+window.onload = BtnEventListener();
 
 function btnCssReset(btn) {
 	btn.style.color = "gray";
