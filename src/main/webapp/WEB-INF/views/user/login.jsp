@@ -15,7 +15,7 @@
     <main>
         <div>
             <div>
-                <img src="https://img.hankyung.com/photo/201812/AA.18398670.3.jpg" alt="메인이미지">
+                <img src="https://post-phinf.pstatic.net/MjAxODAzMjhfMjcw/MDAxNTIyMjE4OTIxNjY4.-fvB227ehXXT81n8sywI1BCVjQ36b4niIiDNanbrFFIg.37MtWdDGdAe-f3918uvnRZDiQd68UE186_ZAOCDT-v8g.JPEG/20160512004508329469.jpg?type=w1200" alt="메인이미지" width=450px height=500px>
             </div>
             <div>
                 <div>
@@ -41,7 +41,20 @@
                 </div>
             </div>
         </div>
+    
+    <c:choose>
+        <c:when test="${idcheck eq 'fail'}">
+    		<script>alert("아이디가 존재하지 않습니다.");</script>
+    	</c:when>
+    	<c:when test="${pwcheck eq 'fail'}">
+    		<script>alert("비밀번호가 틀렸습니다.");</script>
+    	</c:when>
+    </c:choose>
+    
     </main>
+    
+
+    
 
     	<script src="<c:url value="/resources/js/user/login/loginjs.js"/>" charset="UTF-8"></script>
 
