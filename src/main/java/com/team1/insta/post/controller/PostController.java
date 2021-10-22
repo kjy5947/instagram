@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team1.insta.user.dao.mapper.UserMapper;
+
+import lombok.extern.log4j.Log4j;
 
 
 
@@ -19,8 +24,8 @@ import com.team1.insta.user.dao.mapper.UserMapper;
 
 //@RestController
 
-@RequestMapping("/post")
 @Controller
+@Log4j
 public class PostController {
 
 //	@GetMapping(value = "/getStr", produces = "text/html; charset=EUC-KR")
@@ -31,28 +36,27 @@ public class PostController {
 	@Autowired
 	UserMapper usermp;
 	
-//	@GetMapping(value ={"/personal", "/personal/*"})
-	@RequestMapping(value ={"/personal", "/personal/","/personal/*"}, method= {RequestMethod.GET})
-	public String getString(Model model) {
+	@GetMapping("/users/{userName}")
+	public String getPersonalPage(Model model, @PathVariable String userName) {
 		
+		log.info(userName);
 		model.addAttribute("oneUser", usermp.getUser(6));
-		System.out.println("what the fuck GET PAGE!!!!!?");
+		// to do: DB를 조회해서 user객체를 담아서 넘겨주기
 	    return "post/personal";
 	}
 	
-	@RequestMapping(value ={"/personal", "/personal/","/personal/*"}, method= {RequestMethod.POST})
-	public String getString(HttpServletRequest request,String imagesrc, Model model) {
+
+	@PostMapping("/users/{userName}")
+	public String getString(String imagesrc, RedirectAttributes redirectAttribute, @PathVariable String userName) {
 		
-		
-	
 		System.out.println("../resources/images/" + imagesrc);
 		System.out.println("무엇이 잘못된거시오");
 		
 		usermp.updateUser(6, "../resources/images/" + imagesrc);
-		model.addAttribute("oneUser2", usermp.getUser(6));
+		redirectAttribute.addFlashAttribute("oneUser2", usermp.getUser(6));
 		System.out.println("what the fuck!!!!!?");
 		
-	    return "post/personal/profile";
+	    return "redirect:"+ userName;
 	}
 	
 	@RequestMapping(value ={"/upload", "/upload/"}, method= {RequestMethod.GET})
