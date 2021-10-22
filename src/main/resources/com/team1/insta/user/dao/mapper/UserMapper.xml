@@ -6,7 +6,10 @@
 
     	
   	<select id="getUser" resultType="com.team1.insta.user.dto.User">
-  		select * from user_info where user_id = #{uid}
+  		select * from user_info where user_id = #{user_id}
   	</select>
   
+  	<update id="updateUser">
+  		update user_info set profile_img = #{profile_img} where user_id = #{user_id}
+  	</update>
 </mapper>
