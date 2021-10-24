@@ -8,5 +8,12 @@
 </head>
 <body>
 
+
+	<form action="/instagram/upload" method="post" enctype="multipart/form-data">
+		<ul>
+			<li>프로필 이미지<input type="file" name="file" ></li>
+		</ul>
+		<input type="submit"/>
+	</form>
 </body>
 </html>
