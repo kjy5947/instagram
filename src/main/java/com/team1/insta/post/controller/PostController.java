@@ -34,9 +34,9 @@ public class PostController {
 //	}
 	
 	@Autowired
-	UserMapper usermp;
+	private UserMapper usermp;
 	
-	@GetMapping("/users/{userName}")
+	@GetMapping("/home/{userName}")
 	public String getPersonalPage(Model model, @PathVariable String userName) {
 		
 		log.info(userName);
@@ -46,7 +46,7 @@ public class PostController {
 	}
 	
 
-	@PostMapping("/users/{userName}")
+	@PostMapping("/home/{userName}")
 	public String getString(String imagesrc, RedirectAttributes redirectAttribute, @PathVariable String userName) {
 		
 		System.out.println("../resources/images/" + imagesrc);
@@ -59,10 +59,14 @@ public class PostController {
 	    return "redirect:"+ userName;
 	}
 	
+	
+	
 	@RequestMapping(value ={"/upload", "/upload/"}, method= {RequestMethod.GET})
 	public String getUload() {
 		
 	    return "post/upload";
 	}
+	
+
 	
 }
