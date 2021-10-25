@@ -1,12 +1,13 @@
 /**
  * 
  */
+ var idResult = false;
  function checkId(){
     var uname = $('#uname').val();
-    var joinBtn = document.getElementById('join-btn');
     
     if(!document.getElementById('uname').checkValidity()){
-	    $('.uname_already').css("display","inline-block");
+	    $('.uname_already').css("display", "none");
+	    idResult = false;
     } else {
     	$.ajax({
 	        url:'/insta/idCheck', //Controller에서 인식할 주소
@@ -15,10 +16,10 @@
 	        success:function(cnt){
 	        	if(cnt < 1){ // 사용 가능한 아이디 
 	                $('.uname_already').css("display", "none");
-    				joinBtn.disabled = false;
+	                idResult = true;
 	            } else { // 이미 존재하는 아이디
-	                $('.uname_already').css("display","block");
-    				joinBtn.disabled = true;
+	                $('.uname_already').css("display","inline-block");
+	                idResult = false;
 	            }
 	        },
 	        error:function(){
@@ -26,4 +27,22 @@
 	        }
 	    });
     }
+    checkAll();
+};
+
+function checkAll(){
+    var joinBtn = document.getElementById('join-btn');
+	if(document.getElementById('email').checkValidity() &&
+	   document.getElementById('rname').checkValidity() &&
+	   document.getElementById('phone_number').checkValidity() &&
+	   document.getElementById('pwd').checkValidity() && idResult){
+		joinBtn.disabled = false;
+	} else {
+		joinBtn.disabled = true;
+	}
+};
+
+function popInfo() {
+	alert(document.getElementById('rname').value + '님 반가워요!');
+	console.log('test');
 };

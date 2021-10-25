@@ -17,15 +17,15 @@
         <div class="container p-5 mt-3 border" style="width: 450px">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png" class="mx-auto d-block" width="300" alt="instagram">
             <p style="font-size: 25px" class="text-muted">친구들의 사진과 동영상을 보려면 가입하세요.</p>
-            <form action="<%= request.getContextPath()%>/user/input" class="was-validated" id="join" method="post">
+            <form action="<c:url value="/user/input"/>" class="was-validated" id="join" method="post" onsubmit="popInfo()">
                 <div class="mb-3 mt-3">
-                  <input type="email" class="form-control" id="email" placeholder="이메일 주소" name="uemail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                  <input type="email" class="form-control" id="email" placeholder="이메일 주소" name="uemail" oninput = "checkAll()" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
                 </div>
                 <div class="mb-3 mt-3">
-                  <input type="text" class="form-control" id="rname" placeholder="성명" name="real_name" pattern="^[가-힣a-zA-Z]+$" required>
+                  <input type="text" class="form-control" id="rname" placeholder="성명" name="real_name" oninput = "checkAll()" pattern="^[가-힣a-zA-Z]+$" required>
                 </div>
                 <div class="mb-3 mt-3">
-                  <input type="text" class="form-control" id="phone_number" placeholder="휴대폰 번호" name="phone_number" pattern="^\d{3}-\d{4}-\d{4}$" required>
+                  <input type="text" class="form-control" id="phone_number" placeholder="휴대폰 번호" name="phone_number" oninput = "checkAll()" pattern="^\d{3}-\d{4}-\d{4}$" required>
                   <div class="invalid-feedback">010-1234-5678 형식으로 입력해주세요.</div>
                 </div>
                 <div class="mb-3 mt-3">
@@ -34,11 +34,11 @@
                   <div class="uname_already">이미 존재하는 사용자 이름입니다.</div>
                 </div>
               <div class="mb-3">
-                <input type="password" class="form-control" id="pwd" placeholder="비밀번호" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required>
+                <input type="password" class="form-control" id="pwd" placeholder="비밀번호" name="password" oninput = "checkAll()" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required>
                 <div class="invalid-feedback">영문, 숫자, 특수문자를 한 개 이상 포함하여 8자리 이상 입력해주세요.</div>
               </div>
               <div class="d-grid">
-              	<button type="submit" class="btn btn-primary btn-block submit-button" id="join-btn">가입</button>
+              	<button type="submit" class="btn btn-primary btn-block submit-button" id="join-btn" disabled>가입</button>
               </div>
             </form>
           </div>
