@@ -43,7 +43,7 @@
             </form>
           </div>
           <div class="container p-4 mt-3 border" style="width: 450px">
-            <p>계정이 있으신가요? <a href="<%= request.getContextPath()%>/login/"  class="text-primary">로그인</a></p> <!-- TODO: 로그인 페이지로 링크 연결하기. -->
+            <p>계정이 있으신가요? <a href="<c:url value="/"/>"  class="text-primary">로그인</a></p> <!-- TODO: 로그인 페이지로 링크 연결하기. -->
           </div>
     </div>
     

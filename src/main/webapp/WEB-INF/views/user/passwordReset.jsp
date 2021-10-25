@@ -44,11 +44,11 @@
 		<br>
 
 		<div id="signUp">
-			<a href="">새 계정 만들기</a>
+			<a href="<c:url value="/join"/>">새 계정 만들기</a>
 		</div>
 
 		<div id="center-footer">
-			<a href="">로그인으로 돌아가기</a>
+			<a href="<c:url value="/"/>">로그인으로 돌아가기</a>
 		</div>
 
 	</div>
