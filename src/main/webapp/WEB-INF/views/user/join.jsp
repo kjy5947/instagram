@@ -33,17 +33,19 @@
                   <div class="invalid-feedback">영문, 숫자, _ 만 사용이 가능합니다.</div>
                   <div class="uname_already">이미 존재하는 사용자 이름입니다.</div>
                 </div>
-              <div class="mb-3">
-                <input type="password" class="form-control" id="pwd" placeholder="비밀번호" name="password" oninput = "checkAll()" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required>
-                <div class="invalid-feedback">영문, 숫자, 특수문자를 한 개 이상 포함하여 8자리 이상 입력해주세요.</div>
-              </div>
-              <div class="d-grid">
-              	<button type="submit" class="btn btn-primary btn-block submit-button" id="join-btn" disabled>가입</button>
-              </div>
+                <div class="mb-3">
+                  <input type="password" class="form-control" id="pwd" placeholder="비밀번호" name="password" oninput = "checkAll()" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required>
+                  <div class="invalid-feedback">영문, 숫자, 특수문자를 한 개 이상 포함하여 8자리 이상 입력해주세요.</div>
+                </div>
+                <div class="d-grid">
+              	  <button type="submit" class="btn btn-primary btn-block submit-button" id="join-btn" disabled>가입</button>
+                </div>
             </form>
           </div>
           <div class="container p-4 mt-3 border" style="width: 450px">
-            <p>계정이 있으신가요? <a href="<c:url value="/"/>"  class="text-primary">로그인</a></p> <!-- TODO: 로그인 페이지로 링크 연결하기. -->
+	          <div class="mb-3 mt-3">
+	            <p>계정이 있으신가요? <a href="<c:url value="/"/>" class="text-primary" style="text-decoration:none;">로그인</a></p> <!-- TODO: 로그인 페이지로 링크 연결하기. -->
+	          </div>
           </div>
     </div>
     

@@ -3,7 +3,7 @@ package com.team1.insta.user.controller;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -63,7 +63,7 @@ public class LoginController {
 			
 
 		}
-		else if(isNumeric)
+		else if(isNumeric || Pattern.matches("^\\d{3}-\\d{4}-\\d{4}$", id))
 		{
 			for(int i = 0; i < userMapper.getList().size(); i++) {
 				if(userMapper.getList().get(i).getPhone_number().equals(id))
