@@ -96,8 +96,6 @@
 	<div id="postContentOut">
 
 	</div>
-
-	<<<<<<< HEAD
 	<div id="taggedContentOut"></div>
 
 	<!-- 프로필 바꾸기 모달 -->
@@ -113,6 +111,13 @@
 	</div>
 
 
+	<div class="modal-info">
+	   <div class="modal">
+	
+	      <button id="profileImage" onclick="profileEdit()">개인정보 변경</button>
+	      <button onclick="closePopup('modal-info')">취소</button>
+	   </div>
+	</div>
 
 	<!-- 프로필 바꾸기 모달 -->
 
