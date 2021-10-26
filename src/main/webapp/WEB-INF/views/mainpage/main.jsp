@@ -50,7 +50,7 @@
     </div>
     <!-- <hr> -->
     
-    <!-- <ul>
+    <ul>
 		<c:forEach var="post" items="${posts }">
 			<li>${post.pid }</li>
 			<li>${post.user_id }</li>
@@ -58,8 +58,27 @@
 			<li>${post.modify_time }</li>
 			<li>${post.pcontents }</li>
 			<li>${post.uname }</li>
+            <c:forEach var="like" items="${post.likeList }">
+                <li>좋아요: ${like.user_id}</li>
+                <li>좋아요 시간:${like.like_time}</li>
+            </c:forEach>
+            <c:forEach var="likeCount" items="${post.likeCountList }">
+                <li>총 좋아요 갯수: ${likeCount.count}</li>
+            </c:forEach>
+            <c:forEach var="image" items="${post.imageList }">
+                <li>이미지: ${image.pimg}</li>
+            </c:forEach>
+            <c:forEach var="comment" items="${post.commentList }">
+                <li>댓글 작성자: ${comment.user_id}</li>
+                <li>댓글 내용:${comment.contents}</li>
+            </c:forEach>
+            <c:forEach var="commentCount" items="${post.commentCountList }">
+                <li>총 댓글 갯수: ${commentCount.count}</li>
+            </c:forEach>
+
 		</c:forEach>
-	</ul> -->
+	</ul>
+	
 
     <div class="postbox">
         <img class="facebox" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Antarctica_2013_Journey_to_the_Crystal_Desert_%288370623298%29.jpg/250px-Antarctica_2013_Journey_to_the_Crystal_Desert_%288370623298%29.jpg" 
@@ -117,11 +136,9 @@
                 bookmark_border
             </span>
         </div>
-        
-        
-
-
     </div>
+
+    
 
 
 

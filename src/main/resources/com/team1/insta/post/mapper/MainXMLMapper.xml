@@ -3,9 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team1.insta.post.mapper.MainXMLMapper">
-	<select id="getPostList" resultType="com.team1.insta.post.dto.Post">
+
+  	<select id="getPostList" resultType="com.team1.insta.post.dto.Post">
 	  	SELECT * FROM user_info e
     		INNER JOIN post d ON e.user_id = d.user_id
     			WHERE status = 'Y' ORDER BY modify_time ASC
   	</select>
+  	<select id="getLikeList" resultType="com.team1.insta.post.dto.PidLike">
+	  	Select user_id, like_time from like_manage where pid=#{post_id}
+  	</select>
+  	<select id="getLikeCountList" resultType="com.team1.insta.post.dto.PidLikeCount">
+	  	select count(user_id) as count from like_manage where pid=#{post_id}
+  	</select>
+  	<select id="getImages" resultType="com.team1.insta.post.dto.PidImages">
+	  	select pimg from images where pid=#{post_id}
+  	</select>
+  	<select id="getCommentList" resultType="com.team1.insta.post.dto.PidComments">
+	  	select user_id, contents from comment_manage where pid=#{post_id}
+  	</select>
+  	<select id="getCommentCountList" resultType="com.team1.insta.post.dto.PidCommentCount">
+	  	select count(cid) as count from comment_manage where pid=#{post_id}
+  	</select>
+  	
+  	
+  	
 </mapper>

@@ -1,6 +1,7 @@
 package com.team1.insta.post.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -14,4 +15,9 @@ public class Post {
 	private String uname;
 	private String profile_img;
 	private String follow_accept;
+	private List<PidLike> likeList;
+	private List<PidLikeCount> likeCountList;
+	private List<PidImages> ImageList;
+	private List<PidComments> commentList;
+	private List<PidCommentCount> commentCountList;
 }
