@@ -9,7 +9,30 @@
   		select * from user_info where user_id = #{user_id}
   	</select>
   
+  	<select id="getUserByUsername" resultType="com.team1.insta.user.dto.User">
+  		select * from user_info where uname = #{uname}
+  	</select>
+  	
+  	
   	<update id="updateUser">
   		update user_info set profile_img = #{profile_img} where user_id = #{user_id}
   	</update>
+  	
+  	
+  	
+  	<update id="updateUserInfo" parameterType="map">
+	    	update user_info
+	    <set>
+	        <if test="uname != ''">uname=#{uname},</if>
+	        <if test="phone_number != ''">phone_number=#{phone_number},</if>
+	        <if test="follow_accept != null">follow_accept=#{follow_accept},</if>
+	        <if test="real_name != ''">real_name=#{real_name},</if>
+	  
+	    </set>
+			where uname = #{stdname}
+	</update>
+  	
+
+  	
+  	
 </mapper>

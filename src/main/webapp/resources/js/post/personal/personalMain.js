@@ -32,6 +32,7 @@ function profileUpload() {
 	 var edited = document.userProfileImageForm;
      edited.method = "POST";
      edited.action = "personal";
+     edited.enctype = "multipart/form-data";
      edited.submit();
 	
       // 사진 전송 성공시 이미지 변경

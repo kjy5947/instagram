@@ -26,7 +26,7 @@
 			<div class="profile-img-wrap story-border"
 				onclick="popup('modal-image')">
 				<form name="userProfileImageForm" id="userProfileImageForm"/>
-					<input type="file" name="imagesrc" style="display: none;"
+					<input type="file" name="file" style="display: none;"
 						id="userProfileImage" />
 				</form>
 				<img name="profileimage" value=${oneUser.profile_img} class="profile-image" src=${oneUser.profile_img}
