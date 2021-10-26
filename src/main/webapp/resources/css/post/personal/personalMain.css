@@ -1,16 +1,15 @@
+personalMain.css
 @charset "UTF-8";
 
 
 
 
 body{
-	display:flex;
-	align-items:center;
-	justify-content:center;
-	margin:0 auto;
-	flex-wrap: wrap;
-	width: 935px;
-	
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   margin:0;
+   
 }
 
 .topProfile {
@@ -21,7 +20,6 @@ body{
   width: 935px;
   margin: 0 auto;
   height: 100%;
-  padding: 30px 20px 0;
 }
 
 /* Profile */
@@ -35,6 +33,9 @@ body{
 }
 
 
+.profile > .topProfile {
+  padding: 30px 20px 0;
+}
 .profile .profile-left,
 .profile .profile-right {
   height: 100%;
@@ -82,14 +83,13 @@ body{
 .profile .profile-right .name-group .modified {
   border: none;
   background: none;
+  cursor : pointer;
 }
 .profile .profile-right .name-group .modified i {
   font-size: 20px;
   padding: 8px;
   cursor : pointer;
-}
-/* ì˜¤ë¥¸ìª½ ë¶€ë¶„ì˜ ië‚´ìš© */
-
+}// ¿À¸¥ÂÊ ºÎºĞÀÇ i³»¿ë
 
 .profile .profile-right .subscribe {
   height: 28px;
@@ -123,97 +123,11 @@ body{
   font-weight: bold;
   background: transparent;
 }
-.subbtn:hover {
-	cursor: pointer;
-}
-
-
-/*  content     */
-
-#content {
-	display: block;
-	width: 935px;
-	text-align: center;
-	border-top: gray 1px solid;
-}
-
-.contentBtn {
-	background-color: transparent;
-	background-repeat: no-repeat;
-	border: none;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
-	margin-right: 50px;
-	color: gray;
-	padding-top: 20px;
-}
-.contentBtn > i {
-	pointer-events: none;
-}
-
-#post {
-	color: black;
-	border-top: 1px solid black;
-}
-
-#postContentOut, #taggedContentOut {
-	margin-top: 20px;
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	width: 100%;
-}
-
-#taggedContentOut {
-	display: none;
-}
-
-.contentOutPost {
-	width: 31%;
-	overflow: hidden;
-	position: relative;
-	border: 10px solid transparent;
-
-}
-
-.contentOutPost:after {
-	content: "";
-	display: block;
-	padding-bottom: 100%;
-}
-
-.contentOutPost > img {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-.contentOutPost > p {
-	background: #000000;
-	opacity: 0;
-}
-
-.textDiv {
-	width: 100%;
-	height: 100%;
-	background: #000000;
-	opacity: 0;
-	display: flex;
-	align-items: center;
-	justify-content:center;
-	
-}
-
-
-.contentOutPost:hover .textDiv {
-	opacity: 0.5;
-	color: #ffffff;
-}
 
 
 
-/* ëª¨ë¸ ëª¨ì–‘ */
+
+/* ¸ğµ¨ ¸ğ¾ç */
 .modal-image {
   display: none;
   position: fixed;
@@ -258,7 +172,7 @@ body{
 
 
 
-/* .modal-info ë‚´ìš©. */
+/* .modal-info ³»¿ë. */
 .modal-info {
   position: fixed;
   top: 0;

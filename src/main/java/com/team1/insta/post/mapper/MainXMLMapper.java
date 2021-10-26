@@ -12,15 +12,15 @@ import com.team1.insta.post.dto.Post;
 public interface MainXMLMapper {
 	public List<Post> getPostList();
 	
-	public List<PidLike> getLikeList(Integer post_id);
+	public List<PidLike> getLikeList(String post_id);
 	
-	public List<PidLikeCount> getLikeCountList(Integer post_id);
+	public List<PidLikeCount> getLikeCountList(String post_id);
 	
-	public List<PidImages> getImages(Integer post_id);
+	public List<PidImages> getImages(String post_id);
 	
-	public List<PidComments> getCommentList(Integer post_id);
+	public List<PidComments> getCommentList(String post_id);
 	
-	public List<PidCommentCount> getCommentCountList(Integer post_id);
+	public List<PidCommentCount> getCommentCountList(String post_id);
 	
 
 }
