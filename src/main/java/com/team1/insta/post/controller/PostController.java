@@ -77,13 +77,11 @@ public class PostController {
 	    return "post/personal";
 	}
 	
-	//public String getString(String imagesrc, RedirectAttributes redirectAttribute, @PathVariable String userName, @RequestParam MultipartFile file)
 	@PostMapping("/home/{userName}")
 	
 	public String getString(RedirectAttributes redirectAttribute, @PathVariable String userName, @RequestParam MultipartFile file) 
 			throws IllegalStateException, IOException {
 		
-		//System.out.println("../resources/images/" + imagesrc);
 		System.out.println("../resources/images/" + file.getOriginalFilename());
 		
 		usermp.updateUser(6, "../resources/images/" + file.getOriginalFilename());

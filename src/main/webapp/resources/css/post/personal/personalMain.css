@@ -86,6 +86,7 @@ body{
 .profile .profile-right .name-group .modified i {
   font-size: 20px;
   padding: 8px;
+  cursor : pointer;
 }// 오른쪽 부분의 i내용
 
 .profile .profile-right .subscribe {
@@ -113,7 +114,8 @@ body{
 .subbtn {
   margin-right: 10px;
   padding: 10px 10px;
-  border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
+  /*border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);*/
+  border: 1px solid rgba(219, 219, 219,1);
   border-radius: 4px;
   color: #262626;
   font-weight: bold;
