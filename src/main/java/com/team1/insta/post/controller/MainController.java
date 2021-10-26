@@ -2,15 +2,13 @@ package com.team1.insta.post.controller;
 
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-
 import com.team1.insta.post.dto.Post;
 import com.team1.insta.post.mapper.MainXMLMapper;
 

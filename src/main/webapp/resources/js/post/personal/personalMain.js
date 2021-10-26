@@ -44,7 +44,6 @@ function profileUpload() {
 	});
 }
 
-
 /////////////////////////////////////////////////////////////content
 
 const postBtn = document.getElementById('post');
@@ -71,6 +70,7 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	let commentCnt = 0;
 	
 	likeManageList.forEach(function(likeManages){
+
 		
 		likeManages.forEach(function(likeManage){
 			if(postJoinImage.pid == likeManage.pid) {

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +36,9 @@
 					<input type="file" name="file" style="display: none;"
 						id="userProfileImage" />
 					</form>
-					<img name="profileimage" value="#"
-					class="profile-image" src="#"
+					<img name="profileimage" value=${oneUser.profile_img
+						} class="profile-image" src=${oneUser.profile_img
+						}
 					onerror="this.src='../resources/images/darami.jpg'"
 						id="basicUserProfileImage" />
 
@@ -93,38 +94,42 @@
 
 
 	<div id="postContentOut">
-	
+
 	</div>
 
-	<div id="taggedContentOut">
-	
+	<<<<<<< HEAD
+	<div id="taggedContentOut"></div>
+
+	<!-- 프로필 바꾸기 모달 -->
+
+	<div class="modal-image">
+		<div class="modal">
+
+			<button id="profileImage" onclick="profileUpload()">프로필
+				사진바꾸기</button>
+			<button onclick="closePopup('modal-image')">취소</button>
+
+		</div>
 	</div>
 
 
 
 	<!-- 프로필 바꾸기 모달 -->
 
-	<div class="modal-image">
-		<div class="modal">
-			<button id="profileImage" onclick="profileUpload()">프로필
-				사진바꾸기</button>
-			<button onclick="closePopup('modal-image')">취소</button>
-		</div>
-	</div>
 
 	<!-- profile section 끝 -->
 
 </body>
 <script>
-const uname = '${user.uname}';
-const postList = JSON.parse('${postList}');
-const imagesList = JSON.parse('${imagesList}');
-const postJoinImageList = JSON.parse('${postJoinImageList}');
-const likeManageList = JSON.parse('${likeManageList}');
-const taggedPostJoinImageList = JSON.parse('${taggedPostJoinImageList}');
-const followerList = JSON.parse('${followerList}');
-const followingrList = JSON.parse('${followingrList}');
-const commentManageList = JSON.parse('${commentManageList}');
+	const uname = '${user.uname}';
+	const postList = JSON.parse('${postList}');
+	const imagesList = JSON.parse('${imagesList}');
+	const postJoinImageList = JSON.parse('${postJoinImageList}');
+	const likeManageList = JSON.parse('${likeManageList}');
+	const taggedPostJoinImageList = JSON.parse('${taggedPostJoinImageList}');
+	const followerList = JSON.parse('${followerList}');
+	const followingrList = JSON.parse('${followingrList}');
+	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 <script src="../resources/js/post/personal/personalMain.js"></script>
 <link rel="stylesheet"

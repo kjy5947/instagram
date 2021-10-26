@@ -2,17 +2,14 @@
 package com.team1.insta.post.dto;
 
 import java.util.Date;
-
-
-import lombok.Data;
-import java.util.Date;
 import java.util.List;
 
+import lombok.Data;
 
 @Data
 public class Post {
-	private String pid;
-	private String user_id;
+	private Integer pid;
+	private Integer user_id;
 	private Date post_time;
 	private Date modify_time;
 	private String pcontents;
@@ -25,4 +22,3 @@ public class Post {
 	private List<PidComments> commentList;
 	private List<PidCommentCount> commentCountList;
 }
-
