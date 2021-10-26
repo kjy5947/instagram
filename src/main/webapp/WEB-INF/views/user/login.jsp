@@ -16,7 +16,7 @@
     <main>
         <div style="display: flex; justify-content: center; align-items: center;">
             <div>
-                <img src="https://post-phinf.pstatic.net/MjAxODAzMjhfMjcw/MDAxNTIyMjE4OTIxNjY4.-fvB227ehXXT81n8sywI1BCVjQ36b4niIiDNanbrFFIg.37MtWdDGdAe-f3918uvnRZDiQd68UE186_ZAOCDT-v8g.JPEG/20160512004508329469.jpg?type=w1200" alt="메인이미지" width=450px height=500px>
+                <img src="https://post-phinf.pstatic.net/MjAxODAzMjhfMjcw/MDAxNTIyMjE4OTIxNjY4.-fvB227ehXXT81n8sywI1BCVjQ36b4niIiDNanbrFFIg.37MtWdDGdAe-f3918uvnRZDiQd68UE186_ZAOCDT-v8g.JPEG/20160512004508329469.jpg?type=w1200" alt="메인이미지" height=700px>
             </div>
             <div>
                 <div class="container p-5 mt-3 border">
