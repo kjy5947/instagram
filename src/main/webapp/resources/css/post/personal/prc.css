@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+@import "header.css";
+@import "footer.css";
+
+
+.main {
+  padding-top: 54px;
+  background-color: #fafafa;
+}
+
+
+.editted-profile {
+  width: 935px;
+  margin: 0 auto;
+  border: 1px solid gainsboro;
+  margin-top: 30px;
+  display: flex;
+  border-radius: 4px;
+}
+
+.editted-profile .editted_content {
+  border-left: 1px solid gainsboro;
+  display: flex;
+  flex-direction: column;
+  padding-top: 32px;
+  margin-right: 10%;
+}
+
+
+.editted-profile .editted_content .content-item1 {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+
+.editted-profile .editted_content form > div {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+
+.editted-profile .editted_content .content-item1 .item__img {
+  flex: 2;
+  text-align: right;
+  padding-right: 30px;
+}
+.editted-profile .editted_content .content-item1 .item__img img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+.editted-profile .editted_content .content-item1 .username {
+  flex: 4;
+}
+.editted-profile .editted_content .content-item1 .item__btn h2 {
+  font-size: 18px;
+}
+
+
+.editted-profile .editted_content div .itemTitle {
+  flex: 2;
+  padding-right: 30px;
+  text-align: right;
+  font-size: 17px;
+  font-weight: 600;
+  padding-top: 7px;
+}
+
+
+.editted-profile .editted_content div .itemInput {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+}
+
+.editted-profile .editted_content div .itemInput input {
+  border: 1px solid #dbdbdb;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.editted-profile .editted_content div .itemInput textarea {
+  border: 1px solid #dbdbdb;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.editted-profile .editted_content div .itemInput span {
+  color: #8e8e8e;
+  font-size: 12px;
+  padding-top: 10px;
+}
+
+
+.editted-profile .editted_content .content-item6 .itemInput {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editted-profile .editted_content .content-item61 .itemInput button {
+  border: 0;
+  background-color: #0095f6;
+  padding: 5px 9px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+

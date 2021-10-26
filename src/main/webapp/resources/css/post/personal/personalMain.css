@@ -86,7 +86,9 @@ body{
 .profile .profile-right .name-group .modified i {
   font-size: 20px;
   padding: 8px;
-} /* 오른쪽 부분의 i내용 */
+  cursor : pointer;
+}
+ /* 오른쪽 부분의 i내용 */
 
 .profile .profile-right .subscribe {
   height: 28px;
@@ -113,7 +115,8 @@ body{
 .subbtn {
   margin-right: 10px;
   padding: 10px 10px;
-  border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);
+  /*border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);*/
+  border: 1px solid rgba(219, 219, 219,1);
   border-radius: 4px;
   color: #262626;
   font-weight: bold;
@@ -153,19 +156,24 @@ body{
 	border-top: 1px solid black;
 }
 
-#contentOut {
+#postContentOut, #taggedContentOut {
 	margin-top: 20px;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-	width: 935px;
-	
+	width: 100%;
 }
+
+#taggedContentOut {
+	display: none;
+}
+
 .contentOutPost {
 	width: 31%;
 	overflow: hidden;
 	position: relative;
-	border: 10px solid transparent;	 
+	border: 10px solid transparent;
+
 }
 
 .contentOutPost:after {
@@ -180,6 +188,28 @@ body{
 	height: 100%;
 	object-fit: cover;
 }
+.contentOutPost > p {
+	background: #000000;
+	opacity: 0;
+}
+
+.textDiv {
+	width: 100%;
+	height: 100%;
+	background: #000000;
+	opacity: 0;
+	display: flex;
+	align-items: center;
+	justify-content:center;
+	
+}
+
+
+.contentOutPost:hover .textDiv {
+	opacity: 0.5;
+	color: #ffffff;
+}
+
 
 
 /* 모델 모양 */

@@ -18,6 +18,22 @@
   
     <select id="getLikeManage" resultType="com.team1.insta.post.dto.LikeManage">
     SELECT * FROM like_manage where pid = #{pId}
-  </select>  
+  </select>
+  
+  <select id="getTagPersonByUserId" resultType="com.team1.insta.post.dto.TagPerson">
+    SELECT * FROM tag_person where user_id = #{userId}
+  </select>
+  
+  <select id="getFollower" resultType="com.team1.insta.post.dto.Follow">
+    SELECT * FROM follow where from_user = #{userId}
+  </select>
+  
+  <select id="getFollowing" resultType="com.team1.insta.post.dto.Follow">
+    SELECT * FROM follow where to_user = #{userId}
+  </select>
+  
+   <select id="getCommentList" resultType="com.team1.insta.post.dto.CommentManage">
+    SELECT * FROM comment_manage where pid = #{pId}
+  </select>            
     
 </mapper>

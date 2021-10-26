@@ -12,11 +12,15 @@
     grid-template-rows: 100%;
     position: sticky;
     top: 0;
-    
+    background-color: white;
     margin: 20px; 
     color: white;
     z-index: 1;
-    font-weight: bold;
+    border: 1px;
+    border-color: rgb(230, 229, 229);
+    border-style: none none solid none;
+    padding-bottom: 20px;
+    /* padding-top: 20px; */
 }
 
 #highlogo {
@@ -103,4 +107,44 @@ body {
     }
   }
 
+.postbox {
+    display: grid;
+    width: 700px;
+    border: lightgray solid 1px;
+    margin-left: 320px;
+    grid-template-columns: 10% 10% 60% 20%;
+    
+}
+
+
+.facebox {
+    width:40px; height: 40px;
+    border: white solid 1px;
+    border-radius: 70%;
+    overflow: hidden;
+    background-image: 
+    url(
+        https://previews.123rf.com/images/oliviart/oliviart2004/oliviart200400861/148386278-people-icon-isolated-on-white-background-person-icon-user-vector-icon.jpg
+    );
+    background-size: cover;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+
+    grid-column: 1/2;
+   
+}
+
+.postname {
+    font-weight: bold; 
+    padding-top: 19px;
+
+    grid-column: 2/3;
+}
+
+.posticons {
+    grid-column: 1/5;
+    margin-left: 15px;
+    margin-top: 15px;
+}
 

@@ -15,4 +15,6 @@ public class User {
 	private String password;
 	private String phone_number;
 	private char follow_accept;
+	private String profile_img;
+	
 }

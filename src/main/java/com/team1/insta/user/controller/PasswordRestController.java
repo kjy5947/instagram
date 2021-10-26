@@ -65,7 +65,7 @@ public class PasswordRestController {
 		}
 		keyconf.setKey(findkey);
 
-		User user = userMapper.getUser(keyconf);
+		User user = userMapper.getUserBytype(keyconf);
 
 		if(user == null) {
 			return null;

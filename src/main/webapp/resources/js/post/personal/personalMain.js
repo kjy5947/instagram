@@ -18,54 +18,99 @@ function modalImage(){
 }
 
 function profileUpload() {
-   var slct = document.getElementById("userProfileImage");
-   slct.click();
-
-   slct.addEventListener("change", (e) => {
+   $("#userProfileImage").click();
+ 
+   $("#userProfileImage").on("change", (e) => {
       let f = e.target.files[0];
-	
+
       if (!f.type.match("image.*")) {
          alert("이미지를 등록해야 합니다.");
          return 0;
       }
-
-      
+	 var edited = document.userProfileImageForm;
+     edited.method = "POST";
+     edited.action = "personal";
+     edited.enctype = "multipart/form-data";
+     edited.submit();
+	
+      // 사진 전송 성공시 이미지 변경
       let reader = new FileReader();
-      var slct2 = document.getElementById("basicUserProfileImage");
       reader.onload = (e) => {
-      	console.log(f);
-      	slct2.setAttribute('src', e.target.result);
+         $("#basicUserProfileImage").attr("src", e.target.result);
+         $("#userProfileImage").attr("value", e.target.result);
+         console.log(document.getElementById("userProfileImage").value);
       }
-      reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
-   });
+    reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
+	});
 }
+
 
 /////////////////////////////////////////////////////////////content
 
 const postBtn = document.getElementById('post');
-const videoBtn = document.getElementById('video');
 const bookMarkBtn = document.getElementById('bookMark');
 const taggedBtn = document.getElementById('tagged');
-const uname = document.getElementById('uname').innerHTML;
+
 const param = 'uname=' +uname;
-const contentBtn = document.getElementsByClassName('contentBtn');
-const contentOut = document.getElementById('contentOut');
 
+const postContentOut = document.getElementById('postContentOut');
+const taggedContentOut = document.getElementById('taggedContentOut');
 
+function clickme(){
 
-const addToContentOut  =  (postJoinImages) => {
+	console.log("why are you click me?");
+}
+
+const addToContentOut  =  (postJoinImage, contentOut) => {
 	
+
+	
+	const file = postJoinImage.pimg;
+	
+	let likeCnt = 0;
+	let commentCnt = 0;
+	
+	likeManageList.forEach(function(likeManages){
 		
+		likeManages.forEach(function(likeManage){
+			if(postJoinImage.pid == likeManage.pid) {
+				likeCnt = likeCnt + 1;				
+			}	
+		});
+		
+	});
 	
-	const file = postJoinImages.pimg;
+	commentManageList.forEach(function(commentManages){
+		
+		commentManages.forEach(function(commentManage){
+			if(postJoinImage.pid == commentManage.pid) {
+			commentCnt = commentCnt + 1;				
+			}
+		});
+	});
 	
 	const newImg = document.createElement('img');
 	newImg.src = file;
 	
 	const newDiv = document.createElement('div');
 	newDiv.setAttribute('class', 'contentOutPost');
+	
+	const newTextDiv = document.createElement('div');
+	newTextDiv.setAttribute('class', 'textDiv');
+	
+	const text = document.createElement('div');
+	newTextDiv.setAttribute('class', 'divinText');
+	
+	text.innerHTML += '<i class="fas fa-heart"/>&nbsp&nbsp' + likeCnt + '&nbsp&nbsp&nbsp&nbsp';
+	text.innerHTML +='<i class="fas fa-comment fa-flip-horizontal"></i>&nbsp&nbsp';
+	text.innerHTML += commentCnt 
+	 
 	newDiv.appendChild(newImg);
+	newTextDiv.appendChild(text);
+	newDiv.appendChild(newTextDiv);
 	contentOut.appendChild(newDiv);
+	
+	
 	
 	//const reader = new FileReader();
 	
@@ -79,11 +124,18 @@ const addToContentOut  =  (postJoinImages) => {
 	
 }
 
+postJoinImageList.forEach(function(postJoinImage){
+		addToContentOut(postJoinImage, postContentOut);
+});	
+
+taggedPostJoinImageList.forEach(function(taggedPostJoinImage){
+		addToContentOut(taggedPostJoinImage, taggedContentOut);
+});
 
 function BtnEventListener(e) {
 	
-	contentOut.innerHTML ="";
-		let btn = postBtn; 
+	let btn = postBtn; 
+	
 	try {
 		btn = document.getElementById(e.target.id);
 	} catch(error) {
@@ -91,51 +143,26 @@ function BtnEventListener(e) {
 	}
 	
 	btnCssReset(postBtn);
-	btnCssReset(videoBtn);
 	btnCssReset(bookMarkBtn);
 	btnCssReset(taggedBtn);
 	
 	btn.style.color = "black";
 	btn.style.borderTop = "1px solid black";
 	
-	const xhttp = new XMLHttpRequest();			
-	xhttp.addEventListener('readystatechange', (e) => {
-		
-		const readyState = e.target.readyState;
-		const httpStatus = e.target.status;
-				
-			if(readyState == 4 && httpStatus == 200) {
-				
-				const postJoinImageList  =  JSON.parse(e.target.responseText);
-				
-				console.log(getAttrub);
-				postJoinImageList.forEach(function(postJoinImages){
-				addToContentOut(postJoinImages);
-			});	
-		}				
-	});
-			if(btn == postBtn) {
-				xhttp.open('POST', '/insta/postRest/getPost', true);
-			} else if (btn == videoBtn) {
-				xhttp.open('POST', '/insta/postRest/getPost', true);
-			} else if (btn == bookMarkBtn) {
-				xhttp.open('POST', '/insta/postRest/getPost', true);
-			} else if (btn == taggedBtn) {
-				xhttp.open('POST', '/insta/postRest/getPost', true);
-			}
-			
-			xhttp.setRequestHeader('content-type', "application/x-www-form-urlencoded");
-			
-			xhttp.send(param);
+	if(btn == postBtn) {
+		postContentOut.style.display = 'flex';
+		taggedContentOut.style.display = 'none';	
+	} else if(btn == taggedBtn) {
+		postContentOut.style.display = 'none';
+		taggedContentOut.style.display = 'flex';	
+	}
+	
 			
 }
 
 postBtn.addEventListener('click', BtnEventListener);
-videoBtn.addEventListener('click', BtnEventListener);
 bookMarkBtn.addEventListener('click', BtnEventListener);
 taggedBtn.addEventListener('click', BtnEventListener);
-
-window.onload = BtnEventListener();
 
 function btnCssReset(btn) {
 	btn.style.color = "gray";

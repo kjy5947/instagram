@@ -48,7 +48,7 @@ public class PasswordController {
 		keyconf.setKey(email);
 		keyconf.setKeyType("email");
 
-		User user =  userMapper.getUser(keyconf);
+		User user =  userMapper.getUserBytype(keyconf);
 		PasswordToken passwordToken = null;
 		
 		passwordToken =  tokenMapper.getToken(tokenId);
