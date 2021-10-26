@@ -1,0 +1,199 @@
+personalMain.css
+@charset "UTF-8";
+
+
+
+
+body{
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   margin:0;
+   
+}
+
+.topProfile {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 935px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* Profile */
+
+.profile {
+
+  height: 170px;
+  display: flex;
+  margin: 54px 0 44px;
+  align-items: center;
+}
+
+
+.profile > .topProfile {
+  padding: 30px 20px 0;
+}
+.profile .profile-left,
+.profile .profile-right {
+  height: 100%;
+}
+.profile .profile-left {
+  flex-basis: 40%;
+  display: flex;
+  justify-content: center;
+}
+.profile .profile-right {
+  flex-basis: 60%;
+}
+.profile .profile-left .profile-img-wrap {
+  width: 162px;
+  height: 162px;
+  padding: 6px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+.profile .profile-left .profile-img-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.profile .profile-right .name-group {
+  display: flex;
+  margin-bottom: 20px;
+}
+.profile .profile-right .name-group h2 {
+  font-weight: normal;
+  font-family: "Montserrat", sans-serif;
+  margin-right: 30px;
+}
+.profile .profile-right .name-group .subbtn {
+  margin-right: 10px;
+  padding: 5px 8px;
+  height : 15px;
+  border: 1px solid rgba(191, 191, 191, 1);
+  border-radius: 4px;
+  color: #262626;
+  font-weight: bold;
+  background: transparent;
+}
+.profile .profile-right .name-group .modified {
+  border: none;
+  background: none;
+  cursor : pointer;
+}
+.profile .profile-right .name-group .modified i {
+  font-size: 20px;
+  padding: 8px;
+  cursor : pointer;
+}// 오른쪽 부분의 i내용
+
+.profile .profile-right .subscribe {
+  height: 28px;
+  margin-bottom: 5px;
+}
+.profile .profile-right .subscribe ul {
+  display: flex;
+}
+.profile .profile-right .subscribe ul li {
+  margin-right: 25px;
+}
+.profile .profile-right .subscribe ul li a {
+  font-size: 16px;
+  color: #262626;
+}
+.profile .profile-right .subscribe ul li a span {
+  font-weight: bold;
+  margin-left: 4px; 
+}
+.profile .profile-right .state h4 {
+  margin-bottom: 2px;
+}
+
+.subbtn {
+  margin-right: 10px;
+  padding: 10px 10px;
+  /*border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);*/
+  border: 1px solid rgba(219, 219, 219,1);
+  border-radius: 4px;
+  color: #262626;
+  font-weight: bold;
+  background: transparent;
+}
+
+
+
+
+/* 모델 모양 */
+.modal-image {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  
+  align-items: center;
+  justify-content: center;
+}
+.modal-image .modal {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-image .modal button {
+  border: 0;
+  background-color: transparent;
+  height: 48px;
+  cursor: pointer;
+}
+.modal-image .modal button:first-child {
+  line-height: 50px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  color: #222;
+  font-size: 18px;
+}
+
+
+
+@media screen and (max-width: 935px) {
+  .topProfile {
+    width: 100%;
+  }
+}
+
+
+
+/* .modal-info 내용. */
+.modal-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-info .modal {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-info .modal button {
+  border: 0;
+  background-color: transparent;
+  height: 48px;
+  cursor: pointer;
+}

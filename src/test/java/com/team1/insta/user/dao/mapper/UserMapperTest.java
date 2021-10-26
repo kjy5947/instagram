@@ -1,5 +1,6 @@
 package com.team1.insta.user.dao.mapper;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class UserMapperTest {
 	@Autowired
 	UserMapper userMapper;
 	
+	
+	@Ignore
 	@Test
 	public void getUser() {
 		for(User user : userMapper.getList()) {
@@ -26,7 +29,17 @@ public class UserMapperTest {
 	}
 	
 	@Test
+
 	public void getUname() {
 		log.info(userMapper.idCheck("melosa0520"));
+	}
+	
+	
+	public void getSpUser() {
+		
+		User u1 = userMapper.getUser(6);
+		
+		log.info(u1);
+
 	}
 }

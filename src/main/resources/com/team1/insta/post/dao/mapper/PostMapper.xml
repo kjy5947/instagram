@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team1.insta.post.dao.mapper.PostMapper">
+  <select id="getPostList" resultType="com.team1.insta.post.dto.Post">
+    select * from post where user_id = #{userId}
+  </select>
+  
+  <select id="getImagesList" resultType="com.team1.insta.post.dto.Images">
+    select * from images where pid = #{pId}
+  </select>
+  
+  <select id="getPostJoinImages" resultType="com.team1.insta.post.dto.PostJoinImages">
+    select * FROM post inner join images USING(pid) 
+    where pid = #{pId} AND <![CDATA[ ROWNUM <= 1 ]]>order by iid
+  </select>
+  
+    <select id="getLikeManage" resultType="com.team1.insta.post.dto.LikeManage">
+    SELECT * FROM like_manage where pid = #{pId}
+  </select>
+  
+  <select id="getTagPersonByUserId" resultType="com.team1.insta.post.dto.TagPerson">
+    SELECT * FROM tag_person where user_id = #{userId}
+  </select>
+  
+  <select id="getFollower" resultType="com.team1.insta.post.dto.Follow">
+    SELECT * FROM follow where from_user = #{userId}
+  </select>
+  
+  <select id="getFollowing" resultType="com.team1.insta.post.dto.Follow">
+    SELECT * FROM follow where to_user = #{userId}
+  </select>
+  
+   <select id="getCommentList" resultType="com.team1.insta.post.dto.CommentManage">
+    SELECT * FROM comment_manage where pid = #{pId}
+  </select>            
+    
+</mapper>

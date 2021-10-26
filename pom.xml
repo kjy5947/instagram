@@ -59,12 +59,8 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${org.slf4j-version}</version>
-			<scope>runtime</scope>
-		</dependency>
+
+
 		<!-- 이메일 발송 관련 라이브러리 -->
 
 		<dependency>
@@ -72,13 +68,12 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
 		<dependency>
@@ -163,6 +158,16 @@
 			<version>1.18.20</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- JSON -->
+
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

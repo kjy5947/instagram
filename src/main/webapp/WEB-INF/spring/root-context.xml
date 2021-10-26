@@ -26,11 +26,13 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
+
 	<mybatis-spring:scan
 		base-package="com.team1.insta.user.dao.mapper" />
 		
 	<!-- email beans -->
-		
+
+
 	<bean id="mailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" /> <!-- gmail을 사용 -->
@@ -45,8 +47,19 @@
 				<prop key="mail.debug">true</prop>
                 <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
                 <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+
 			</props>
 		</property>
 	</bean>
+
+
+
+
+
+	<mybatis-spring:scan
+		base-package="com.team1.insta.user.dao.mapper" />
+
+	<mybatis-spring:scan
+		base-package="com.team1.insta.post.dao.mapper" />
 
 </beans>

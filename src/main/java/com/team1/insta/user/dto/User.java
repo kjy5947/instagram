@@ -1,7 +1,6 @@
 package com.team1.insta.user.dto;
 
 import java.util.Date;
-
 import lombok.Data;
 
 @Data
@@ -15,4 +14,7 @@ public class User {
 	private String password;
 	private String phone_number;
 	private char follow_accept;
+	private String profile_img;
+
+	
 }
