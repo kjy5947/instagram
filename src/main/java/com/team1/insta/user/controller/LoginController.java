@@ -5,6 +5,7 @@ package com.team1.insta.user.controller;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -47,7 +48,10 @@ public class LoginController {
 					idCheck = true;
 					if(userMapper.getList().get(i).getPassword().equals(pw))
 					{
-						session.setAttribute("sid", id);
+						//session.setAttribute("sid", id);
+						Cookie cookie = new Cookie("sid", id);
+						res.addCookie(cookie);
+						
 						return "mainpage/main";
 					}
 				}

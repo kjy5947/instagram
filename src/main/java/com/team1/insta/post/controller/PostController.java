@@ -63,7 +63,6 @@ public class PostController {
 //	}
 	
 	@Autowired
-
 	PostMapper postMapper;
 	
 	@Autowired
