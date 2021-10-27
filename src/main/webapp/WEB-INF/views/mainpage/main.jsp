@@ -50,7 +50,7 @@
     </div>
     <!-- <hr> -->
     
-    <ul>
+    <!-- <ul>
 		<c:forEach var="post" items="${posts }">
 			<li>${post.pid }</li>
 			<li>${post.user_id }</li>
@@ -77,9 +77,9 @@
             </c:forEach>
 
 		</c:forEach>
-	</ul>
+	</ul> -->
 	
-
+    
     <div class="postbox">
         <img class="facebox" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Antarctica_2013_Journey_to_the_Crystal_Desert_%288370623298%29.jpg/250px-Antarctica_2013_Journey_to_the_Crystal_Desert_%288370623298%29.jpg" 
          alt="공백">
@@ -136,7 +136,24 @@
                 bookmark_border
             </span>
         </div>
+        <div class="likecount">좋아요 3개</div>
+
+        <div style="grid-column: 1/5;
+                    margin-left: 15px;
+                    margin-top: 15px;">
+            
+            <details style="font-size: 14px;">
+                <summary><span style="font-weight: bold; font-size: 12px; display: inline; padding-right: 10px; letter-spacing: 2px;">usm369</span>내용</summary>
+                <p>내부에 넣을 내용을 입력해주세요 내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
+                    내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
+                    내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
+                </p>
+            </details>
+        </div>
+    
+        
     </div>
+
 
     
 

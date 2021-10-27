@@ -138,8 +138,9 @@ body {
 .postname {
     font-weight: bold; 
     padding-top: 19px;
-
+    font-size: 15px;
     grid-column: 2/3;
+    letter-spacing: 2px;
 }
 
 .posticons {
@@ -148,3 +149,11 @@ body {
     margin-top: 15px;
 }
 
+.likecount {
+    margin-left: 15px;
+    margin-top: 15px;
+    grid-column: 1/5;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
