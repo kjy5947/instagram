@@ -109,11 +109,13 @@ public class PostController {
    public String getString(HttpServletRequest request, RedirectAttributes redirectAttribute, Model model,
          @PathVariable String userName, @RequestParam MultipartFile file) 
          throws IllegalStateException, IOException {
-      
+	   log.info("이게 내 이름이다!? : " + userName);
 	   	   String urlusername = "";
-           User urlUser = userMapper.getUserByUsername(userName);
-           urlusername = urlUser.getUser_id();
-      
+	   	   User urlUser;
+           urlUser = userMapper.getUserByUsername(userName);
+           log.info("Post페이지의 유저정보 : " + urlUser);
+           urlusername = urlUser.getUname();
+           log.info("Post페이지의 이름 : " + urlusername);
            Cookie[] cookies = request.getCookies();
          
          String mySid = "";
@@ -128,7 +130,7 @@ public class PostController {
                      mySid = cookie.getValue();
             
             // 고른 이미지로 업데이트 
-            userMapper.updateUser(urlusername, "../resources/images/" + file.getOriginalFilename());
+            userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
             redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
             if (!file.isEmpty()) {
                String fullPath = fileDir + file.getOriginalFilename();

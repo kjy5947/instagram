@@ -60,7 +60,7 @@
 
 
 	<update id="updateUser">
-		update user_info set profile_img = #{profile_img} where uname = #{user_id}
+		update user_info set profile_img = #{profile_img} where uname = #{uname}
 	</update>
 
 
