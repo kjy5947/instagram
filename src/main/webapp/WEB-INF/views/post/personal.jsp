@@ -36,10 +36,9 @@
 					<input type="file" name="file" style="display: none;"
 						id="userProfileImage" />
 					</form>
-					<img name="profileimage" value=${oneUser.profile_img
-						} class="profile-image" src=${oneUser.profile_img
-						}
-					onerror="this.src='../resources/images/darami.jpg'"
+					<img name="profileimage" value=${oneUser.profile_img}
+					 class="profile-image" src=${oneUser.profile_img}
+					onerror="this.src='../resources/images/originalProfile.jpg'"
 						id="basicUserProfileImage" />
 
 					<!-- <img class="profile-image" src="../resources/images/myprofile.png"
@@ -60,7 +59,7 @@
 						<i class="fas fa-cog"></i>
 					</button>
 				</div>
-
+				<!-- 
 				<div class="subscribe">
 					<ul>
 						<li>게시물<span onclick="clickme()">${fn:length(postList) }</span></li>
@@ -71,13 +70,14 @@
 				<div class="state">
 					<h4>자기 소개입니다.</h4>
 				</div>
+				-->
 			</div>
 
 
 		</div>
 	</section>
 
-
+	<!-- 
 	<div id="content">
 		<button class="contentBtn" id="post">
 			<i class="fas fa-border-all"></i>게시물
@@ -89,13 +89,9 @@
 			<i class="fas fa-id-card-alt"></i>태그됨
 		</button>
 	</div>
+ -->
 
 
-
-
-	<div id="postContentOut">
-
-	</div>
 	<div id="taggedContentOut"></div>
 
 	<!-- 프로필 바꾸기 모달 -->
@@ -125,6 +121,7 @@
 	<!-- profile section 끝 -->
 
 </body>
+<!-- 
 <script>
 	const uname = '${user.uname}';
 	const postList = JSON.parse('${postList}');
@@ -136,6 +133,7 @@
 	const followingrList = JSON.parse('${followingrList}');
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
+ -->
 <script src="../resources/js/post/personal/personalMain.js"></script>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"

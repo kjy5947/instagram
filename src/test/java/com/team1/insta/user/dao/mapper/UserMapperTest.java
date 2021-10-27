@@ -37,9 +37,9 @@ public class UserMapperTest {
 	
 	public void getSpUser() {
 		
-		User u1 = userMapper.getUser(6);
+		//User u1 = userMapper.getUser(6);
 		
-		log.info(u1);
+		//log.info(u1);
 
 	}
 }

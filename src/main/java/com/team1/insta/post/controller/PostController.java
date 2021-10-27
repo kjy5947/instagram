@@ -55,103 +55,151 @@ import com.team1.insta.user.dto.User;
 
 @Controller
 @Slf4j
-@RequestMapping("/post")
 public class PostController {
 
 
-//	@GetMapping(value = "/getStr", produces = "text/html; charset=EUC-KR")
-//	public String getString() {
-//	    return "<h1>占싫놂옙占싹쇽옙占쏙옙 REST 占쏙옙트占싼뤄옙 占쌉니댐옙.</h1>";
-//	}
-	
-	@Autowired
-	PostMapper postMapper;
-	
-	@Autowired
-	UserMapper userMapper;
+   @Autowired
+   PostMapper postMapper;
+   
+   @Autowired
+   UserMapper userMapper;
 
-	@Value("${file.dir}")
-	private String fileDir;
+   @Value("${file.dir}")
+   private String fileDir;
 
-	
-	@GetMapping("/home/{userName}")
-	public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
-		
-		Cookie[] cookie = request.getCookies();
-		
-		String mySid = "";
-		
-		//if()
-		
-		
-		log.info(userName);
-		model.addAttribute("oneUser", userMapper.getUser(6));
-		// to do: DB占쏙옙 占쏙옙회占쌔쇽옙 user占쏙옙체占쏙옙 占쏙옙티占� 占싼곤옙占쌍깍옙
-	    return "post/personal";
-	}
-	
-	@PostMapping("/home/{userName}")
-	
-	public String getString(RedirectAttributes redirectAttribute, @PathVariable String userName, @RequestParam MultipartFile file) 
-			throws IllegalStateException, IOException {
-		
-		System.out.println("../resources/images/" + file.getOriginalFilename());
-		
-		userMapper.updateUser(6, "../resources/images/" + file.getOriginalFilename());
-		redirectAttribute.addFlashAttribute("oneUser", userMapper.getUser(6));
-		if (!file.isEmpty()) {
-			String fullPath = fileDir + file.getOriginalFilename();
-			log.info("占쏙옙占쏙옙 占쏙옙占쏙옙 fullPath={}", fullPath);
-			file.transferTo(new File(fullPath));
-		}
-	    return "redirect:"+ userName;
-	}
-	
+   
+   @GetMapping("/home/{userName}")
+   public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
+      
+	   log.info(userName);
+      Cookie[] cookies = request.getCookies();
+      
+      String mySid = "";
+      String urlusername ="";
+      
+      if(cookies == null) {
+         
+         return "redirect:" + "user/login";
+      }else {
+      
+         for(Cookie cookie :cookies)
+            if(cookie.getName().equals("sid"))
+                  mySid = cookie.getValue();
+         //////////////////////////////////////
+         //log.info("home페이지 : " + mySid);
+         model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
+         //log.info("home페이지2 : " + mySid);
+         User urlUser = userMapper.getUserByUsername(userName);
+         
+         urlusername = urlUser.getUname();
+         //log.info("home페이지2 : " + urluserId);
+         if(urlusername.equals(mySid)) {
+            return "post/personal"; 
+         }
+         else {
+            return "redirect:" + "/";
+         }
+          
+      }
+      
+   }
+   
+   @PostMapping("/home/{userName}")
+   
+   public String getString(HttpServletRequest request, RedirectAttributes redirectAttribute, Model model,
+         @PathVariable String userName, @RequestParam MultipartFile file) 
+         throws IllegalStateException, IOException {
+      
+	   	   String urlusername = "";
+           User urlUser = userMapper.getUserByUsername(userName);
+           urlusername = urlUser.getUser_id();
+      
+           Cookie[] cookies = request.getCookies();
+         
+         String mySid = "";
+         
+         if(cookies == null) {
+            
+            return "user/login";
+         }else {
+         
+            for(Cookie cookie :cookies)
+               if(cookie.getName().equals("sid"))
+                     mySid = cookie.getValue();
+            
+            // 고른 이미지로 업데이트 
+            userMapper.updateUser(urlusername, "../resources/images/" + file.getOriginalFilename());
+            redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
+            if (!file.isEmpty()) {
+               String fullPath = fileDir + file.getOriginalFilename();
+               log.info(" fullPath={}", fullPath);
+               file.transferTo(new File(fullPath));
+            }
+            // !이미지 업데이트 끝
+            //////////////////////////////////////
+            log.info(userName);
+            //model.addAttribute("oneUser", userMapper.getUser(mySid));
+            
+            
+            if(urlusername.equals(mySid)) {
+               return "redirect:"+ userName; 
+            }
+            else {
+               return "redirect:"+ userName;
+            }
+             
+         }
+      
+      
+     
+       
+   }//getString 끝
+   
+   
+   
 
-	
+   // 寃뚯떆臾  蹂댁뿬二쇨린 +  뿬 윭媛 吏   뜲 씠 꽣 view, Javascript濡   꽆湲곌린
 
-	// 寃뚯떆臾� 蹂댁뿬二쇨린 + �뿬�윭媛�吏� �뜲�씠�꽣 view, Javascript濡� �꽆湲곌린
-
-	@GetMapping("/personal")
-	public String userInfo(@RequestParam(value ="uname") String uname, Model model) {
-		
-		User user = userMapper.getUserBytype(new KeyConfirm("", uname));
-		
-		List<Post> postList =  postMapper.getPostList(user.getUser_id());
-		List<List<Images>> imagesList = new ArrayList<>();
-		List<PostJoinImages> postJoinImageList = new ArrayList<>();
-		List<List<LikeManage>> likeManageList = new ArrayList<>();
-		List<PostJoinImages> taggedPostJoinImageList = new ArrayList<>();
-		List<List<CommentManage>> commentManageList = new ArrayList<>();
-		List<TagPerson> tagpersonList = postMapper.getTagPersonByUserId(user.getUser_id());
-		
-		for(Post post : postList) {
-			imagesList.add(postMapper.getImagesList(post.getPid()));
-			postJoinImageList.add(postMapper.getPostJoinImages(post.getPid()));
-			likeManageList.add(postMapper.getLikeManage(post.getPid()));	
-			commentManageList.add(postMapper.getCommentList(post.getPid()));
-		}
-		
-		for(TagPerson tagperson : tagpersonList) {
-			taggedPostJoinImageList.add(postMapper.getPostJoinImages(tagperson.getPid()));
-		}
-		
-		List<Follow> followerList = postMapper.getFollower(user.getUser_id());
-		List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
-		 
-		
-		model.addAttribute("user", user);
-		
-		model.addAttribute("postList", JSONArray.fromObject(postList));
-		model.addAttribute("imagesList", JSONArray.fromObject(imagesList));
-		model.addAttribute("postJoinImageList", JSONArray.fromObject(postJoinImageList));
-		model.addAttribute("likeManageList", JSONArray.fromObject(likeManageList));
-		model.addAttribute("taggedPostJoinImageList", JSONArray.fromObject(taggedPostJoinImageList));
-		model.addAttribute("followerList", JSONArray.fromObject(followerList));
-		model.addAttribute("followingrList", JSONArray.fromObject(followingrList));		
-		model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
-		
-		return "post/personal";
-	}
+   @GetMapping("/personal")
+   public String userInfo(@RequestParam(value ="uname") String uname, Model model) {
+      
+      User user = userMapper.getUserBytype(new KeyConfirm("", uname));
+      
+      List<Post> postList =  postMapper.getPostList(user.getUser_id());
+      List<List<Images>> imagesList = new ArrayList<>();
+      List<PostJoinImages> postJoinImageList = new ArrayList<>();
+      List<List<LikeManage>> likeManageList = new ArrayList<>();
+      List<PostJoinImages> taggedPostJoinImageList = new ArrayList<>();
+      List<List<CommentManage>> commentManageList = new ArrayList<>();
+      List<TagPerson> tagpersonList = postMapper.getTagPersonByUserId(user.getUser_id());
+      
+      for(Post post : postList) {
+         imagesList.add(postMapper.getImagesList(post.getPid()));
+         postJoinImageList.add(postMapper.getPostJoinImages(post.getPid()));
+         likeManageList.add(postMapper.getLikeManage(post.getPid()));   
+         commentManageList.add(postMapper.getCommentList(post.getPid()));
+      }
+      
+      for(TagPerson tagperson : tagpersonList) {
+         taggedPostJoinImageList.add(postMapper.getPostJoinImages(tagperson.getPid()));
+      }
+      
+      List<Follow> followerList = postMapper.getFollower(user.getUser_id());
+      List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
+       
+      
+      model.addAttribute("user", user);
+      
+      model.addAttribute("postList", JSONArray.fromObject(postList));
+      model.addAttribute("imagesList", JSONArray.fromObject(imagesList));
+      model.addAttribute("postJoinImageList", JSONArray.fromObject(postJoinImageList));
+      model.addAttribute("likeManageList", JSONArray.fromObject(likeManageList));
+      model.addAttribute("taggedPostJoinImageList", JSONArray.fromObject(taggedPostJoinImageList));
+      model.addAttribute("followerList", JSONArray.fromObject(followerList));
+      model.addAttribute("followingrList", JSONArray.fromObject(followingrList));      
+      model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));      
+      
+      return "post/personal";
+   }
 
 }
