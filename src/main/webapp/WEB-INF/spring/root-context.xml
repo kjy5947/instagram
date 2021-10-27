@@ -29,6 +29,10 @@
 	
 	<mybatis-spring:scan
 		base-package="com.team1.insta.user.dao.mapper" />
+	<mybatis-spring:scan
+		base-package="com.team1.insta.post.mapper" />
+	<mybatis-spring:scan
+		base-package="com.team1.insta.post.dao.mapper" />
 	
 	<!-- email beans -->
 

@@ -36,7 +36,7 @@ public class UserController {
 	private String fileDir;
 	
 	private final UserMapper userMapper;
-	private final UserMapper usermp;
+	//private final UserMapper usermp;
 	
 	/*
 	@GetMapping("users/{userName}/profile")
