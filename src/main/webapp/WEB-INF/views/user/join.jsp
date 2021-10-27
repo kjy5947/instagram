@@ -17,7 +17,7 @@
         <div class="container p-5 mt-3 border" style="width: 450px">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png" class="mx-auto d-block" width="300" alt="instagram">
             <p style="font-size: 25px" class="text-muted">친구들의 사진과 동영상을 보려면 가입하세요.</p>
-            <form action="<c:url value="/user/input"/>" class="was-validated" id="join" method="post" onsubmit="popInfo()">
+            <form action="<c:url value="/user/input"/>" class="was-validated" id="join" method="post">
                 <div class="mb-3 mt-3">
                   <input type="email" class="form-control" id="email" placeholder="이메일 주소" name="uemail" oninput = "checkAll()" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
                 </div>
