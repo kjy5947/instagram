@@ -12,6 +12,8 @@ import java.io.IOException;
 
 
 import org.springframework.beans.factory.annotation.Value;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,7 +75,14 @@ public class PostController {
 
 	
 	@GetMapping("/home/{userName}")
-	public String getPersonalPage(Model model, @PathVariable String userName) {
+	public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
+		
+		Cookie[] cookie = request.getCookies();
+		
+		String mySid = "";
+		
+		//if()
+		
 		
 		log.info(userName);
 		model.addAttribute("oneUser", userMapper.getUser(6));

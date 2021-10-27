@@ -50,6 +50,8 @@ public class LoginController {
 					{
 						//session.setAttribute("sid", id);
 						Cookie cookie = new Cookie("sid", id);
+						
+						cookie.setMaxAge(60*120);//2시간 동안 쿠키값유지하게 해줌.
 						res.addCookie(cookie);
 						
 						return "mainpage/main";
