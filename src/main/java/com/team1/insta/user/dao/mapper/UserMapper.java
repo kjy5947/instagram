@@ -15,7 +15,7 @@ public interface UserMapper {
 
 	public User getUserBytype(KeyConfirm keyconfirm);
 	public void setPassword(@Param("newPassword") String newPassword, @Param("userId") String userId);
-	public User getUser(int user_id);
+	public User getUser(@Param("user_id") String user_id);
 	public User getUserByUsername(String uname);
 	
 	public void updateUser(@Param("user_id") int user_id, @Param("profile_img") String profile_img);

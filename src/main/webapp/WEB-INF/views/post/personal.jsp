@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${user.uname }</title>
 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -36,9 +36,7 @@
 					<input type="file" name="file" style="display: none;"
 						id="userProfileImage" />
 					</form>
-					<img name="profileimage" value=${oneUser.profile_img
-						} class="profile-image" src=${oneUser.profile_img
-						}
+					<img name="profileimage" value='#' class="profile-image" src='#'						}
 					onerror="this.src='../resources/images/darami.jpg'"
 						id="basicUserProfileImage" />
 
@@ -96,7 +94,10 @@
 	<div id="postContentOut">
 
 	</div>
-	<div id="taggedContentOut"></div>
+	
+	<div id="taggedContentOut">
+	
+	</div>
 
 	<!-- 프로필 바꾸기 모달 -->
 
@@ -127,6 +128,9 @@
 </body>
 <script>
 	const uname = '${user.uname}';
+	const userProfileImg = '${user.profile_img}';
+	const userId = '${user.user_id}';
+	
 	const postList = JSON.parse('${postList}');
 	const imagesList = JSON.parse('${imagesList}');
 	const postJoinImageList = JSON.parse('${postJoinImageList}');

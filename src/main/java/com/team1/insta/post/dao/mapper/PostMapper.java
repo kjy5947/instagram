@@ -22,4 +22,6 @@ public interface PostMapper {
 	public List<Follow> getFollower(@Param("userId") String userId);
 	public List<Follow> getFollowing(@Param("userId") String userId);
 	public List<CommentManage> getCommentList(@Param("pId") String pId);
+	public void leaveComment(@Param("pId") String pId, @Param("user_id") String user_id, @Param("contents") String contents);
+	public int addFollow(@Param("from_user") String from_user, @Param("to_user") String to_user);
 }

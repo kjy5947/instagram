@@ -1,14 +1,11 @@
-personalMain.css
-@charset "UTF-8";
-
-
-
 
 body{
-   display:flex;
-   align-items:center;
-   justify-content:center;
-   margin:0;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	margin:0 auto;
+	flex-wrap: wrap;
+	width: 935px;
    
 }
 
@@ -89,7 +86,8 @@ body{
   font-size: 20px;
   padding: 8px;
   cursor : pointer;
-}// 오른쪽 부분의 i내용
+}
+
 
 .profile .profile-right .subscribe {
   height: 28px;
@@ -123,11 +121,288 @@ body{
   font-weight: bold;
   background: transparent;
 }
+/**************************************************** content *********************************/
+
+#content {
+	display: block;
+	width: 935px;
+	text-align: center;
+	border-top: #DCDCDC 1px solid;
+}
+
+.contentBtn {
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+	margin-right: 50px;
+	color: gray;
+	padding-top: 20px;
+}
+.contentBtn > i {
+	pointer-events: none;
+}
+
+#post {
+	color: black;
+	border-top: 1px solid black;
+}
+
+#postContentOut, #taggedContentOut {
+	margin-top: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	width: 100%;
+}
+
+#taggedContentOut {
+	display: none;
+}
+
+.contentOutPost {
+	width: 31%;
+	overflow: hidden;
+	position: relative;
+	border: 10px solid transparent;
+}
+
+.contentOutPost:after {
+	content: "";
+	display: block;
+	padding-bottom: 100%;
+}
+
+.contentOutPost > img {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.textDiv {
+	width: 100%;
+	height: 100%;
+	background: #000000;
+	opacity: 0;
+	display: flex;
+	align-items: center;
+	justify-content:center;
+
+}
 
 
+.contentOutPost:hover .textDiv {
+	opacity: 0.5;
+	color: #ffffff;
+	cursor: pointer;
+}
 
 
-/* 모델 모양 */
+/**************************** popup content ********************************/
+div[id^="popupWrapper"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+div[id^="popupWrapper"].hide {
+	display: none;
+}
+
+.popupContainer {
+	width: 1000px;
+	height: 800px; 
+	position: relative;
+}
+
+.popupSilder {
+	display: flex;
+    position:absolute;
+    width: 70%;
+    height: 100%;
+    top:0;
+    left:0;
+}
+
+.imgwrap {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.imgWrap > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.leftarrowBtn, .rightarrowBtn  {
+	cursor: pointer;
+  	position: absolute;
+ 	color: white;
+ 	font-weight: bold;
+	font-size: 22px;
+}
+
+.leftarrowBtn {
+	position:absolute;
+	top: 50%;
+    left:1%;
+}
+.leftarrowBtn > i {
+	border-radius: 50%;
+	box-shadow: 0px 0px 5px 2px gray;
+}
+.rightarrowBtn  {
+ 	position:absolute;
+ 	top: 50%;
+    right:1%;
+}
+.rightarrowBtn > i {
+	border-radius: 50%;
+	box-shadow: 0px 0px 5px 2px gray;
+}
+
+/********************* POPUP COMMENT************/
+
+.popupCommentContainer {
+	display: flex;
+    position:absolute;
+    width: 30%;
+    height: 100%;
+    top:0;
+    right:0;
+    background-color: white;
+    flex-direction: column;
+}
+/* popupHead(poster info)  */
+.postingUser {
+	height: 60px;
+	width: 100%;
+	align-items: center;
+	display: flex;
+	border-bottom: 1px #DCDCDC solid;
+}
+
+.postingUser > img {
+	width : 30px; 
+	height: 30px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.postingUname {
+	font-weight: bold;
+	font-size: 12px;
+}
+.postingUname  > a {
+	text-decoration: none;
+	color: black;
+	
+}
+
+.followBtn {
+	background-color: transparent;
+	color: #0096FF;
+	border-color: transparent;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.postComments{
+	height: 60px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.postCommentsLi, .otherUserComment {
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+.postCommentsLi > img, .otherUserComment > img {
+	width : 30px; 
+	height: 30px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin-left: -29px;
+	margin-right: 10px;
+}
+
+.postingUnameComment, .otherUserUnameComment {
+	display: inline-block;
+	font-size: 12px;
+}
+.postingUnameComment > a, .otherUserUnameComment > a {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+
+
+.commentFooter {
+	position: absolute;
+	width: 100%;
+	height: 100px;
+	bottom: 0;
+	right: 0;
+	border-top: #DCDCDC 1px solid;
+}
+
+.viewLikeCnt {
+	font-weight: bold;
+	margin-left: 10px;
+	font-size: 15px;
+}
+
+.leaveCommentDiv {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	border-top: #DCDCDC 1px solid;
+}
+
+.leaveComment {
+	border-color: transparent;
+	height: 40px;
+	width: 77%;
+	padding-left: 10px;
+}
+
+.leaveComment:focus {
+	outline: none;
+}
+
+.leaveCommentBtn {
+	background-color: transparent;
+	color: #0096FF;
+	font-size: 15px;
+	border-color: transparent;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+
+.leaveCommentBtn:disabled {
+	color: #99d7ff;
+	cursor: default;
+}
+
+/********************************************  */
 .modal-image {
   display: none;
   position: fixed;
@@ -172,7 +447,7 @@ body{
 
 
 
-/* .modal-info 내용. */
+/* .modal-info . */
 .modal-info {
   position: fixed;
   top: 0;

@@ -61,7 +61,7 @@ public class PostController {
 
 //	@GetMapping(value = "/getStr", produces = "text/html; charset=EUC-KR")
 //	public String getString() {
-//	    return "<h1>占싫놂옙占싹쇽옙占쏙옙 REST 占쏙옙트占싼뤄옙 占쌉니댐옙.</h1>";
+//	    return "<h1>.</h1>";
 //	}
 	
 	@Autowired
@@ -85,8 +85,8 @@ public class PostController {
 		
 		
 		log.info(userName);
-		model.addAttribute("oneUser", userMapper.getUser(6));
-		// to do: DB占쏙옙 占쏙옙회占쌔쇽옙 user占쏙옙체占쏙옙 占쏙옙티占� 占싼곤옙占쌍깍옙
+		model.addAttribute("oneUser", userMapper.getUser("6"));
+		// to do: 
 	    return "post/personal";
 	}
 	
@@ -98,10 +98,10 @@ public class PostController {
 		System.out.println("../resources/images/" + file.getOriginalFilename());
 		
 		userMapper.updateUser(6, "../resources/images/" + file.getOriginalFilename());
-		redirectAttribute.addFlashAttribute("oneUser", userMapper.getUser(6));
+		redirectAttribute.addFlashAttribute("oneUser", userMapper.getUser("6"));
 		if (!file.isEmpty()) {
 			String fullPath = fileDir + file.getOriginalFilename();
-			log.info("占쏙옙占쏙옙 占쏙옙占쏙옙 fullPath={}", fullPath);
+			log.info(" fullPath={}", fullPath);
 			file.transferTo(new File(fullPath));
 		}
 	    return "redirect:"+ userName;
@@ -110,7 +110,7 @@ public class PostController {
 
 	
 
-	// 寃뚯떆臾� 蹂댁뿬二쇨린 + �뿬�윭媛�吏� �뜲�씠�꽣 view, Javascript濡� �꽆湲곌린
+	// ����������
 
 	@GetMapping("/personal")
 	public String userInfo(@RequestParam(value ="uname") String uname, Model model) {
@@ -139,7 +139,6 @@ public class PostController {
 		List<Follow> followerList = postMapper.getFollower(user.getUser_id());
 		List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
 		 
-		
 		model.addAttribute("user", user);
 		
 		model.addAttribute("postList", JSONArray.fromObject(postList));

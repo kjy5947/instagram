@@ -36,4 +36,23 @@
     SELECT * FROM comment_manage where pid = #{pId}
   </select>            
     
+   <insert id="leaveComment">
+   	insert into comment_manage values (
+   		comment_manage_seq.nextval,
+   		#{pId},
+   		#{user_id},
+		#{contents}	
+   	)
+   </insert> 
+    
+    <insert id="addFollow">
+   	insert into follow values (
+   		follow_seq.nextval,
+   		#{from_user},
+   		#{to_user},
+		sysdate,
+		Y
+   	)
+   </insert> 
+    
 </mapper>
