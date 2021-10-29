@@ -1,6 +1,7 @@
 package com.team1.insta.post.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -57,17 +59,11 @@ import com.team1.insta.user.dto.User;
 @Slf4j
 public class PostController {
 
-
-
-
-	@Autowired
-	PostMapper postMapper;
-
 	@Autowired
 	UserMapper userMapper;
 
-	@Value("${file.dir}")
-	private String fileDir;
+	@Autowired
+	PostMapper postMapper;
 
 
 
@@ -76,6 +72,8 @@ public class PostController {
 
 		log.info(userName);
 		Cookie[] cookies = request.getCookies();
+
+
 
 		String mySid = "";
 		String urlusername ="";
@@ -89,13 +87,10 @@ public class PostController {
 				if(cookie.getName().equals("sid"))
 					mySid = cookie.getValue();
 			//////////////////////////////////////
-			//log.info("home�럹�씠吏� : " + mySid);
-			model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
-			//log.info("home�럹�씠吏�2 : " + mySid);
-			User urlUser = userMapper.getUserByUsername(userName);
 
+			model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
+			User urlUser = userMapper.getUserByUsername(userName);      
 			urlusername = urlUser.getUname();
-			//log.info("home�럹�씠吏�2 : " + urluserId);
 			if(urlusername.equals(mySid)) {
 				return "post/personal"; 
 			}
@@ -109,20 +104,21 @@ public class PostController {
 
 	@PostMapping("/home/{userName}")
 
-	public String getString(HttpServletRequest request, RedirectAttributes redirectAttribute, Model model,
+	public String getString(HttpServletRequest request, MultipartHttpServletRequest multireq, RedirectAttributes redirectAttribute, Model model,
 			@PathVariable String userName, @RequestParam MultipartFile file) 
 					throws IllegalStateException, IOException {
-		log.info("�씠寃� �궡 �씠由꾩씠�떎!? : " + userName);
+		log.info("이게 내 이름이다!? : " + userName);
 		String urlusername = "";
 		User urlUser;
 		urlUser = userMapper.getUserByUsername(userName);
-		log.info("Post�럹�씠吏��쓽 �쑀���젙蹂� : " + urlUser);
+		log.info("Post페이지의 유저정보 : " + urlUser);
 		urlusername = urlUser.getUname();
-		log.info("Post�럹�씠吏��쓽 �씠由� : " + urlusername);
+		log.info("Post페이지의 이름 : " + urlusername);
 		Cookie[] cookies = request.getCookies();
 
 		String mySid = "";
-
+		Iterator<String> itr = multireq.getFileNames();
+		List<MultipartFile> mpf = multireq.getFiles(itr.next());
 		if(cookies == null) {
 
 			return "user/login";
@@ -132,15 +128,23 @@ public class PostController {
 				if(cookie.getName().equals("sid"))
 					mySid = cookie.getValue();
 
-			// 怨좊Ⅸ �씠誘몄�濡� �뾽�뜲�씠�듃 
+			// 고른 이미지로 업데이트 
 			userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
 			redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
 			if (!file.isEmpty()) {
-				String fullPath = fileDir + file.getOriginalFilename();
+
+				//String relativePath = multireq.getSession().getServletContext().getRealPath("resources/images");
+				//String fullPath = fileDir + file.getOriginalFilename();
+				String root_path = request.getSession().getServletContext().getRealPath("/");
+				String attach_path = "\\resources\\images\\";
+				System.out.println("root패뜨 : " + root_path);
+				//String fullPath = relativePath + file.getOriginalFilename();
+				String fullPath = root_path + attach_path + file.getOriginalFilename();
 				log.info(" fullPath={}", fullPath);
 				file.transferTo(new File(fullPath));
+
 			}
-			// !�씠誘몄� �뾽�뜲�씠�듃 �걹
+			// !이미지 업데이트 끝
 			//////////////////////////////////////
 			log.info(userName);
 			//model.addAttribute("oneUser", userMapper.getUser(mySid));
@@ -158,12 +162,9 @@ public class PostController {
 
 
 
-	}//getString �걹
+	}//getString 끝
 
 
-
-
-	// 野껊슣�뻻�눧  癰귣똻肉т틠�눊由� +  肉� �쑎揶� �릯   �쑓 �뵠 苑� view, Javascript嚥�   苑녷묾怨뚮┛
 
 	// 개인페이지
 
@@ -198,21 +199,22 @@ public class PostController {
 		// cookie
 
 		Cookie[] cookies = request.getCookies();
-		
+
 		String mySid = null;
-		
-		if(cookies == null) {
 
-			return "redirect:" + "user/login";
-		}else {
-
-			for(Cookie cookie :cookies) {
-				if(cookie.getName().equals("sid")) {
-					mySid = cookie.getValue();
-				}
-			}
-			System.out.println(mySid);
-//			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
+//		if(cookies == null) {
+//
+//			return "redirect:" + "user/login";
+//		}else {
+//
+//			for(Cookie cookie :cookies) {
+//				if(cookie.getName().equals("sid")) {
+//					mySid = cookie.getValue();
+//				}
+//			}
+//		}
+			
+			//			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
 
 			model.addAttribute("user", user);
 
@@ -226,7 +228,7 @@ public class PostController {
 			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
 
 			return "post/personal";
-		}
+		
 
 	}
 }

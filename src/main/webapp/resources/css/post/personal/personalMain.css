@@ -6,7 +6,7 @@ body{
 	margin:0 auto;
 	flex-wrap: wrap;
 	width: 935px;
-   
+	box-sizing : border-box;   
 }
 
 .topProfile {
@@ -67,16 +67,25 @@ body{
   font-family: "Montserrat", sans-serif;
   margin-right: 30px;
 }
-.profile .profile-right .name-group .subbtn {
+
+.subbtn {
+   
+  margin-top : 23px;
   margin-right: 10px;
   padding: 5px 8px;
-  height : 15px;
-  border: 1px solid rgba(191, 191, 191, 1);
+  height : 30px;
+  
+  border : 1px solid blue;
   border-radius: 4px;
   color: #262626;
   font-weight: bold;
-  background: transparent;
+   border: 1px solid rgba(191, 191, 191, 1);
+background: transparent;
+
 }
+
+
+
 .profile .profile-right .name-group .modified {
   border: none;
   background: none;

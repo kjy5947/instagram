@@ -16,7 +16,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="<c:url value = "../resources/css/post/personal/personalMain.css"/>">-->
 <link rel="stylesheet"
-	href="../resources/css/post/personal/personalMain.css" />
+	href="../resources/css/post/personal/personalMain.css?ver=2" />
 
 
 
@@ -56,13 +56,15 @@
 				<div class="name-group">
 					<h2>${oneUser.uname }</h2>
 
-					<button class="subbtn" onclick="location.href='../post/upload'">사진등록</button>
-					<button class="subbtn" onclick="">구독하기</button>
+					<button id="btn1" class="subbtn" onclick="location.href='../post/upload'">사진등록</button>
+					<button id="btn2" class="subbtn" onclick="">구독하기</button>
 					<button class="modified" onclick="popup('modal-info')">
 						<i class="fas fa-cog"></i>
 					</button>
 				</div>
-				
+
+	<!-- 
+
 				<div class="subscribe">
 					<ul>
 						<li>게시물<span onclick="clickme()">${fn:length(postList) }</span></li>
@@ -70,11 +72,12 @@
 						<li><a href=""> 팔로잉</a><span>${fn:length(followingrList) }</span></li>
 					</ul>
 				</div>
+	 -->
 				<div class="state">
-					<h4>자기 소개입니다.</h4>
+					<h4>${oneUser.user_introduce}</h4>
 				</div>
-				
 			</div>
+			<!--  profile-right  -->
 
 
 		</div>
@@ -92,10 +95,8 @@
 			<i class="fas fa-id-card-alt"></i>태그됨
 		</button>
 	</div>
+
  
-
-
-
 
 	<div id="postContentOut">
 
@@ -151,8 +152,10 @@
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 
- 
 <script src="../resources/js/post/personal/personalMain.js"></script>
+
+<script src="../resources/js/post/personal/personalMain.js?ver=1"></script>
+
 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
