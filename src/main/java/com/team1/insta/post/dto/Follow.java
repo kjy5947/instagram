@@ -11,5 +11,5 @@ public class Follow {
 	private String from_user;
 	private String to_user;
 	private Date follow_time;
-	private char state;
+	private char follow_condition;
 }
