@@ -51,12 +51,10 @@ function profileEdit(){
    
    console.log("hello info");
    var strr = window.location.href;
-   console.log(strr);
-   //var params = location.search.substr(strr.indexOf("home"));
-   var xx = string.substring(params+4);
+   console.log(" is this OK?" + strr);
    var params = strr.indexOf("home");
-   console.log(params);
-   console.log("why are you param me?");
+ 	var xx = strr.substring(params+4);
+ 	location.replace("/instagram/users" + xx);
 }
 
 
