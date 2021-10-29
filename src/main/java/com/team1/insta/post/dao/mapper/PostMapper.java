@@ -24,4 +24,7 @@ public interface PostMapper {
 	public List<CommentManage> getCommentList(@Param("pId") String pId);
 	public void leaveComment(@Param("pId") String pId, @Param("user_id") String user_id, @Param("contents") String contents);
 	public int addFollow(@Param("from_user") String from_user, @Param("to_user") String to_user);
+	public int deleteFollow(@Param("from_user") String from_user, @Param("to_user") String to_user);
+	public List<Follow> FollowDecide(@Param("from_user") String from_user, @Param("to_user") String to_user);
+	
 }

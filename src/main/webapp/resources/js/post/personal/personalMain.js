@@ -18,32 +18,33 @@ function modalImage(){
    
 }
 
-function profileUpload() {
-   $("#userProfileImage").click();
- 
-   $("#userProfileImage").on("change", (e) => {
-      let f = e.target.files[0];
+ function profileUpload() {
+	   $("#userProfileImage").click();
+	 
+	   $("#userProfileImage").on("change", (e) => {
+	      let f = e.target.files[0];
 
-      if (!f.type.match("image.*")) {
-         alert("이미지를 등록해야 합니다.");
-         return 0;
-      }
-    var edited = document.userProfileImageForm;
-     edited.method = "POST";
-     edited.action = "personal";
-     edited.enctype = "multipart/form-data";
-     edited.submit();
-   
-      // 사진 전송 성공시 이미지 변경
-      let reader = new FileReader();
-      reader.onload = (e) => {
-         $("#basicUserProfileImage").attr("src", e.target.result);
-         $("#userProfileImage").attr("value", e.target.result);
-         console.log(document.getElementById("userProfileImage").value);
-      }
-    reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
-   });
-}
+	      if (!f.type.match("image.*")) {
+	         alert("이미지를 등록해야 합니다.");
+	         return 0;
+	      }
+	    var edited = document.userProfileImageForm;
+	    console.log("지금 잘되고 있는거 맞냐?");
+	
+		
+	     edited.enctype = "multipart/form-data";
+	     edited.submit();
+	   
+	      // 사진 전송 성공시 이미지 변경
+	      let reader = new FileReader();
+	      reader.onload = (e) => {
+	         $("#basicUserProfileImage").attr("src", e.target.result);
+	         $("#userProfileImage").attr("value", e.target.result);
+	         console.log(document.getElementById("userProfileImage").value);
+	      }
+	    reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
+	   });
+	}
 
 
 function profileEdit(){
@@ -208,9 +209,39 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	postingUname.innerHTML += "•";
 	
 	const followBtn = document.createElement('button');
-	followBtn.setAttribute('class', 'followBtn');
-	followBtn.innerHTML = "팔로우";
+	followBtn.setAttribute('id', 'followBtn' + postJoinImage.pid);
 	
+	// followBtn decide
+	const followBtnDecideXhttp = new XMLHttpRequest();			
+	followBtnDecideXhttp.addEventListener('readystatechange', (e) => {
+		const readyState = e.target.readyState;
+		const httpStatus = e.target.status;
+		
+		if(readyState == 4 && httpStatus == 200) {
+			const followList =  JSON.parse(e.target.responseText);
+			if(followList.length >= 1) {
+				followBtn.innerHTML = "팔로잉";
+				followBtn.setAttribute('class', 'following');
+			} else {
+				followBtn.innerHTML = "팔로우";
+			}
+		}
+	});
+		
+	followBtnDecideXhttp.open('POST', '/insta/postRest/FollowDecide', true);
+
+	followBtnDecideXhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+	
+	const follow = {
+		fid: null,
+		// cookie user_id
+		from_user: loginUserId,
+		to_user: userId,
+		follow_time: null,
+		follow_condition : null
+	}
+		
+	followBtnDecideXhttp.send(JSON.stringify(follow));
 	
 	
 	postingUname.appendChild(followBtn)
@@ -354,7 +385,7 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 				const commentManage = {
 					cid: null,
 					pid: ''+postJoinImage.pid,
-					user_id: ''+userId,
+					user_id: ''+loginUserId,
 					contents: ''+leaveComment.value
 				};
 				
@@ -371,24 +402,35 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 			const httpStatus = e.target.status;
 			
 			if(readyState == 4 && httpStatus == 200) {
-				const commentUser =  JSON.parse(e.target.responseText);
+				if(followBtn.innerHTML == "팔로잉") {
+					followBtn.innerHTML = "팔로우";
+					followBtn.classList.remove('following');
+				} else {
+					followBtn.innerHTML = "팔로잉";
+					followBtn.classList.add('following');
+				}
 				
 			}
-				
 		});
-		xhttp.open('POST', '/insta/postRest/follow', true);
+		
+		if(followBtn.innerHTML == "팔로우") {
+			xhttp.open('POST', '/insta/postRest/addfollow', true);
+		} else if(followBtn.innerHTML == "팔로잉") {
+			xhttp.open('POST', '/insta/postRest/deleteFollow', true);
+		}
 		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
 		
 		const follow = {
 			fid: null,
 			// cookie user_id
-			from_user: user_id,
-			to_user: user_id,
+			from_user: loginUserId,
+			to_user: userId,
 			follow_time: null,
 			follow_condition : null
 			}
 			
 			xhttp.send(JSON.stringify(follow));
+		
 	});
 	
 	

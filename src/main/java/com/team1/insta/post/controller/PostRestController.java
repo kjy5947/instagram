@@ -1,5 +1,7 @@
 package com.team1.insta.post.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,11 +55,31 @@ public class PostRestController {
 		return userEntity;
 	}
 	
-	@PostMapping(value = "/follow", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/addfollow", produces = MediaType.APPLICATION_JSON_VALUE)
 	public void addfollow(@RequestBody Follow follow) {
 				
-		int result = postMapper.addFollow(follow.getFrom_user(), follow.getTo_user());
+		postMapper.addFollow(follow.getFrom_user(), follow.getTo_user());
+		
+	}
+	
+	@PostMapping(value = "/deleteFollow", produces = MediaType.APPLICATION_JSON_VALUE)
+	public void deleteFollow(@RequestBody Follow follow) {
+		
+		postMapper.deleteFollow(follow.getFrom_user(), follow.getTo_user());
+		
+	}
+	
+	@PostMapping(value = "/FollowDecide", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Follow>> FollowDecide(@RequestBody Follow follow) {
+		
+		List<Follow> followList =  postMapper.FollowDecide(follow.getFrom_user(), follow.getTo_user());
+		
+		ResponseEntity<List<Follow>> followListEntity =  ResponseEntity
+				.status(HttpStatus.OK)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(followList);
 		
 		
+		return followListEntity;
 	}
 }

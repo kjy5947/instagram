@@ -312,12 +312,16 @@ div[id^="popupWrapper"].hide {
 	
 }
 
-.followBtn {
+button[id^="followBtn"] {
 	background-color: transparent;
 	color: #0096FF;
 	border-color: transparent;
 	font-weight: bold;
 	cursor: pointer;
+}
+
+button[id^="followBtn"].following {
+	color: black;
 }
 
 .postComments{

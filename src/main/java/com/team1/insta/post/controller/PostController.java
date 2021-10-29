@@ -55,68 +55,124 @@ import com.team1.insta.user.dto.User;
 
 @Controller
 @Slf4j
-@RequestMapping("/post")
 public class PostController {
 
 
-//	@GetMapping(value = "/getStr", produces = "text/html; charset=EUC-KR")
-//	public String getString() {
-//	    return "<h1>.</h1>";
-//	}
-	
+
+
 	@Autowired
 	PostMapper postMapper;
-	
+
 	@Autowired
 	UserMapper userMapper;
 
 	@Value("${file.dir}")
 	private String fileDir;
 
-	
+
+
 	@GetMapping("/home/{userName}")
 	public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
-		
-		Cookie[] cookie = request.getCookies();
-		
-		String mySid = "";
-		
-		//if()
-		
-		
+
 		log.info(userName);
-		model.addAttribute("oneUser", userMapper.getUser("6"));
-		// to do: 
-	    return "post/personal";
-	}
-	
-	@PostMapping("/home/{userName}")
-	
-	public String getString(RedirectAttributes redirectAttribute, @PathVariable String userName, @RequestParam MultipartFile file) 
-			throws IllegalStateException, IOException {
-		
-		System.out.println("../resources/images/" + file.getOriginalFilename());
-		
-		userMapper.updateUser(6, "../resources/images/" + file.getOriginalFilename());
-		redirectAttribute.addFlashAttribute("oneUser", userMapper.getUser("6"));
-		if (!file.isEmpty()) {
-			String fullPath = fileDir + file.getOriginalFilename();
-			log.info(" fullPath={}", fullPath);
-			file.transferTo(new File(fullPath));
+		Cookie[] cookies = request.getCookies();
+
+		String mySid = "";
+		String urlusername ="";
+
+		if(cookies == null) {
+
+			return "redirect:" + "user/login";
+		}else {
+
+			for(Cookie cookie :cookies)
+				if(cookie.getName().equals("sid"))
+					mySid = cookie.getValue();
+			//////////////////////////////////////
+			//log.info("home�럹�씠吏� : " + mySid);
+			model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
+			//log.info("home�럹�씠吏�2 : " + mySid);
+			User urlUser = userMapper.getUserByUsername(userName);
+
+			urlusername = urlUser.getUname();
+			//log.info("home�럹�씠吏�2 : " + urluserId);
+			if(urlusername.equals(mySid)) {
+				return "post/personal"; 
+			}
+			else {
+				return "redirect:" + "/";
+			}
+
 		}
-	    return "redirect:"+ userName;
+
 	}
-	
 
-	
+	@PostMapping("/home/{userName}")
 
-	// ����������
+	public String getString(HttpServletRequest request, RedirectAttributes redirectAttribute, Model model,
+			@PathVariable String userName, @RequestParam MultipartFile file) 
+					throws IllegalStateException, IOException {
+		log.info("�씠寃� �궡 �씠由꾩씠�떎!? : " + userName);
+		String urlusername = "";
+		User urlUser;
+		urlUser = userMapper.getUserByUsername(userName);
+		log.info("Post�럹�씠吏��쓽 �쑀���젙蹂� : " + urlUser);
+		urlusername = urlUser.getUname();
+		log.info("Post�럹�씠吏��쓽 �씠由� : " + urlusername);
+		Cookie[] cookies = request.getCookies();
 
-	@GetMapping("/personal")
-	public String userInfo(@RequestParam(value ="uname") String uname, Model model) {
-		
+		String mySid = "";
+
+		if(cookies == null) {
+
+			return "user/login";
+		}else {
+
+			for(Cookie cookie :cookies)
+				if(cookie.getName().equals("sid"))
+					mySid = cookie.getValue();
+
+			// 怨좊Ⅸ �씠誘몄�濡� �뾽�뜲�씠�듃 
+			userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
+			redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
+			if (!file.isEmpty()) {
+				String fullPath = fileDir + file.getOriginalFilename();
+				log.info(" fullPath={}", fullPath);
+				file.transferTo(new File(fullPath));
+			}
+			// !�씠誘몄� �뾽�뜲�씠�듃 �걹
+			//////////////////////////////////////
+			log.info(userName);
+			//model.addAttribute("oneUser", userMapper.getUser(mySid));
+
+
+			if(urlusername.equals(mySid)) {
+				return "redirect:"+ userName; 
+			}
+			else {
+				return "redirect:"+ userName;
+			}
+
+		}
+
+
+
+
+	}//getString �걹
+
+
+
+
+	// 野껊슣�뻻�눧  癰귣똻肉т틠�눊由� +  肉� �쑎揶� �릯   �쑓 �뵠 苑� view, Javascript嚥�   苑녷묾怨뚮┛
+
+	// 개인페이지
+
+
+	@GetMapping("/post/personal")
+	public String userInfo(@RequestParam(value ="uname") String uname, Model model, HttpServletRequest request) {
+
 		User user = userMapper.getUserBytype(new KeyConfirm("", uname));
-		
+
 		List<Post> postList =  postMapper.getPostList(user.getUser_id());
 		List<List<Images>> imagesList = new ArrayList<>();
 		List<PostJoinImages> postJoinImageList = new ArrayList<>();
@@ -124,33 +180,54 @@ public class PostController {
 		List<PostJoinImages> taggedPostJoinImageList = new ArrayList<>();
 		List<List<CommentManage>> commentManageList = new ArrayList<>();
 		List<TagPerson> tagpersonList = postMapper.getTagPersonByUserId(user.getUser_id());
-		
+
 		for(Post post : postList) {
 			imagesList.add(postMapper.getImagesList(post.getPid()));
 			postJoinImageList.add(postMapper.getPostJoinImages(post.getPid()));
 			likeManageList.add(postMapper.getLikeManage(post.getPid()));	
 			commentManageList.add(postMapper.getCommentList(post.getPid()));
 		}
-		
+
 		for(TagPerson tagperson : tagpersonList) {
 			taggedPostJoinImageList.add(postMapper.getPostJoinImages(tagperson.getPid()));
 		}
-		
+
 		List<Follow> followerList = postMapper.getFollower(user.getUser_id());
 		List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
-		 
-		model.addAttribute("user", user);
-		
-		model.addAttribute("postList", JSONArray.fromObject(postList));
-		model.addAttribute("imagesList", JSONArray.fromObject(imagesList));
-		model.addAttribute("postJoinImageList", JSONArray.fromObject(postJoinImageList));
-		model.addAttribute("likeManageList", JSONArray.fromObject(likeManageList));
-		model.addAttribute("taggedPostJoinImageList", JSONArray.fromObject(taggedPostJoinImageList));
-		model.addAttribute("followerList", JSONArray.fromObject(followerList));
-		model.addAttribute("followingrList", JSONArray.fromObject(followingrList));		
-		model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
-		
-		return "post/personal";
-	}
 
+		// cookie
+
+		Cookie[] cookies = request.getCookies();
+		
+		String mySid = null;
+		
+		if(cookies == null) {
+
+			return "redirect:" + "user/login";
+		}else {
+
+			for(Cookie cookie :cookies) {
+				if(cookie.getName().equals("sid")) {
+					mySid = cookie.getValue();
+				}
+			}
+			System.out.println(mySid);
+//			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
+
+			model.addAttribute("user", user);
+
+			model.addAttribute("postList", JSONArray.fromObject(postList));
+			model.addAttribute("imagesList", JSONArray.fromObject(imagesList));
+			model.addAttribute("postJoinImageList", JSONArray.fromObject(postJoinImageList));
+			model.addAttribute("likeManageList", JSONArray.fromObject(likeManageList));
+			model.addAttribute("taggedPostJoinImageList", JSONArray.fromObject(taggedPostJoinImageList));
+			model.addAttribute("followerList", JSONArray.fromObject(followerList));
+			model.addAttribute("followingrList", JSONArray.fromObject(followingrList));		
+			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
+
+			return "post/personal";
+		}
+
+	}
 }
+

@@ -19,6 +19,7 @@
 	href="../resources/css/post/personal/personalMain.css" />
 
 
+
 </head>
 <body>
 
@@ -32,13 +33,16 @@
 			<div class="profile-left">
 				<div class="profile-img-wrap story-border"
 					onclick="popup('modal-image')">
-					<form name="userProfileImageForm" id="userProfileImageForm" />
+					<form name="userProfileImageForm" id="userProfileImageForm" method="POST" action="${oneUser.uname}"/>
 					<input type="file" name="file" style="display: none;"
 						id="userProfileImage" />
 					</form>
-					<img name="profileimage" value='#' class="profile-image" src='#'						}
-					onerror="this.src='../resources/images/darami.jpg'"
-						id="basicUserProfileImage" />
+
+					<img name="profileimage" value=${oneUser.profile_img}
+					 class="profile-image" src=${oneUser.profile_img}
+						id="basicUserProfileImage"
+						onerror="this.src='../resources/images/originalProfile.jpg'" />
+
 
 					<!-- <img class="profile-image" src="../resources/images/myprofile.png"
 					 id="userProfileImage" />
@@ -50,7 +54,7 @@
 
 			<div class="profile-right">
 				<div class="name-group">
-					<h2>${user.uname }</h2>
+					<h2>${oneUser.uname }</h2>
 
 					<button class="subbtn" onclick="location.href='../post/upload'">사진등록</button>
 					<button class="subbtn" onclick="">구독하기</button>
@@ -58,7 +62,7 @@
 						<i class="fas fa-cog"></i>
 					</button>
 				</div>
-
+				
 				<div class="subscribe">
 					<ul>
 						<li>게시물<span onclick="clickme()">${fn:length(postList) }</span></li>
@@ -69,13 +73,14 @@
 				<div class="state">
 					<h4>자기 소개입니다.</h4>
 				</div>
+				
 			</div>
 
 
 		</div>
 	</section>
 
-
+	
 	<div id="content">
 		<button class="contentBtn" id="post">
 			<i class="fas fa-border-all"></i>게시물
@@ -87,6 +92,7 @@
 			<i class="fas fa-id-card-alt"></i>태그됨
 		</button>
 	</div>
+ 
 
 
 
@@ -98,6 +104,7 @@
 	<div id="taggedContentOut">
 	
 	</div>
+
 
 	<!-- 프로필 바꾸기 모달 -->
 
@@ -126,10 +133,13 @@
 	<!-- profile section 끝 -->
 
 </body>
+
 <script>
 	const uname = '${user.uname}';
 	const userProfileImg = '${user.profile_img}';
 	const userId = '${user.user_id}';
+	// const loginUserId = '${loginUser.user_id}';
+	const loginUserId = '90';
 	
 	const postList = JSON.parse('${postList}');
 	const imagesList = JSON.parse('${imagesList}');
@@ -140,7 +150,10 @@
 	const followingrList = JSON.parse('${followingrList}');
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
+
+ 
 <script src="../resources/js/post/personal/personalMain.js"></script>
+
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
 	integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
