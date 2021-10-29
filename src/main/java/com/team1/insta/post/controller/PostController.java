@@ -1,6 +1,7 @@
 package com.team1.insta.post.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -68,11 +70,14 @@ public class PostController {
    private String fileDir;
 
    
+   
    @GetMapping("/home/{userName}")
    public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
       
 	   log.info(userName);
       Cookie[] cookies = request.getCookies();
+      
+
       
       String mySid = "";
       String urlusername ="";
@@ -86,13 +91,10 @@ public class PostController {
             if(cookie.getName().equals("sid"))
                   mySid = cookie.getValue();
          //////////////////////////////////////
-         //log.info("home페이지 : " + mySid);
+
          model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
-         //log.info("home페이지2 : " + mySid);
-         User urlUser = userMapper.getUserByUsername(userName);
-         
+         User urlUser = userMapper.getUserByUsername(userName);      
          urlusername = urlUser.getUname();
-         //log.info("home페이지2 : " + urluserId);
          if(urlusername.equals(mySid)) {
             return "post/personal"; 
          }
@@ -106,18 +108,21 @@ public class PostController {
    
    @PostMapping("/home/{userName}")
    
-   public String getString(HttpServletRequest request, RedirectAttributes redirectAttribute, Model model,
+   public String getString(HttpServletRequest request, MultipartHttpServletRequest multireq, RedirectAttributes redirectAttribute, Model model,
          @PathVariable String userName, @RequestParam MultipartFile file) 
          throws IllegalStateException, IOException {
-      
+	   log.info("이게 내 이름이다!? : " + userName);
 	   	   String urlusername = "";
-           User urlUser = userMapper.getUserByUsername(userName);
-           urlusername = urlUser.getUser_id();
-      
+	   	   User urlUser;
+           urlUser = userMapper.getUserByUsername(userName);
+           log.info("Post페이지의 유저정보 : " + urlUser);
+           urlusername = urlUser.getUname();
+           log.info("Post페이지의 이름 : " + urlusername);
            Cookie[] cookies = request.getCookies();
          
          String mySid = "";
-         
+         Iterator<String> itr = multireq.getFileNames();
+         List<MultipartFile> mpf = multireq.getFiles(itr.next());
          if(cookies == null) {
             
             return "user/login";
@@ -128,12 +133,20 @@ public class PostController {
                      mySid = cookie.getValue();
             
             // 고른 이미지로 업데이트 
-            userMapper.updateUser(urlusername, "../resources/images/" + file.getOriginalFilename());
+            userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
             redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
             if (!file.isEmpty()) {
-               String fullPath = fileDir + file.getOriginalFilename();
+               
+            	//String relativePath = multireq.getSession().getServletContext().getRealPath("resources/images");
+            	//String fullPath = fileDir + file.getOriginalFilename();
+            	String root_path = request.getSession().getServletContext().getRealPath("/");
+            	String attach_path = "\\resources\\images\\";
+            	System.out.println("root패뜨 : " + root_path);
+            	//String fullPath = relativePath + file.getOriginalFilename();
+            	String fullPath = root_path + attach_path + file.getOriginalFilename();
                log.info(" fullPath={}", fullPath);
                file.transferTo(new File(fullPath));
+      
             }
             // !이미지 업데이트 끝
             //////////////////////////////////////
