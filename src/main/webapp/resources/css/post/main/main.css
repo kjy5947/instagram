@@ -108,7 +108,7 @@ body {
   }
 
 .postbox {
-    display: grid;
+    display: grid; 
     width: 700px;
     border: lightgray solid 1px;
     margin-left: 320px;
