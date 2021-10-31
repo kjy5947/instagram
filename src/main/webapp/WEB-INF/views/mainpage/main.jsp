@@ -178,17 +178,18 @@
                     bookmark_border
                 </span>
             </div>
-            <div class="likecount">좋아요 3개</div>
+            <c:forEach var="likeCount" items="${post.likeCountList }">
+	            <div class="likecount">좋아요 ${likeCount.count}개</div>
+            </c:forEach>
 
             <div style="grid-column: 1/5;
                         margin-left: 15px;
                         margin-top: 15px;">
                 
                 <details style="font-size: 14px;">
-                    <summary><span style="font-weight: bold; font-size: 12px; display: inline; padding-right: 10px; letter-spacing: 2px;">usm369</span>더 보기</summary>
-                    <p>내부에 넣을 내용을 입력해주세요 내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
-                        내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
-                        내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
+                    <summary><span style="font-weight: bold; font-size: 12px; display: inline; padding-right: 10px; letter-spacing: 2px;">${post.uname}</span>더 보기</summary>
+                    <p>
+                    	${post.pcontents }
                     </p>
                 </details>
 
