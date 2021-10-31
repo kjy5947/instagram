@@ -58,6 +58,7 @@
 			<li>${post.modify_time }</li>
 			<li>${post.pcontents }</li>
 			<li>${post.uname }</li>
+            <li>${post.profile_img}</li>
             <c:forEach var="like" items="${post.likeList }">
                 <li>좋아요: ${like.user_id}</li>
                 <li>좋아요 시간:${like.like_time}</li>
@@ -68,6 +69,9 @@
             <c:forEach var="image" items="${post.imageList }">
                 <li>이미지: ${image.pimg}</li>
             </c:forEach>
+            <c:forEach var="imageCount" items="${post.imageCountList }">
+                <li>이미지: ${imageCount.count}</li>
+            </c:forEach>
             <c:forEach var="comment" items="${post.commentList }">
                 <li>댓글 작성자: ${comment.user_id}</li>
                 <li>댓글 내용:${comment.contents}</li>
@@ -75,84 +79,125 @@
             <c:forEach var="commentCount" items="${post.commentCountList }">
                 <li>총 댓글 갯수: ${commentCount.count}</li>
             </c:forEach>
+           	
+            <c:forEach var="imageCount" items="${post.imageCountList }">
+            	<c:set var="imageCountJSP" value="${imageCount.count}"/>
+            	<%
+            		Integer imageCountJSP = (Integer)pageContext.getAttribute("imageCountJSP");
+            		pageContext.setAttribute("imageCountJSTL", imageCountJSP);
+            	%>
+            	<% for (int i = 0; i < imageCountJSP; ++i) {%>
+            		
+            		<h3>i</h3>
+            	<%}%>
+                
+            </c:forEach>
 
 		</c:forEach>
 	</ul> -->
 	
+	<% 
+		int postNum = 0; 
+		String postCarouselName;
+	%>
+    <c:forEach var="post" items="${posts }">
     
-    <div class="postbox">
-        <img class="facebox" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Antarctica_2013_Journey_to_the_Crystal_Desert_%288370623298%29.jpg/250px-Antarctica_2013_Journey_to_the_Crystal_Desert_%288370623298%29.jpg" 
-         alt="공백">
-        <span class="postname">usm369</span>
+    	<%
+    		postCarouselName = "carousel-example-generic" + postNum;
+    		pageContext.setAttribute("carouselId", postCarouselName);
+    		postNum++;
+    	%>
+        <div class="postbox">
+            <img class="facebox" src="${post.profile_img}" alt=".">
+            <span class="postname">${post.uname}</span>
 
-        <div style="grid-column: 1/5; object-fit: cover;" id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-            </ol>
-          
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
-              <div class="item active">
-                <img width="100%" src="https://w.namu.la/s/fdeb18748079eec1a3b9e27dc1b5bea0e0a52e22d7517f2e405006d19bdb339d8c876f233afc7b6f42564b33846ca98483a44d9abbabcf5f9c89cd9957193c6f95f4085f292c3ddb48b4acef82c05005" alt="...">
-                <div class="carousel-caption">
-                  ...
-                </div>
-              </div>
-              <div class="item">
-                <img width="100%" src="https://w.namu.la/s/fdeb18748079eec1a3b9e27dc1b5bea0e0a52e22d7517f2e405006d19bdb339d8c876f233afc7b6f42564b33846ca98483a44d9abbabcf5f9c89cd9957193c6f95f4085f292c3ddb48b4acef82c05005" alt="...">
-                <div class="carousel-caption">
-                  ...
-                </div>
-              </div>
-              <div class="item">
-                <img width="100%" src="https://w.namu.la/s/fdeb18748079eec1a3b9e27dc1b5bea0e0a52e22d7517f2e405006d19bdb339d8c876f233afc7b6f42564b33846ca98483a44d9abbabcf5f9c89cd9957193c6f95f4085f292c3ddb48b4acef82c05005" alt="...">
-                <div class="carousel-caption">
-                  ...
-                </div>
-              </div>
-            </div>
-          
-            <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-        </div>
+            <div style="grid-column: 1/5; object-fit: cover;" id="${carouselId}" class="carousel slide" data-ride="carousel">
 
-        <div class="posticons">
-            <span style="padding-right: 10px; font-size: 30px;" class="material-icons-outlined">
-                favorite_border
-            </span>
-            <i style="vertical-align: top; padding-top: 2px; padding-right: 10px; font-size: 25px;" class="fa-regular fa-comment"></i>
-            <i style="vertical-align: top; padding-top: 2px; padding-right: 10px; font-size: 25px;" class="far fa-paper-plane"></i>
-            <span style="float: right; padding-right: 10px; font-size: 30px;" class="material-icons-outlined">
-                bookmark_border
-            </span>
-        </div>
-        <div class="likecount">좋아요 3개</div>
-
-        <div style="grid-column: 1/5;
-                    margin-left: 15px;
-                    margin-top: 15px;">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                <li data-target="#${carouselId}" data-slide-to="0" class="active"></li>
+                
+                <!--이미지 개수 지정-->
+                <!--이미지의 개수 뽑아내서 jstl값으로 변경 후 넣기 -->
+                <c:forEach var="imageCount" items="${post.imageCountList }">
+            	<c:set var="imageCountJSP" value="${imageCount.count}"/>
+            	<%
+            		Integer imageCountJSP = (Integer)pageContext.getAttribute("imageCountJSP");
+            		pageContext.setAttribute("imageCountJSTL", imageCountJSP);
+            	%>
+            	<% for (int i = 1; i < imageCountJSP; ++i) {
+            		pageContext.setAttribute("num", String.valueOf(i));
+            	%>
+            		<li data-target="#${carouselId}" data-slide-to="${num}"></li>
+            	<%}%>
+            	</c:forEach>
+                
+                </ol>
+                
+                <!-- Wrapper for slides 이미지 경로 입력-->
+                <div class="carousel-inner" role="listbox">
+                <% int i = 0; %>
+	                <c:forEach var="image" items="${post.imageList }">
+	                	<%	
+	                		String item;
+		                	if (i == 0) {
+		                		item = "item active";
+		                	} else {
+		                		item = "item";
+		                	}
+	                		++i;
+	                		pageContext.setAttribute("item", item);
+	                		
+	                	%>
+	                	<div class="${item}">
+		                    <img width="100%" src="${image.pimg}" alt="${image.pimg}">
+		                    <div class="carousel-caption">
+		                    </div>
+	                	</div>
+	            	</c:forEach>
+                </div>
             
-            <details style="font-size: 14px;">
-                <summary><span style="font-weight: bold; font-size: 12px; display: inline; padding-right: 10px; letter-spacing: 2px;">usm369</span>내용</summary>
-                <p>내부에 넣을 내용을 입력해주세요 내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
-                    내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
-                    내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
-                </p>
-            </details>
+                <!-- Controls -->
+                <a class="left carousel-control" href="#${carouselId}" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#${carouselId}" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+            <div class="posticons">
+                <span style="padding-right: 10px; font-size: 30px;" class="material-icons-outlined">
+                    favorite_border
+                </span>
+                <i style="vertical-align: top; padding-top: 2px; padding-right: 10px; font-size: 25px;" class="fa-regular fa-comment"></i>
+                <i style="vertical-align: top; padding-top: 2px; padding-right: 10px; font-size: 25px;" class="far fa-paper-plane"></i>
+                <span style="float: right; padding-right: 10px; font-size: 30px;" class="material-icons-outlined">
+                    bookmark_border
+                </span>
+            </div>
+            <div class="likecount">좋아요 3개</div>
+
+            <div style="grid-column: 1/5;
+                        margin-left: 15px;
+                        margin-top: 15px;">
+                
+                <details style="font-size: 14px;">
+                    <summary><span style="font-weight: bold; font-size: 12px; display: inline; padding-right: 10px; letter-spacing: 2px;">usm369</span>더 보기</summary>
+                    <p>내부에 넣을 내용을 입력해주세요 내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
+                        내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
+                        내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요내부에 넣을 내용을 입력해주세요
+                    </p>
+                </details>
+
+                
+            </div>
+            
+            
         </div>
-    
-        
-    </div>
+    </c:forEach>
 
 
     

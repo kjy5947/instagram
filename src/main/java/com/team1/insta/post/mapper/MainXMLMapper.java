@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.team1.insta.post.dto.PidCommentCount;
 import com.team1.insta.post.dto.PidComments;
+import com.team1.insta.post.dto.PidImageCount;
 import com.team1.insta.post.dto.PidImages;
 import com.team1.insta.post.dto.PidLike;
 import com.team1.insta.post.dto.PidLikeCount;
@@ -17,6 +18,8 @@ public interface MainXMLMapper {
 	public List<PidLikeCount> getLikeCountList(String post_id);
 	
 	public List<PidImages> getImages(String post_id);
+	
+	public List<PidImageCount> getImageCount(String post_id);
 	
 	public List<PidComments> getCommentList(String post_id);
 	
