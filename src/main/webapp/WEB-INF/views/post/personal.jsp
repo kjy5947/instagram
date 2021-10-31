@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${user.uname }</title>
 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -16,7 +16,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="<c:url value = "../resources/css/post/personal/personalMain.css"/>">-->
 <link rel="stylesheet"
-	href="../resources/css/post/personal/personalMain.css" />
+	href="../resources/css/post/personal/personalMain.css?ver=2" />
+
 
 
 </head>
@@ -32,15 +33,16 @@
 			<div class="profile-left">
 				<div class="profile-img-wrap story-border"
 					onclick="popup('modal-image')">
-					<form name="userProfileImageForm" id="userProfileImageForm" />
+					<form name="userProfileImageForm" id="userProfileImageForm" method="POST" action="${oneUser.uname}"/>
 					<input type="file" name="file" style="display: none;"
 						id="userProfileImage" />
 					</form>
-					<img name="profileimage" value=${oneUser.profile_img
-						} class="profile-image" src=${oneUser.profile_img
-						}
-					onerror="this.src='../resources/images/darami.jpg'"
-						id="basicUserProfileImage" />
+
+					<img name="profileimage" value=${oneUser.profile_img}
+					 class="profile-image" src=${oneUser.profile_img}
+						id="basicUserProfileImage"
+						onerror="this.src='../resources/images/originalProfile.jpg'" />
+
 
 					<!-- <img class="profile-image" src="../resources/images/myprofile.png"
 					 id="userProfileImage" />
@@ -52,14 +54,16 @@
 
 			<div class="profile-right">
 				<div class="name-group">
-					<h2>${user.uname }</h2>
+					<h2>${oneUser.uname }</h2>
 
-					<button class="subbtn" onclick="location.href='../post/upload'">사진등록</button>
-					<button class="subbtn" onclick="">구독하기</button>
+					<button id="btn1" class="subbtn" onclick="location.href='../post/upload'">사진등록</button>
+					<button id="btn2" class="subbtn" onclick="">구독하기</button>
 					<button class="modified" onclick="popup('modal-info')">
 						<i class="fas fa-cog"></i>
 					</button>
 				</div>
+
+	<!-- 
 
 				<div class="subscribe">
 					<ul>
@@ -68,16 +72,18 @@
 						<li><a href=""> 팔로잉</a><span>${fn:length(followingrList) }</span></li>
 					</ul>
 				</div>
+	 -->
 				<div class="state">
-					<h4>자기 소개입니다.</h4>
+					<h4>${oneUser.user_introduce}</h4>
 				</div>
 			</div>
+			<!--  profile-right  -->
 
 
 		</div>
 	</section>
 
-
+	
 	<div id="content">
 		<button class="contentBtn" id="post">
 			<i class="fas fa-border-all"></i>게시물
@@ -90,13 +96,16 @@
 		</button>
 	</div>
 
-
-
+ 
 
 	<div id="postContentOut">
 
 	</div>
-	<div id="taggedContentOut"></div>
+	
+	<div id="taggedContentOut">
+	
+	</div>
+
 
 	<!-- 프로필 바꾸기 모달 -->
 
@@ -125,8 +134,14 @@
 	<!-- profile section 끝 -->
 
 </body>
+
 <script>
 	const uname = '${user.uname}';
+	const userProfileImg = '${user.profile_img}';
+	const userId = '${user.user_id}';
+	// const loginUserId = '${loginUser.user_id}';
+	const loginUserId = '90';
+	
 	const postList = JSON.parse('${postList}');
 	const imagesList = JSON.parse('${imagesList}');
 	const postJoinImageList = JSON.parse('${postJoinImageList}');
@@ -136,7 +151,12 @@
 	const followingrList = JSON.parse('${followingrList}');
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
+
 <script src="../resources/js/post/personal/personalMain.js"></script>
+
+<script src="../resources/js/post/personal/personalMain.js?ver=1"></script>
+
+
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
 	integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"

@@ -1,5 +1,12 @@
 package com.team1.insta.user.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,24 +36,27 @@ public class UserController {
 	
 	private final UserMapper userMapper;
 	//private final UserMapper usermp;
-	
-	/*
-	@GetMapping("users/{userName}/profile")
-	public String editProfilePage() {
-	    return "post/personal/profileEdit";
-	}
-	@PostMapping("/upload")
-	public String saveFile(@RequestParam MultipartFile file) throws IOException {
-		if (!file.isEmpty()) {
-			String fullPath = fileDir + file.getOriginalFilename();
-			log.info("占쏙옙占쏙옙 占쏙옙占쏙옙 fullPath={}", fullPath);
-			file.transferTo(new File(fullPath));
-		}
-		return "post/personal/profileEdit";
-	}
-	*/
+
 	@GetMapping("/users/{userName}")
-	public String editUserPage() {
+	public String editUserPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String userName)
+			throws IOException {
+		
+		Cookie[] cookies = request.getCookies();
+		String mySid = "";
+		PrintWriter outt = response.getWriter();
+		
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals("sid")) {
+				mySid = cookie.getValue();
+				if(userName.equals(mySid)) {
+					
+				}else {
+					System.out.println("이거 맞냐고");
+					outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='redirect:/';</script>");
+					outt.flush();
+				}
+			}
+		}
 	    return "user/update";
 	}
 	
@@ -66,7 +76,6 @@ public class UserController {
 		userMapper.updateUserInfo(userName, editedname, phoneNum, followacpt, realName);
 		
 		
-		// to do: DB占쏙옙 占쏙옙회占쌔쇽옙 user占쏙옙체占쏙옙 占쏙옙티占� 占싼곤옙占쌍깍옙
 	    return "user/update";
 	}
 	

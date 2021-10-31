@@ -19,17 +19,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team1.insta.user.dao.mapper.UserMapper;
 
+import jdk.internal.org.jline.utils.Log;
+import lombok.extern.log4j.Log4j;
+
+
+@Log4j
 @Controller
 @RequestMapping("")
 public class LoginController {
 	
+
 	@Autowired
 	UserMapper userMapper;
+	
+	
+	public void makeCookieVal(HttpServletResponse res, String id_val) {
+		
+		Cookie cookie = new Cookie("sid", id_val);
+		
+		cookie.setMaxAge(60*120);//2시간 동안 쿠키값유지하게 해줌.
+		log.info("나의 sid : "+ cookie);
+		log.info(cookie.getValue());
+		res.addCookie(cookie);
+	}
+	
 	
 	@GetMapping("")
 	public String home() {
 		return "user/login";
 	}
+	
 	
 	@PostMapping("")
 	public String idCheck(@RequestParam("idvalue") String id, @RequestParam("pwvalue") String pw, HttpSession session, Model model, HttpServletResponse res) throws IOException {
@@ -49,11 +68,8 @@ public class LoginController {
 					if(userMapper.getList().get(i).getPassword().equals(pw))
 					{
 						//session.setAttribute("sid", id);
-						Cookie cookie = new Cookie("sid", id);
-						
-						cookie.setMaxAge(60*120);//2시간 동안 쿠키값유지하게 해줌.
-						res.addCookie(cookie);
-						
+						makeCookieVal(res, id);
+						log.info("1");
 						return "mainpage/main";
 					}
 				}
@@ -77,7 +93,9 @@ public class LoginController {
 					idCheck = true;
 					if(userMapper.getList().get(i).getPassword().equals(pw))
 					{
-						session.setAttribute("sid", id);
+						//session.setAttribute("sid", id);
+						makeCookieVal(res, id);
+						
 						return "mainpage/main";
 					}
 				}
@@ -99,7 +117,9 @@ public class LoginController {
 					idCheck = true;
 					if(userMapper.getList().get(i).getPassword().equals(pw))
 					{
-						session.setAttribute("sid", id);
+						//session.setAttribute("sid", id);
+						makeCookieVal(res, id);
+						
 						return "mainpage/main";
 					}
 				}
@@ -116,5 +136,8 @@ public class LoginController {
 		
 		return "user/login";	
 	}
+	
+	
+	
 
 }
