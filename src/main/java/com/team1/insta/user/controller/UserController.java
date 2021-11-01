@@ -84,7 +84,7 @@ public class UserController {
 		log.info("이미 있는 계정 :"+ editedname);
 		if(userMapper.existUser(editedname)!=null && !userName.equals(userMapper.existUser(editedname))) {
 			
-			out.println("<script language='javascript'>alert('이미 등록된 계정입니다.');"+"location.href='/instagram/users/"+userName+"';</script>");
+			out.println("<script language='javascript'>alert('이미 등록된 계정입니다.');"+"location.href='/insta/users/"+userName+"';</script>");
 			out.flush();
 //				return "redirect:" + "/users/" + userName;
 		}
