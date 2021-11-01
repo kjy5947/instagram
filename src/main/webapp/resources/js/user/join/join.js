@@ -1,7 +1,6 @@
-/**
- * 
- */
- var idResult = false;
+/*
+ 
+
  function checkId(){
     var uname = $('#uname').val();
     
@@ -29,13 +28,14 @@
     }
     checkAll();
 };
-
+ 
+ 
+ 
+ */
+   var idResult = false;
 function checkAll(){
     var joinBtn = document.getElementById('join-btn');
-	if(document.getElementById('email').checkValidity() &&
-	   document.getElementById('rname').checkValidity() &&
-	   document.getElementById('phone_number').checkValidity() &&
-	   document.getElementById('pwd').checkValidity() && idResult){
+	if(document.getElementById('pwd').checkValidity() && idResult){
 		joinBtn.disabled = false;
 	} else {
 		joinBtn.disabled = true;

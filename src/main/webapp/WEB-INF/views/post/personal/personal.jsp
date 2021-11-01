@@ -56,7 +56,7 @@
 				<div class="name-group">
 					<h2>${oneUser.uname }</h2>
 
-					<button id="btn1" class="subbtn" onclick="location.href='../post/upload'">사진등록</button>
+					<button id="btn1" class="subbtn" onclick="location.href='../post/upload'">게시물 등록</button>
 					<button id="btn2" class="subbtn" onclick="">구독하기</button>
 					<button class="modified" onclick="popup('modal-info')">
 						<i class="fas fa-cog"></i>
@@ -123,7 +123,8 @@
 	<div class="modal-info">
 	   <div class="modal">
 	
-	      <button id="profileImage" onclick="profileEdit()">개인정보 변경</button>
+	      <button id="profileImage" onclick="profileEdit()">개인정보 수정</button>
+	      <button id="profileImage" onclick="passwordEdit()">비밀번호 변경</button>
 	      <button onclick="closePopup('modal-info')">취소</button>
 	   </div>
 	</div>
@@ -153,8 +154,6 @@
 </script>
 
 <script src="../resources/js/post/personal/personalMain.js"></script>
-
-<script src="../resources/js/post/personal/personalMain.js?ver=1"></script>
 
 
 <link rel="stylesheet"
