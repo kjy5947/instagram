@@ -57,7 +57,7 @@ function profileEdit(){
 
 	var params = strr.indexOf("home");
 	var xx = strr.substring(params+4);
- 	location.replace("/instagram/users" + xx);
+ 	location.replace("/insta/users" + xx);
 }
 
 function passwordEdit(){
@@ -66,7 +66,7 @@ function passwordEdit(){
 
 	var params = fullUrl.indexOf("home");
 	var username = fullUrl.substring(params+4);
- 	location.replace("/instagram/password" + username);
+ 	location.replace("/insta/password" + username);
 }
 
 
