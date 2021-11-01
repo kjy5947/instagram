@@ -78,7 +78,7 @@ public class PostController {
       Cookie[] cookies = request.getCookies();
       
 
-      
+      int cnt = 0;
       String mySid = "";
       String urlusername ="";
       
@@ -88,15 +88,18 @@ public class PostController {
       }else {
       
          for(Cookie cookie :cookies)
-            if(cookie.getName().equals("sid"))
+            if(cookie.getName().equals("sid")) {
                   mySid = cookie.getValue();
+                  System.out.println(cnt++);
+            }
          //////////////////////////////////////
 
          model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
-         User urlUser = userMapper.getUserByUsername(userName);      
+         User urlUser;
+         urlUser = userMapper.getUserByUsername(userName);      
          urlusername = urlUser.getUname();
          if(urlusername.equals(mySid)) {
-            return "post/personal"; 
+            return "post/personal/personal"; 
          }
          else {
             return "redirect:" + "/";
@@ -121,8 +124,7 @@ public class PostController {
            Cookie[] cookies = request.getCookies();
          
          String mySid = "";
-         Iterator<String> itr = multireq.getFileNames();
-         List<MultipartFile> mpf = multireq.getFiles(itr.next());
+
          if(cookies == null) {
             
             return "user/login";

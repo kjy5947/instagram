@@ -8,7 +8,8 @@ import lombok.Data;
 public class EditRequest {
 	
 	private String uname;
-	private String phone_number;
-	private Character follow_accept;
-	private String real_name;
+	private String userIntroduce;
+	private String followAccept;
+	private String realName;
+	private String phoneNumber;
 }

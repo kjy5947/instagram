@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 .main{
+	box-sizing: border-box;
 	padding-top:55px;
 
 }
@@ -19,17 +20,22 @@
 .editted-profile .editted-content{
 
 	/*border:1px solid green;*/
+	float : right;
+	width : 800px;
 	border-left : 1px solid gainsboro;
 	display : flex;
 	flex-direction : column;
 	padding-top:32px;
-	margin-right:10%;
+	/*margin-right:10%;*/
 }
 
 
+/* 이미지 프로필 영역 */
 .editted-profile .editted-content .content__item1{
 	/*border:1px solid blue;*/
+	
 	display:flex;
+	margin-left : 10%;
 	margin-bottom:20px;
 }
 
@@ -39,11 +45,13 @@
 	margin-top:20px;
 }
 
+/* 이미지, form 바로 감싸는 영역*/
 .editted-profile .editted-content .content__item1 .item-img{
 	flex: 2;
 	text-align: right;
 	padding-right:30px;
 }
+
 
 .editted-profile .editted-content .content__item1 .item-img img{
 	width:38px;
@@ -53,36 +61,55 @@
 	border-radius:50%;
 }
 
+/* 이미지옆에 보이는 username*/
 .editted-profile .editted-content .content__item1 .item-username{
+	margin-top:17px;
 	flex:4;
 }
 
-.item-title{
+
+form{
+	/*border : 1px solid red;*/
+	float : right;
+	width: 80%;
+	
+}
+
+.editted-profile .editted-content .item-title{
 	
 	flex: 2;
+	/*border : 3px solid orange;*/
 	padding-right:30px;
 	text-align:right;
 	font-size:17px;
 	font-weight: 600;
 	padding-top:7px;
 }
-
+/* input 감싸는 div 넓이 조정 */
+.item-input{
+	
+	width : 65%;
+}
 .item-input > input{
 	border: 1px solid #dbdbdb;
 	height:32px;
+	width: 100%;
 	padding: 0 10px;
 	border-radius : 3px;
 	font-size: 16px;
 	
 }
 
-.item-input > textarea{
-	  border: 1px solid #dbdbdb;
-	  padding: 5px 10px;
-	  border-radius: 3px;
-	  font-size: 16px;
+.content__item4 .item-input{
+	border : 2px solid blue;
+	height:20px;
 }
 
+.check {
+	height : 100%;
+	border : 2px solid pink;
+	margin-right : 80px;
+}
 
 .editted-profile .editted-content .content__item5 .item-input{
 	display: block;
@@ -94,20 +121,21 @@
   padding-top: 10px;	
   
 }
-
-.editted-profile .editted-content .content__item3 .item-input{
-	display:flex;
-	
-	align-items:center;
-	justify-content:space-between;
+textarea{
+		width: 100%;
+	  border: 1px solid #dbdbdb;
+	  padding: 5px 10px;
+	  border-radius: 3px;
+	  font-size: 16px;
 }
+
 
 .content__item8{
 	
-	border: 1px solid pink;
+	/*border: 1px solid pink;*/
 }
 
-.btn{
+.content__item8 .item-input .btn{
   border: 0;
   background-color: #0095f6;
   padding: 5px 9px;
