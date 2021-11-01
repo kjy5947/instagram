@@ -185,15 +185,42 @@
             <div style="grid-column: 1/5;
                         margin-left: 15px;
                         margin-top: 15px;">
+                <!-- 보여저는 댓글 분리 -->
+                <c:set var="comment" value="${post.pcontents }"/>
+                <%
+                	String commentString = (String)pageContext.getAttribute("comment");
                 
+                	char[] commentStringArray = commentString.toCharArray();
+                	
+                	String prev = "";
+                	String main = "";
+                	for (int j = 0; j < commentStringArray.length; ++j) {
+                		if (j < 30) {
+                			prev += commentStringArray[j];
+                		} else {
+                			main += commentStringArray[j];
+                		}
+                	}
+                	String more = "";
+                	if (commentStringArray.length >= 30) {
+                		more += " 더 보기";
+        			}
+                	pageContext.setAttribute("more", more);
+                	pageContext.setAttribute("prev", prev);
+                	pageContext.setAttribute("main", main);
+                	
+                %>
                 <details style="font-size: 14px;">
-                    <summary><span style="font-weight: bold; font-size: 12px; display: inline; padding-right: 10px; letter-spacing: 2px;">${post.uname}</span>더 보기</summary>
+                    <summary><span style="
+	                    font-weight: bold;
+	                    font-size: 12px;
+	                    display: inline; 
+	                    padding-right: 10px;
+	                    letter-spacing: 2px;">${post.uname}</span>${prev}<span style="color: rgb(167, 164, 164)">${more}</span></summary>
                     <p>
-                    	${post.pcontents }
+                    	${main}
                     </p>
                 </details>
-
-                
             </div>
             
             
