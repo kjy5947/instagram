@@ -255,6 +255,22 @@ div[id^="popupWrapper"].hide {
 	object-fit: cover;
 }
 
+.heartFadeInAndOut {
+	position: absolute;
+	top:45%;
+	left: 45%;
+	opacity: 0;
+    animation: fade 2s linear;
+    color: white;
+    font-size: 70px;
+}
+
+@keyframes fade {
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
+}
+
+
 .leftarrowBtn, .rightarrowBtn  {
 	cursor: pointer;
   	position: absolute;
@@ -334,11 +350,21 @@ button[id^="followBtn"].following {
 }
 
 .postComments{
-	height: 60px;
+	height: 80%;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	overflow-y: auto;
 }
+/* post popup comment scroll bar hide*/
+.postComments { 
+	-ms-overflow-style: none;
+}
+
+.postComments::-webkit-scrollbar{ 
+	display:none;
+}
+
 
 .postCommentsLi, .otherUserComment {
 	display: flex;
@@ -369,13 +395,34 @@ button[id^="followBtn"].following {
 .commentFooter {
 	position: absolute;
 	width: 100%;
-	height: 100px;
+	height: 130px;
 	bottom: 0;
 	right: 0;
 	border-top: #DCDCDC 1px solid;
 }
 
+.likeHeart {
+	margin-left: 10px;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.likeHeart.heart {
+	color : red;
+}
+
+.likeHeart > i {
+	pointer-events: none;
+}
+
+.commentIcon {
+	margin-left: 15px;
+	font-size: 25px;
+	cursor: pointer;
+}
+
 .viewLikeCnt {
+	margin-top: 10px;
 	font-weight: bold;
 	margin-left: 10px;
 	font-size: 15px;

@@ -42,7 +42,7 @@
 
 	<select id="getCommentList"
 		resultType="com.team1.insta.post.dto.CommentManage">
-		SELECT * FROM comment_manage where pid = #{pId}
+		SELECT * FROM comment_manage where pid = #{pId} ORDER BY cid
 	</select>
 
 	<insert id="leaveComment">
@@ -72,5 +72,23 @@
 		resultType="com.team1.insta.post.dto.Follow">
 		SELECT * FROM follow WHERE from_user= #{from_user} AND to_user = #{to_user}
 	</select>
+	
+	<select id="likeDecide"
+		resultType="com.team1.insta.post.dto.LikeManage">
+		SELECT * FROM like_manage WHERE pid= #{pId} AND user_id= #{userId}
+	</select>
+
+	<insert id="addLike">
+		insert into like_manage values (
+		like_manage_seq.nextval,
+		#{pId},
+		#{userId},
+		sysdate
+		)
+	</insert>
+
+	<delete id="deleteLike">
+		DELETE FROM like_manage WHERE pid= #{pId} AND user_id= #{userId}
+	</delete>
 
 </mapper>

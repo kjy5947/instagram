@@ -26,5 +26,7 @@ public interface PostMapper {
 	public int addFollow(@Param("from_user") String from_user, @Param("to_user") String to_user);
 	public int deleteFollow(@Param("from_user") String from_user, @Param("to_user") String to_user);
 	public List<Follow> FollowDecide(@Param("from_user") String from_user, @Param("to_user") String to_user);
-	
+	public List<LikeManage> likeDecide(@Param("pId") String pId, @Param("userId") String userId);
+	public int addLike(@Param("pId") String pId, @Param("userId") String userId);
+	public int deleteLike(@Param("pId") String pId, @Param("userId") String userId);
 }

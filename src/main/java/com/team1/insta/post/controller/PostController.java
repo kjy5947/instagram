@@ -258,19 +258,19 @@ public class PostController {
 
 		String mySid = null;
 
-//		if(cookies == null) {
-//
-//			return "redirect:" + "user/login";
-//		}else {
-//
-//			for(Cookie cookie :cookies) {
-//				if(cookie.getName().equals("sid")) {
-//					mySid = cookie.getValue();
-//				}
-//			}
-//		}
+		if(cookies == null) {
+
+			return "redirect:" + "user/login";
+		}else {
+
+			for(Cookie cookie :cookies) {
+				if(cookie.getName().equals("sid")) {
+					mySid = cookie.getValue();
+				}
+			}
+		
 			
-			//			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
+			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
 
 			model.addAttribute("user", user);
 
@@ -284,7 +284,7 @@ public class PostController {
 			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
 
 			return "post/personal";
-		
+		}
 
 	}
 }

@@ -1,7 +1,11 @@
 package com.team1.insta.post.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.team1.insta.post.dao.mapper.PostMapper;
 import com.team1.insta.post.dto.CommentManage;
 import com.team1.insta.post.dto.Follow;
+import com.team1.insta.post.dto.LikeManage;
+import com.team1.insta.post.dto.PostJoinImages;
 import com.team1.insta.user.dao.mapper.UserMapper;
 import com.team1.insta.user.dto.User;
 
@@ -81,5 +87,57 @@ public class PostRestController {
 		
 		
 		return followListEntity;
+	}
+	
+	@PostMapping(value = "/likeDecide", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<LikeManage>> likeDecide(@RequestBody LikeManage likeManage) {
+		
+		List<LikeManage> likeList =  postMapper.likeDecide(likeManage.getPid(), likeManage.getUser_id());
+		
+		ResponseEntity<List<LikeManage>> likeListEntity =  ResponseEntity
+				.status(HttpStatus.OK)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(likeList);
+		
+		
+		return likeListEntity;
+	}
+	
+	@PostMapping(value = "/addLike", produces = MediaType.APPLICATION_JSON_VALUE)
+	public void addLike(@RequestBody LikeManage likeManage) {
+				
+		List<LikeManage> likeList =  postMapper.likeDecide(likeManage.getPid(), likeManage.getUser_id());
+		
+		if(likeList.size() < 1 ) {
+			postMapper.addLike(likeManage.getPid(), likeManage.getUser_id());
+		}
+				
+	}
+	
+	@PostMapping(value = "/deleteLike", produces = MediaType.APPLICATION_JSON_VALUE)
+	public void deleteLike(@RequestBody LikeManage likeManage) {
+
+		postMapper.deleteLike(likeManage.getPid(), likeManage.getUser_id());
+		
+	}
+	
+	@PostMapping(value = "/likeRealTimeLookup", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Integer> likeRealTimeLookup(@Param("pid") String pid) {
+		
+		Map<String, Integer> cnt = new HashMap<>();
+		
+		List<LikeManage> likeManage = postMapper.getLikeManage(pid);
+		List<CommentManage> commentManage =postMapper.getCommentList(pid);
+		
+		cnt.put("like", likeManage.size());
+		cnt.put("comment", commentManage.size());
+		
+		
+//		ResponseEntity<List<LikeManage>> likeListEntity =  ResponseEntity
+//				.status(HttpStatus.OK)
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.body(likeManage);
+		
+		return cnt;
 	}
 }
