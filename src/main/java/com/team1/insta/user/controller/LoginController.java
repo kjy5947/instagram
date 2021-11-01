@@ -37,8 +37,8 @@ public class LoginController {
 		
 		Cookie cookie = new Cookie("sid", id_val);
 		
-		cookie.setMaxAge(60*120);//2½Ã°£ µ¿¾È ÄíÅ°°ªÀ¯ÁöÇÏ°Ô ÇØÁÜ.
-		log.info("³ªÀÇ sid : "+ cookie);
+		cookie.setMaxAge(60*120);//2ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½.
+		log.info("ï¿½ï¿½ï¿½ï¿½ sid : "+ cookie);
 		log.info(cookie.getValue());
 		res.addCookie(cookie);
 	}

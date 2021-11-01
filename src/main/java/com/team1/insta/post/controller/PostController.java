@@ -59,55 +59,54 @@ import com.team1.insta.user.dto.User;
 @Slf4j
 public class PostController {
 
+	@Autowired
+	UserMapper userMapper;
 
-   @Autowired
-   PostMapper postMapper;
-   
-   @Autowired
-   UserMapper userMapper;
+	@Autowired
+	PostMapper postMapper;
+
+
 
    @Value("${file.dir}")
    private String fileDir;
 
    
-   
-   @GetMapping("/home/{userName}")
-   public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
-      
-	   log.info(userName);
-      Cookie[] cookies = request.getCookies();
-      
+	@GetMapping("/home/{userName}")
+	public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
 
-      int cnt = 0;
-      String mySid = "";
-      String urlusername ="";
-      
-      if(cookies == null) {
-         
-         return "redirect:" + "user/login";
-      }else {
-      
-         for(Cookie cookie :cookies)
-            if(cookie.getName().equals("sid")) {
-                  mySid = cookie.getValue();
-                  System.out.println(cnt++);
-            }
-         //////////////////////////////////////
+		log.info(userName);
+		Cookie[] cookies = request.getCookies();
 
-         model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
-         User urlUser;
-         urlUser = userMapper.getUserByUsername(userName);      
-         urlusername = urlUser.getUname();
-         if(urlusername.equals(mySid)) {
-            return "post/personal/personal"; 
-         }
-         else {
-            return "redirect:" + "/";
-         }
-          
-      }
-      
-   }
+
+
+		String mySid = "";
+		String urlusername ="";
+
+		if(cookies == null) {
+
+			return "redirect:" + "user/login";
+		}else {
+
+			for(Cookie cookie :cookies)
+				if(cookie.getName().equals("sid"))
+					mySid = cookie.getValue();
+			//////////////////////////////////////
+
+			model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
+			User urlUser = userMapper.getUserByUsername(userName);      
+			urlusername = urlUser.getUname();
+			if(urlusername.equals(mySid)) {
+				return "post/personal/personal"; 
+			}
+			else {
+				return "redirect:" + "/";
+			}
+
+		}
+
+
+	}//getString 끝
+
    
    @PostMapping("/home/{userName}")
    
@@ -143,7 +142,7 @@ public class PostController {
             	//String fullPath = fileDir + file.getOriginalFilename();
             	String root_path = request.getSession().getServletContext().getRealPath("/");
             	String attach_path = "\\resources\\images\\";
-            	System.out.println("root패뜨 : " + root_path);
+
             	//String fullPath = relativePath + file.getOriginalFilename();
             	String fullPath = root_path + attach_path + file.getOriginalFilename();
                log.info(" fullPath={}", fullPath);
@@ -217,4 +216,76 @@ public class PostController {
       return "post/personal";
    }
 
+
+
+
+
+
+
+	// 개인페이지
+
+
+	@GetMapping("/post/personal")
+	public String userInfo(@RequestParam(value ="uname") String uname, Model model, HttpServletRequest request) {
+
+		User user = userMapper.getUserBytype(new KeyConfirm("", uname));
+
+		List<Post> postList =  postMapper.getPostList(user.getUser_id());
+		List<List<Images>> imagesList = new ArrayList<>();
+		List<PostJoinImages> postJoinImageList = new ArrayList<>();
+		List<List<LikeManage>> likeManageList = new ArrayList<>();
+		List<PostJoinImages> taggedPostJoinImageList = new ArrayList<>();
+		List<List<CommentManage>> commentManageList = new ArrayList<>();
+		List<TagPerson> tagpersonList = postMapper.getTagPersonByUserId(user.getUser_id());
+
+		for(Post post : postList) {
+			imagesList.add(postMapper.getImagesList(post.getPid()));
+			postJoinImageList.add(postMapper.getPostJoinImages(post.getPid()));
+			likeManageList.add(postMapper.getLikeManage(post.getPid()));	
+			commentManageList.add(postMapper.getCommentList(post.getPid()));
+		}
+
+		for(TagPerson tagperson : tagpersonList) {
+			taggedPostJoinImageList.add(postMapper.getPostJoinImages(tagperson.getPid()));
+		}
+
+		List<Follow> followerList = postMapper.getFollower(user.getUser_id());
+		List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
+
+		// cookie
+
+		Cookie[] cookies = request.getCookies();
+
+		String mySid = null;
+
+//		if(cookies == null) {
+//
+//			return "redirect:" + "user/login";
+//		}else {
+//
+//			for(Cookie cookie :cookies) {
+//				if(cookie.getName().equals("sid")) {
+//					mySid = cookie.getValue();
+//				}
+//			}
+//		}
+			
+			//			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
+
+			model.addAttribute("user", user);
+
+			model.addAttribute("postList", JSONArray.fromObject(postList));
+			model.addAttribute("imagesList", JSONArray.fromObject(imagesList));
+			model.addAttribute("postJoinImageList", JSONArray.fromObject(postJoinImageList));
+			model.addAttribute("likeManageList", JSONArray.fromObject(likeManageList));
+			model.addAttribute("taggedPostJoinImageList", JSONArray.fromObject(taggedPostJoinImageList));
+			model.addAttribute("followerList", JSONArray.fromObject(followerList));
+			model.addAttribute("followingrList", JSONArray.fromObject(followingrList));		
+			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
+
+			return "post/personal";
+		
+
+	}
 }
+
