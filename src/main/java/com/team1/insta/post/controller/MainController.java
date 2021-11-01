@@ -37,6 +37,7 @@ public class MainController {
 			temp.setLikeList(mainMapper.getLikeList(post.get(i).getPid()));
 			temp.setLikeCountList(mainMapper.getLikeCountList(post.get(i).getPid()));
 			temp.setImageList(mainMapper.getImages(post.get(i).getPid()));
+			temp.setImageCountList(mainMapper.getImageCount(post.get(i).getPid()));
 			temp.setCommentList(mainMapper.getCommentList(post.get(i).getPid()));
 			temp.setCommentCountList(mainMapper.getCommentCountList(post.get(i).getPid()));
 			post.remove(i);
