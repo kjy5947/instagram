@@ -76,32 +76,17 @@ const taggedContentOut = document.getElementById('taggedContentOut');
 
 const addToContentOut  =  (postJoinImage, contentOut) => {
 	
-
-	
 	const file = postJoinImage.pimg;
-	
-	let likeCnt = 0;
-	let commentCnt = 0;
-	
-	likeManageList.forEach(function(likeManages){
 
-		
-		likeManages.forEach(function(likeManage){
-			if(postJoinImage.pid == likeManage.pid) {
-				likeCnt = likeCnt + 1;				
-			}	
-		});
-		
-	});
-	
+	let commentCnt = 0;
 	commentManageList.forEach(function(commentManages){
-		
-		commentManages.forEach(function(commentManage){
-			if(postJoinImage.pid == commentManage.pid) {
+	commentManages.forEach(function(commentManage){
+		if(postJoinImage.pid == commentManage.pid) {
 			commentCnt = commentCnt + 1;				
 			}
 		});
 	});
+	
 	
 	const newImg = document.createElement('img');
 	newImg.src = file;
@@ -112,11 +97,13 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	const newTextDiv = document.createElement('div');
 	newTextDiv.setAttribute('class', 'textDiv');
 	
+	// post Hover
 	const text = document.createElement('div');
 	
-	text.innerHTML += '<i class="fas fa-heart"/>&nbsp&nbsp' + likeCnt + '&nbsp&nbsp&nbsp&nbsp';
-	text.innerHTML +='<i class="fas fa-comment fa-flip-horizontal"></i>&nbsp&nbsp';
-	text.innerHTML += commentCnt 
+	const viewLikeCnt = document.createElement('div'); // 게시글 안에 좋아요 갯수 (likeCnt in post)
+
+	realTimeLookup(postJoinImage);
+	// text.innerHTML = '<i class="fas fa-heart"/>&nbsp&nbsp' + likeCnt + '&nbsp&nbsp&nbsp&nbsp'+ '<i class="fas fa-comment fa-flip-horizontal"></i>&nbsp&nbsp' + commentCnt;
 	
 	newDiv.appendChild(newImg);
 	newTextDiv.appendChild(text);
@@ -129,8 +116,6 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 		popupDiv.classList.remove('hide')
 		showSlides(1);
 	});
-	
-	
 	
 	
 	// create post popup
@@ -148,7 +133,7 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	let imageLength = 0;
 	
 	imagesList.forEach(function(images){
-		images.forEach(function(image) {
+		images.forEach(function(image)	 {
 			if(image.pid == postJoinImage.pid) {
 					const imgWrap = document.createElement('div');
 					imgWrap.setAttribute('class', 'imgWrap');
@@ -158,11 +143,15 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 					
 					imgWrap.appendChild(popupimg);
 					popupSlider.appendChild(imgWrap);
+					
+					imgWrap.addEventListener("dblclick", dbClickLike);
+					
 					imageLength++;
 			}
-			
 		});
 	});
+	
+
 	
 	popupContainer.appendChild(popupSlider);
 	popupDiv.appendChild(popupContainer);
@@ -199,15 +188,18 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	// user name
 	const postingUname = document.createElement('div');
 	postingUname.setAttribute('class', 'postingUname');
-	postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" +window.location.host +"/insta/post/personal?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
+	postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/post/personal?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
 	
 	
 	//follow Button
-	
-	postingUname.innerHTML += "•";
-	
-	const followBtn = document.createElement('button');
-	followBtn.setAttribute('id', 'followBtn' + postJoinImage.pid);
+		postingUname.innerHTML += "•";
+		
+		const followBtn = document.createElement('button');
+		followBtn.setAttribute('id', 'followBtn' + postJoinImage.pid);
+		
+	if(loginUserId != userId) {
+		followBtn.style.display = 'none';
+	};
 	
 	// followBtn decide
 	const followBtnDecideXhttp = new XMLHttpRequest();			
@@ -310,9 +302,32 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	const commentFooter = document.createElement('div');
 	commentFooter.setAttribute('class', 'commentFooter');
 	
-	const viewLikeCnt = document.createElement('div');
+	const likeHeart = document.createElement('span');
+	likeHeart.setAttribute('class', 'likeHeart');	
+	
+	const like_manage = {
+		lid: null,
+		pid: postJoinImage.pid,
+		user_id: loginUserId,
+		like_time: null
+	};
+	
+	// likeHeart Decide
+	likeHeartDecide(likeHeart, like_manage);
+	
+	// comment ICON
+	const commentIcon = document.createElement('span');
+	commentIcon.setAttribute('class', 'commentIcon');
+	
+	commentIcon.innerHTML = '<i class="far fa-comment fa-flip-horizontal"></i>';
+	commentIcon.addEventListener("click", () => {
+		leaveComment.focus();
+	});
+	
+	
+	// const viewLikeCnt = document.createElement('div');
 	viewLikeCnt.setAttribute('class', 'viewLikeCnt');
-	viewLikeCnt.innerHTML = "좋아요 &nbsp;" + likeCnt + "개"
+	// viewLikeCnt.innerHTML = "좋아요 &nbsp;" + likeCnt + "개";
 	
 	const leaveCommentDiv = document.createElement('div');
 	leaveCommentDiv.setAttribute('class', 'leaveCommentDiv');
@@ -322,24 +337,27 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	leaveComment.setAttribute('type', 'text');
 	leaveComment.setAttribute('placeholder', '댓글 달기...');
 	
-	
-	
+
 	const leaveCommentBtn = document.createElement('button');
 	leaveCommentBtn.setAttribute('class', 'leaveCommentBtn');
 	leaveCommentBtn.setAttribute('type', 'button');
 	leaveCommentBtn.disabled = true;
 	leaveCommentBtn.innerHTML = "게시"
 	
+	
+	commentFooter.appendChild(likeHeart);
+	commentFooter.appendChild(commentIcon);
 	commentFooter.appendChild(viewLikeCnt);
+	
 	leaveCommentDiv.appendChild(leaveComment);
 	leaveCommentDiv.appendChild(leaveCommentBtn);
 	
 	commentFooter.appendChild(leaveCommentDiv);
 	popupCommentContainer.appendChild(commentFooter)
 	
-	
 	popupContainer.appendChild(popupCommentContainer);
 	document.body.appendChild(popupDiv);
+	
 	
 	// leave comment action 아무것도 입력 안하면 '게시' 버튼 비활성화 
 	leaveComment.onkeyup = function() {
@@ -374,6 +392,8 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 						otherUserComment.appendChild(otherUserUnameComment);
 	
 						postComments.appendChild(otherUserComment);
+						
+						realTimeLookup(postJoinImage);
 					}
 						
 				});
@@ -432,7 +452,6 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	});
 	
 	
-	
 	// post popup slide action
 	let slideIndex = 1;
 	
@@ -453,8 +472,7 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	function plusSlides(n){
     	showSlides(slideIndex += n);
 	}
-  
-	
+
 	leftarrowBtn.addEventListener('click', function () {
     	plusSlides(-1);
 	});
@@ -471,9 +489,122 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
     	}
 	});
 	
+	// when double click img, like up 
+	function dbClickLike(e) {
+		const xhttp = new XMLHttpRequest();			
+		xhttp.addEventListener('readystatechange', (e) => {
+			const readyState = e.target.readyState;
+			const httpStatus = e.target.status;
+			
+			if(readyState == 4 && httpStatus == 200) {
+				likeHeart.innerHTML = '<i class="fas fa-heart"></i>';
+				likeHeart.classList.add('heart');			
+			}
+			realTimeLookup(postJoinImage);
+		});
+		
+		xhttp.open('POST', '/insta/postRest/addLike', true);
+		
+		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+		
+		xhttp.send(JSON.stringify(like_manage));
+		
+		const heartFadeInAndOut = document.createElement('div');
+		heartFadeInAndOut.setAttribute('class', 'heartFadeInAndOut');
+		heartFadeInAndOut.innerHTML = '<i class="fas fa-heart"></i>';
+		
+		e.path[2].appendChild(heartFadeInAndOut);
+		
+		setTimeout(function() {
+			e.path[2].removeChild(heartFadeInAndOut);
+		}, 2000);
+	};
 	
 	
+	// likeHeartDecide
+	function likeHeartDecide(likeHeart, like_manage) {
+	const likeHeartDecideXhttp = new XMLHttpRequest();			
+	likeHeartDecideXhttp.addEventListener('readystatechange', (e) => {
+		const readyState = e.target.readyState;
+		const httpStatus = e.target.status;
+		
+		if(readyState == 4 && httpStatus == 200) {
+			const likeList =  JSON.parse(e.target.responseText);
+			if(likeList.length >= 1) {
+				likeHeart.innerHTML = '<i class="fas fa-heart"></i>';
+				likeHeart.classList.add('heart');
+			} else {
+				likeHeart.innerHTML = '<i class="far fa-heart"></i>';
+				likeHeart.classList.remove('heart');
+			}
+		}
+	});
+		
+	likeHeartDecideXhttp.open('POST', '/insta/postRest/likeDecide', true);
+
+	likeHeartDecideXhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+
+	likeHeartDecideXhttp.send(JSON.stringify(like_manage));
+};
+
+	// likeHeart action (fas fa-heart == fill heart, far fa-heart == empty heart)
+	likeHeart.addEventListener("click", () => {
+		const xhttp = new XMLHttpRequest();			
+		xhttp.addEventListener('readystatechange', (e) => {
+			const readyState = e.target.readyState;
+			const httpStatus = e.target.status;
+			
+			if(readyState == 4 && httpStatus == 200) {
+				
+				if(likeHeart.innerHTML == '<i class="fas fa-heart"></i>') {
+					likeHeart.innerHTML = '<i class="far fa-heart"></i>';
+					likeHeart.classList.remove('heart');
+				} else {
+					likeHeart.innerHTML = '<i class="fas fa-heart"></i>';
+					likeHeart.classList.add('heart');
+				}
+				RealTimeLookup(postJoinImage);
+			}
+		});
+		
+		if(likeHeart.innerHTML == '<i class="far fa-heart"></i>') {
+			xhttp.open('POST', '/insta/postRest/addLike', true);
+		} else if(likeHeart.innerHTML == '<i class="fas fa-heart"></i>') {
+			xhttp.open('POST', '/insta/postRest/deleteLike', true);
+		}
+		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+		
+		xhttp.send(JSON.stringify(like_manage));
+		
+	});
 	
+	 // realtime lookup
+	function realTimeLookup(postJoinImage) {
+		const xhttp = new XMLHttpRequest();			
+		xhttp.addEventListener('readystatechange', (e) => {
+			const readyState = e.target.readyState;
+			const httpStatus = e.target.status;
+			
+			if(readyState == 4 && httpStatus == 200) {
+				likeCnt = 0;
+				commentCnt = 0;
+				
+				cntMap = JSON.parse(e.target.responseText);
+
+				likeCnt = cntMap["like"];
+				commentCnt = cntMap["comment"];
+				
+				text.innerHTML = '<i class="fas fa-heart"/>&nbsp&nbsp' + likeCnt + '&nbsp&nbsp&nbsp&nbsp'+ '<i class="fas fa-comment fa-flip-horizontal"></i>&nbsp&nbsp' + commentCnt;
+				viewLikeCnt.innerHTML = "좋아요 &nbsp;" + likeCnt + "개";
+			};
+		});
+	
+		xhttp.open('POST', '/insta/postRest/likeRealTimeLookup?pid='+ postJoinImage.pid , true);
+
+		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+		
+		xhttp.send();
+	};
 	
 	
 	
@@ -509,7 +640,6 @@ function BtnEventListener(e) {
 	}
 	
 	btnCssReset(postBtn);
-	btnCssReset(bookMarkBtn);
 	btnCssReset(taggedBtn);
 	
 	btn.style.color = "black";
@@ -527,7 +657,6 @@ function BtnEventListener(e) {
 }
 
 postBtn.addEventListener('click', BtnEventListener);
-bookMarkBtn.addEventListener('click', BtnEventListener);
 taggedBtn.addEventListener('click', BtnEventListener);
 
 function btnCssReset(btn) {

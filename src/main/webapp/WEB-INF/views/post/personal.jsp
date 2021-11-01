@@ -88,9 +88,6 @@
 		<button class="contentBtn" id="post">
 			<i class="fas fa-border-all"></i>게시물
 		</button>
-		<button class="contentBtn" id="bookMark">
-			<i class="far fa-bookmark"></i>저장됨
-		</button>
 		<button class="contentBtn" id="tagged">
 			<i class="fas fa-id-card-alt"></i>태그됨
 		</button>
@@ -139,8 +136,8 @@
 	const uname = '${user.uname}';
 	const userProfileImg = '${user.profile_img}';
 	const userId = '${user.user_id}';
-	// const loginUserId = '${loginUser.user_id}';
-	const loginUserId = '90';
+	const loginUserId = '${loginUser.user_id}';
+	// const loginUserId = '90';
 	
 	const postList = JSON.parse('${postList}');
 	const imagesList = JSON.parse('${imagesList}');
