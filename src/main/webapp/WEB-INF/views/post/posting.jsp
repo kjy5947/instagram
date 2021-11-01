@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Posting</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -31,16 +33,20 @@
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body" style="display: flex; justify-context: center; flex-direction: column; padding: 30% 20%;">
+      <div class="modal-body dragAndDropDiv" style="display: flex; justify-context: center; flex-direction: column; padding: 30% 20%;">
       	<span style="font-size: 80px; color: #2e2e2e;"class="material-icons text-center">add_photo_alternate</span>
         <p class="text-center" style="font-size: 23px; color: #3e3e3e;">사진과 동영상을 여기에 끌어다 놓으세요</p>
-        <button type="button" class="btn btn-primary">컴퓨터에서 선택</button>
+        <form action="<c:url value="/postingImages"/>" id="uploadImage">
+        	<input type="file" name="fileUpload" id="fileUpload" style="display:none;" multiple/>
+        </form>
+	    
+        <button id="fileBtn" type="button" class="btn btn-primary">컴퓨터에서 선택</button>
       </div>
 
     </div>
   </div>
 </div>
 
-
+	<script src="<c:url value="/resources/js/post/fileUpload/posting.js"/>"></script>
 </body>
 </html>
