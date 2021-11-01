@@ -69,13 +69,20 @@
 		update user_info
 		<set>
 			<if test="uname != ''">uname=#{uname},</if>
-			<if test="phone_number != ''">phone_number=#{phone_number},</if>
-			<if test="follow_accept != null">follow_accept=#{follow_accept},</if>
-			<if test="real_name != ''">real_name=#{real_name},</if>
-
+			<if test="userIntroduce != ''">user_introduce=#{userIntroduce},</if>
+			<if test="followAccept != ''">follow_accept=#{followAccept},</if>
+			<if test="realName != ''">real_name=#{realName},</if>
+			<if test="phoneNumber != ''">phone_number=#{phoneNumber},</if>
 		</set>
 		where uname = #{stdname}
 	</update>
+
+
+	<select id="existUser" resultType="String">
+	
+		select uname from user_info where uname = #{uname}
+		
+	</select>
 
 
 </mapper>

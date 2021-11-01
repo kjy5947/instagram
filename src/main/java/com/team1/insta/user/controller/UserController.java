@@ -3,10 +3,13 @@ package com.team1.insta.user.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team1.insta.user.dao.mapper.UserMapper;
 import com.team1.insta.user.dto.EditRequest;
+import com.team1.insta.user.dto.PasswordInfo;
 import com.team1.insta.user.dto.User;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class UserController {
 	
+	
 	@Value("${file.dir}")
 	private String fileDir;
 	
@@ -41,6 +46,9 @@ public class UserController {
 	public String editUserPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String userName)
 			throws IOException {
 		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		Cookie[] cookies = request.getCookies();
 		String mySid = "";
 		PrintWriter outt = response.getWriter();
@@ -50,6 +58,7 @@ public class UserController {
 				mySid = cookie.getValue();
 				if(userName.equals(mySid)) {
 					
+					model.addAttribute("editedUser", userMapper.getUserByUsername(mySid));
 				}else {
 					System.out.println("이거 맞냐고");
 					outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='redirect:/';</script>");
@@ -61,25 +70,59 @@ public class UserController {
 	}
 	
 	@PostMapping("/users/{userName}")
-	public String editUser(Model model, @PathVariable String userName, @ModelAttribute EditRequest editrequest) {
+	public String editUser(HttpServletRequest request,HttpServletResponse response, Model model, @PathVariable String userName, @ModelAttribute EditRequest editrequest)
+			throws IOException, ServletException {
 		
+		//@RequestParam("username") String username
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		String followacpt ="";
 		String editedname = editrequest.getUname();
-		String phoneNum = editrequest.getPhone_number();
-		Character followacpt = editrequest.getFollow_accept();
-		String realName = editrequest.getReal_name();
+		log.info("이미 있는 계정 :"+ editedname);
+		if(userMapper.existUser(editedname)!=null && !userName.equals(userMapper.existUser(editedname))) {
+			
+			out.println("<script language='javascript'>alert('이미 등록된 계정입니다.');"+"location.href='/instagram/users/"+userName+"';</script>");
+			out.flush();
+//				return "redirect:" + "/users/" + userName;
+		}
+		String introduce = editrequest.getUserIntroduce();
+		if(editrequest.getFollowAccept() == null) {
+			followacpt = "N";
+		}else {
+			followacpt = "Y";
+		}
+		String realName = editrequest.getRealName();
+		String phoneNum = editrequest.getPhoneNumber();
+		
+		log.info("follow state : " + followacpt);
 		
 		
+		userMapper.updateUserInfo(userName, editedname, introduce, followacpt, realName, phoneNum);
+		String usernameInfo ="";
 		
-		User user = userMapper.getUserByUsername(userName);
+		request.setAttribute("usernameInfo", userName);
+		Cookie[] cookies = request.getCookies();
+		String mySid = "";
+		///쿠키 재 지정
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals("sid")) {
+				
+				cookie = new Cookie("sid", editedname);
+				response.addCookie(cookie);
+				System.out.println("나의 쿠키내용 : " + cookie.getValue());
+			}
+		}
 		
+	    return "post/personal/editedcookie";
 		
-		userMapper.updateUserInfo(userName, editedname, phoneNum, followacpt, realName);
-		
-		
-	    return "user/update";
 	}
+	// 개인정보 수정 끝
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-
+	
 	
 	@GetMapping("/join")
 	public String join() {
@@ -117,4 +160,142 @@ public class UserController {
 
         return cnt;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//비밀번호 변경 시작
+	@GetMapping("/password/{userName}")
+	public String editUserPasswordPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String userName)
+			throws IOException {
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		Cookie[] cookies = request.getCookies();
+		String mySid = "";
+		PrintWriter outt = response.getWriter();
+		
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals("sid")) {
+				mySid = cookie.getValue();
+				if(userName.equals(mySid)) {
+					
+					model.addAttribute("editedUser", userMapper.getUserByUsername(mySid));
+				}else {
+					outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='redirect:/';</script>");
+					outt.flush();
+				}
+			}
+		}
+	    return "user/userpassword/userPasswordChange";
+	}
+	
+	//post 비밀번호 변경
+	@PostMapping("/password/{userName}")
+	public String editPostUserPasswordPage(HttpServletRequest request,HttpServletResponse response, @PathVariable String userName, @ModelAttribute PasswordInfo pwdinfouser, Model model)
+			throws IOException, ServletException {
+		
+		log.info("password POST");
+		
+		User userinfo = userMapper.getUserByUsername(userName);
+		String userpassword = userinfo.getPassword();//로그인중인 user의 현재비밀번호.
+		String convertedpassword = request.getParameter("beforepassword");
+		String newpassword = request.getParameter("secondpassword");
+		log.info("현재 로그인중인 비밀번호 : " + userpassword);
+		log.info("작성한 이전 비밀번호 : " + convertedpassword);
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		Cookie[] cookies = request.getCookies();
+		String mySid = "";
+		request.setAttribute("usernameInfo", userName);
+		
+		
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals("sid")) {
+				mySid = cookie.getValue();
+				if(userName.equals(mySid)) {
+					
+					model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
+				}else {
+					out.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='redirect:/';</script>");
+					out.flush();
+				}
+			}
+		}
+		///////////////////////////////////////////////////////////////////////////////
+		if(userpassword.equals(convertedpassword)) {
+				userMapper.setPassword(newpassword, userinfo.getUser_id());
+				out.println("<script>alert('비밀번호를 변경하였습니다.'); location.href='" + "/instagram/home/" + userName+ "';</script>");
+				out.flush();
+		}else {
+			out.println("<script>alert('이전 비밀번호가 틀렸습니다.'); location.href='" + "/instagram/password/" + userName+ "';</script>");
+			out.flush();
+		}
+		
+	    return "post/personal/editedcookie";
+		
+	}
 }
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

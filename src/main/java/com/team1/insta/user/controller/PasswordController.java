@@ -43,7 +43,7 @@ public class PasswordController {
 			@RequestParam(value = "email") String email, 
 			@RequestParam(value = "token") String tokenId,
 			HttpSession session, Model model ) {
-
+		
 		KeyConfirm keyconf = new KeyConfirm();
 		keyconf.setKey(email);
 		keyconf.setKeyType("email");
@@ -82,7 +82,7 @@ public class PasswordController {
 			String user_id,
 			String token_id
 			) {
-		
+			
 			tokenMapper.deleteToken(token_id);
 			userMapper.setPassword(newPassword, user_id);
 			return null;
