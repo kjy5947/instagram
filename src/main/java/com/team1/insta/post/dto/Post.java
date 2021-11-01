@@ -18,7 +18,8 @@ public class Post {
 	private String follow_accept;
 	private List<PidLike> likeList;
 	private List<PidLikeCount> likeCountList;
-	private List<PidImages> ImageList;
+	private List<PidImages> imageList;
+	private List<PidImageCount> imageCountList;
 	private List<PidComments> commentList;
 	private List<PidCommentCount> commentCountList;
 }

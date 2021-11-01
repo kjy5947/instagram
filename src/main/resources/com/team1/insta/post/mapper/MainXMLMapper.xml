@@ -18,6 +18,9 @@
   	<select id="getImages" resultType="com.team1.insta.post.dto.PidImages">
 	  	select pimg from images where pid=#{post_id}
   	</select>
+  	<select id="getImageCount" resultType="com.team1.insta.post.dto.PidImageCount">
+	  	select count(pimg) as count from images where pid=#{post_id}
+  	</select>
   	<select id="getCommentList" resultType="com.team1.insta.post.dto.PidComments">
 	  	select user_id, contents from comment_manage where pid=#{post_id}
   	</select>
