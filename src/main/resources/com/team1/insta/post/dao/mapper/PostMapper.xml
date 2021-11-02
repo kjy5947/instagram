@@ -97,7 +97,7 @@
 	<insert id="addImages">
 		INSERT INTO images values (
 			iid_seq.nextval,
-			#{pid},
+			(SELECT MAX(pid) FROM post where user_id = (SELECT user_id FROM user_info where uname = #{uname})),
 			#{pimg}
 		)
 	</insert>
