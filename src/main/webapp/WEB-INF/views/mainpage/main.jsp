@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title> 
+<title>Instagram</title> 
 <link rel="stylesheet" href="<c:url value="/resources/css/post/main/main.css"/>">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
@@ -35,18 +35,30 @@
         </div>
 
         <div id="highbuttons" style="grid-column: 4/5; text-align: center; color: black; margin: auto; font-size: 25px;">
-            <span style="padding-right: 10px; font-size: 30px;" class="material-icons-outlined">
+            <span style="padding-right: 10px;
+			             font-size: 30px;
+			             cursor: pointer;" 
+			             onclick="location.href='http://localhost:8080/insta/mainpage/main'" class="material-icons-outlined">
                 home
             </span>
-            <i style="vertical-align: top; padding-top: 2px; padding-right: 10px;" class="far fa-paper-plane"></i>
-            <span style="padding-right: 10px; font-size: 30px;" class="material-icons-outlined">
+            <i style="vertical-align: top; 
+			          padding-top: 2px; 
+			          padding-right: 10px;
+			          cursor: pointer;" class="far fa-paper-plane"></i>
+            <span style="padding-right: 10px;
+				         font-size: 30px;
+				         cursor: pointer;" class="material-icons-outlined">
                 explore
             </span>
-            <span style="padding-right: 10px; font-size: 30px;" class="material-icons-outlined">
+            <span style="padding-right: 10px;
+			             font-size: 30px;
+			             cursor: pointer;" class="material-icons-outlined">
                 favorite_border
             </span>
-            <i style="vertical-align: top; padding-top: 2px;" class="far fa-user"></i>
-        </div>
+            <i style="vertical-align: top;
+			          padding-top: 2px;
+			          cursor: pointer;" class="far fa-user"></i>
+	     </div>
 
     </div>
     <!-- <hr> -->
@@ -170,12 +182,25 @@
             </div>
 
             <div class="posticons">
-                <span style="padding-right: 10px; font-size: 30px;" class="material-icons-outlined">
+                <span style="padding-right: 10px;
+			                 font-size: 30px;
+			                 cursor: pointer;" class="material-icons-outlined">
                     favorite_border
                 </span>
-                <i style="vertical-align: top; padding-top: 2px; padding-right: 10px; font-size: 25px;" class="fa-regular fa-comment"></i>
-                <i style="vertical-align: top; padding-top: 2px; padding-right: 10px; font-size: 25px;" class="far fa-paper-plane"></i>
-                <span style="float: right; padding-right: 10px; font-size: 30px;" class="material-icons-outlined">
+                <i style="vertical-align: top;
+			              padding-top: 2px;
+			              padding-right: 10px;
+			              font-size: 25px;
+			              cursor: pointer;" class="fa-regular fa-comment"></i>
+                <i style="vertical-align: top;
+			              padding-top: 2px;
+			              padding-right: 10px;
+			              font-size: 25px;
+			              cursor: pointer;" class="far fa-paper-plane"></i>
+                <span style="float: right;
+			                 padding-right: 10px;
+			                 font-size: 30px;
+			                 cursor: pointer;" class="material-icons-outlined">
                     bookmark_border
                 </span>
             </div>
@@ -229,17 +254,22 @@
             		int count = (int)pageContext.getAttribute("count");
             		if (count > 2) {%>
             			 <div style="color: rgb(167, 164, 164);
-				                 font-size: 12px;
-				                 grid-column: 1/5;
-		                        margin-left: 15px;
-		                        margin-top: 15px;">댓글 ${commentCount.count}개 모두 보기</div>
+					                 font-size: 12px;
+					                 grid-column: 1/5;
+			                         margin-left: 15px;
+			                         margin-top: 15px;
+			                         cursor: pointer;" 
+			                         onclick="location.href='http://localhost:8080/insta/mainpage/main'"
+			                         >댓글 ${commentCount.count}개 모두 보기</div>
             		<%} else if (count == 0) {
             		} else {%>
             			<div style="color: rgb(167, 164, 164);
-				                 font-size: 12px;
-				                 grid-column: 1/5;
-		                        margin-left: 15px;
-		                        margin-top: 15px;">댓글 ${commentCount.count}개</div>
+					                font-size: 12px;
+					                grid-column: 1/5;
+			                        margin-left: 15px;
+			                        margin-top: 15px;
+			                        cursor: pointer;"
+			                        >댓글 ${commentCount.count}개</div>
             		<%}%>
             </c:forEach>
             <%
