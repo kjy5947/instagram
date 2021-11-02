@@ -70,12 +70,6 @@ function passwordEdit(){
 }
 
 
-function clickme(){
-
-   console.log("why are you click me?");
-}
-
-
 /////////////////////////////////////////////////////////////Content
 
 const postBtn = document.getElementById('post');
@@ -207,11 +201,18 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 		postingUname.innerHTML += "•";
 		
 		const followBtn = document.createElement('button');
+		//const followBtn = document.getelementbyid('btn2');
 		followBtn.setAttribute('id', 'followBtn' + postJoinImage.pid);
 		
 	if(loginUserId != userId) {
 		followBtn.style.display = 'none';
 	};
+	
+	
+	
+	
+	
+	
 	
 	// followBtn decide
 	const followBtnDecideXhttp = new XMLHttpRequest();			
@@ -229,7 +230,9 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 			}
 		}
 	});
+	// end - followBtn decide
 		
+	
 	followBtnDecideXhttp.open('POST', '/insta/postRest/FollowDecide', true);
 
 	followBtnDecideXhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
