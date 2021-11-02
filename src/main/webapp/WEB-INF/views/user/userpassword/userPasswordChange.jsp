@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>비밀번호 변경</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../resources/css/user/edit/password.css?ver=3" rel="stylesheet">
+    <link href="../resources/css/user/edit/password.css?ver=6" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>

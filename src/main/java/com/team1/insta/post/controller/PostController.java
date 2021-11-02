@@ -76,9 +76,12 @@ public class PostController {
 
 		log.info(userName);
 		Cookie[] cookies = request.getCookies();
+		/////////////////////////////////////////////////////////////////
+		// 수환님 코드 추가하기.
+		
+		
 
-
-
+		/////////////////////////////////////////////////////////////////
 		String mySid = "";
 		String urlusername ="";
 
@@ -232,7 +235,7 @@ public class PostController {
 	public String userInfo(@RequestParam(value ="uname") String uname, Model model, HttpServletRequest request) {
 
 		User user = userMapper.getUserBytype(new KeyConfirm("", uname));
-
+		
 		List<Post> postList =  postMapper.getPostList(user.getUser_id());
 		List<List<Images>> imagesList = new ArrayList<>();
 		List<PostJoinImages> postJoinImageList = new ArrayList<>();
