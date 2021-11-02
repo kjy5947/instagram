@@ -61,8 +61,24 @@ function handleFileUpload(files,obj)
         sendFileToServer(fd,status);
     
     }
-    document.getElementById('uploadImage').submit();
-}
+    
+	// content popup  
+	
+	let modalBody = document.getElementById("modalBody");
+	modalBody.style.display = 'none';
+
+	let statusbar = document.getElementsByClassName("statusbar odd");
+    statusbar[0].style.display = 'none';
+
+	let btn_close = document.getElementsByClassName("btn-close");
+    btn_close[0].style.display = 'none';
+	
+	let shareBtn = document.getElementsByClassName("shareBtn");
+    shareBtn[0].style.display = 'block';
+	
+	let ImgContentsModal = document.getElementById("ImgContentsModal");
+	ImgContentsModal.style.display = "flex";
+};
 
 var rowCount=0;
 function createStatusbar(obj){
@@ -151,3 +167,24 @@ function sendFileToServer(formData,status)
 }
 
 });
+
+function shareBtnAction() {
+	
+	let contentTextArea = document.getElementById("contentTextArea");
+	
+	const xhttp = new XMLHttpRequest();			
+		xhttp.addEventListener('readystatechange', (e) => {
+			const readyState = e.target.readyState;
+			const httpStatus = e.target.status;
+			
+			if(readyState == 4 && httpStatus == 200) {
+				
+			};
+		});
+	
+		xhttp.open('POST', '/insta/fileUploadRest/posting?content='+ contentTextArea + '&user_id=' + userId + "&pid="+pid , true);
+
+		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+		
+		xhttp.send();
+};

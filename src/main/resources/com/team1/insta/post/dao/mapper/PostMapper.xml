@@ -91,7 +91,28 @@
 		DELETE FROM like_manage WHERE pid= #{pId} AND user_id= #{userId}
 	</delete>
 	<select id="getNewPID"
-		resultType="int">
+		resultType="String">
 		SELECT MAX(pid) + 1 FROM post where uid = (SELECT uid FROM user_info where uname = #{uname})
 	</select>
+	
+	<update id="uppdatePost">
+		UPDATE post set user_id = #{userId}, pcontents = #{pcontents} WHERE pid= #{pId}
+	</update>
+	
+	<insert id="addTagPerson">
+		insert into tag_person values (
+		tag_person_seq.nextval,
+		#{userId},
+		#{pId}
+		)
+	</insert>
+	
+	<insert id="addTagText">
+		insert into tag_text values (
+		tag_text_seq.nextval,
+		#{tcontents},
+		#{pId}
+		)
+	</insert>
+	
 </mapper>

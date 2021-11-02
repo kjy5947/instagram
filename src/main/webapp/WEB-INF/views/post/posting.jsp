@@ -11,6 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="<c:url value="/resources/css/post/fileUpload/posting.css"/>" rel="stylesheet">
 </head>
 <body>
 
@@ -30,10 +31,11 @@
       <div class="modal-header">
         <h4 class="modal-title">새 게시물 만들기</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="shareBtn" onclick="shareBtnAction()" >공유하기</button>
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body dragAndDropDiv" style="display: flex; justify-context: center; flex-direction: column; padding: 30% 20%;">
+      <div id="modalBody" class="modal-body dragAndDropDiv" style="display: flex; justify-context: center; flex-direction: column; padding: 30% 20%;">
       	<span style="font-size: 80px; color: #2e2e2e;"class="material-icons text-center">add_photo_alternate</span>
         <p class="text-center" style="font-size: 23px; color: #3e3e3e;">사진과 동영상을 여기에 끌어다 놓으세요</p>
         <form action="<c:url value="/postingImages"/>" id="uploadImage">
@@ -42,11 +44,31 @@
 	    
         <button id="fileBtn" type="button" class="btn btn-primary">컴퓨터에서 선택</button>
       </div>
+      
+      
+      <!-- img + contents -->
+      <div id="ImgContentsModal">
+			<div class="contentImg">
+				<!-- 사진 넣기? -->
+			</div>
+			<div class="contentDiv">
+				<div class="contentUserInfo">
+					<img src="${user.profile_img }" alt="" />
+					<div class="contentUname"><a href='<c:url value="/post/personal?uname=${user.uname }"/>'>suhwan12</a></div>
+				</div>
+				<div class="contentArea">
+					<textarea id="contentTextArea" placeholder="문구 입력..." autocomplete="off" ></textarea>
+				</div>
+			</div>
+      </div>
 
     </div>
   </div>
 </div>
-
-	<script src="<c:url value="/resources/js/post/fileUpload/posting.js"/>"></script>
+<script type="text/javascript">
+	// const userId = ${user.user_id};
+	const userId = "4";
+</script>
+<script src="<c:url value="/resources/js/post/fileUpload/posting.js"/>"></script>
 </body>
 </html>
