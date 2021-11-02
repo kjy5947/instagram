@@ -43,7 +43,7 @@ public class FileUploadController {
 	        return "post/posting";
 	        
 	    }
-	   
+
 	   @RequestMapping(value = "/postingImages")
 	   public String postingImages(HttpServletRequest request, Model model) {
 		   Cookie[] cookies = request.getCookies();
@@ -59,6 +59,19 @@ public class FileUploadController {
 	       model.addAttribute("pid", postMapper.getLastPID(uname));
 		   return "post/contents";
 	   }
+	   @RequestMapping(value = "/fileUpload/addPosting")
+	   public String addPosting(HttpServletRequest request) {
+		   Cookie[] cookies = request.getCookies();
+	         
+	       String uname = "";
+	       for(Cookie cookie :cookies) {
+               if(cookie.getName().equals("sid")) {
+            	   uname = cookie.getValue();
+               }
+	       }
+	       postMapper.addPost(uname);
+		   return "success";
+	   }
 	    
 	    @RequestMapping(value = "/fileUpload/post") //ajax에서 호출하는 부분
 	    @ResponseBody
@@ -72,7 +85,6 @@ public class FileUploadController {
 	    		}
 	    	}
 	    	String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-	    	String pid = postMapper.getLastPID(uname);
 	        Iterator<String> itr =  multipartRequest.getFileNames();
 	        
 	        String rootPath = request.getSession().getServletContext().getRealPath("/");
@@ -85,12 +97,11 @@ public class FileUploadController {
 	            String originalFilename = mpf.getOriginalFilename(); //파일명
 	            String pimg = uname + "_" + currentTime + "_" + originalFilename;
 	            String fileFullPath = rootPath + attach_path + pimg; //파일 전체 경로
-	            System.out.println("pid/pimg: " + pid + "/" + pimg);
 	            
 	            try {
 	                //파일 저장
 	                mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서 처리
-		            postMapper.addImages(pid, fileFullPath);
+		            postMapper.addImages(fileFullPath, uname);
 
 	                System.out.println("originalFilename => "+originalFilename);
 	                System.out.println("fileFullPath => "+fileFullPath);

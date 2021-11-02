@@ -30,6 +30,6 @@ public interface PostMapper {
 	public int addLike(@Param("pId") String pId, @Param("userId") String userId);
 	public int deleteLike(@Param("pId") String pId, @Param("userId") String userId);
 	public String getLastPID(String uname);
-	public int addImages(@Param("pid") String pid, @Param("pimg") String pimg);
+	public int addImages(@Param("pimg") String pimg,@Param("uname") String uname);
 	public int addPost(String uname);
 }

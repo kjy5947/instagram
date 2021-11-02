@@ -16,7 +16,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="<c:url value = "../resources/css/post/personal/personalMain.css"/>">-->
 <link rel="stylesheet"
-	href="../resources/css/post/personal/personalMain.css?ver=2" />
+	href="../resources/css/post/personal/personalMain.css?ver=5" />
 
 
 
@@ -57,7 +57,7 @@
 					<h2>${oneUser.uname }</h2>
 
 					<button id="btn1" class="subbtn" onclick="location.href='../post/upload'">게시물 등록</button>
-					<button id="btn2" class="subbtn" onclick="">구독하기</button>
+					<button id="btn2" class="subbtn" onclick="">팔로우</button>
 					<button class="modified" onclick="popup('modal-info')">
 						<i class="fas fa-cog"></i>
 					</button>
@@ -140,8 +140,8 @@
 	const uname = '${user.uname}';
 	const userProfileImg = '${user.profile_img}';
 	const userId = '${user.user_id}';
-	// const loginUserId = '${loginUser.user_id}';
-	const loginUserId = '90';
+	const loginUserId = '${loginUser.user_id}';
+	//const loginUserId = '90';
 	
 	const postList = JSON.parse('${postList}');
 	const imagesList = JSON.parse('${imagesList}');
