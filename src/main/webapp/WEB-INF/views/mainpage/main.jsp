@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +74,7 @@
                 <li>이미지: ${imageCount.count}</li>
             </c:forEach>
             <c:forEach var="comment" items="${post.commentList }">
-                <li>댓글 작성자: ${comment.user_id}</li>
+                <li>댓글 작성자: ${comment.uname}</li>
                 <li>댓글 내용:${comment.contents}</li>
             </c:forEach>
             <c:forEach var="commentCount" items="${post.commentCountList }">
@@ -216,12 +217,73 @@
 	                    font-size: 12px;
 	                    display: inline; 
 	                    padding-right: 10px;
-	                    letter-spacing: 2px;">${post.uname}</span>${prev}<span style="color: rgb(167, 164, 164)">${more}</span></summary>
+	                    letter-spacing: 2px;">${post.uname}</span>${prev}<span style="color: rgb(167, 164, 164);">${more}</span></summary>
                     <p>
                     	${main}
                     </p>
-                </details>
+                </details> 
             </div>
+            <c:forEach var="commentCount" items="${post.commentCountList }">
+            	<c:set var="count" value="${commentCount.count}"/>
+            	<%
+            		int count = (int)pageContext.getAttribute("count");
+            		if (count > 2) {%>
+            			 <div style="color: rgb(167, 164, 164);
+				                 font-size: 12px;
+				                 grid-column: 1/5;
+		                        margin-left: 15px;
+		                        margin-top: 15px;">댓글 ${commentCount.count}개 모두 보기</div>
+            		<%} else if (count == 0) {
+            		} else {%>
+            			<div style="color: rgb(167, 164, 164);
+				                 font-size: 12px;
+				                 grid-column: 1/5;
+		                        margin-left: 15px;
+		                        margin-top: 15px;">댓글 ${commentCount.count}개</div>
+            		<%}%>
+            </c:forEach>
+            <%
+
+				ArrayList<String> commentUnameList = new ArrayList<>();
+            	ArrayList<String> commentContentsList = new ArrayList<>();
+			%>
+            <c:forEach var="comment" items="${post.commentList }">
+            	<c:set var="commentUname" value="${comment.uname }"/>
+            	<c:set var="commentContents" value="${comment.contents }"/>
+            	<%
+            		String commentUname = (String)pageContext.getAttribute("commentUname");
+            		String commentContents = (String)pageContext.getAttribute("commentContents");
+            		
+            		commentUnameList.add(commentUname);
+            		commentContentsList.add(commentContents);
+            	%>
+            </c:forEach>
+            	<%
+            		if (commentUnameList.size() == 0) {
+            			
+            		} else if (commentUnameList.size() == 1) {
+            			pageContext.setAttribute("Uname1", commentUnameList.get(0));
+                		pageContext.setAttribute("Contents1", commentContentsList.get(0));
+            		} else {
+            			pageContext.setAttribute("Uname1", commentUnameList.get(0));
+                		pageContext.setAttribute("Contents1", commentContentsList.get(0));
+                		pageContext.setAttribute("Uname2", commentUnameList.get(1));
+                		pageContext.setAttribute("Contents2", commentContentsList.get(1));
+            		}
+            	%>
+            	<div style="grid-column: 1/5;
+                        margin-left: 15px;
+                        margin-top: 15px;
+                        margin-bottom: 15px;">
+            	<% 
+	            	if (commentUnameList.size() == 0)  {
+	            	} else if (commentUnameList.size() == 1) { %>
+	            		<span style="margin-right: 7px; font-weight: bold;">${Uname1}</span><span>${Contents1}</span>
+	            	<%} else { %>
+	            		<span style="margin-right: 7px; font-weight: bold;">${Uname1}</span><span>${Contents1}</span> <br>
+	            		<span style="margin-right: 7px; font-weight: bold;">${Uname2}</span><span>${Contents1}</span>
+	            	<%} %>
+            	</div>
             
             
         </div>
