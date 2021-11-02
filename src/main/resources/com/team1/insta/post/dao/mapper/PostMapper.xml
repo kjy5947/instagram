@@ -90,8 +90,21 @@
 	<delete id="deleteLike">
 		DELETE FROM like_manage WHERE pid= #{pId} AND user_id= #{userId}
 	</delete>
-	<select id="getNewPID"
-		resultType="int">
-		SELECT MAX(pid) + 1 FROM post where uid = (SELECT uid FROM user_info where uname = #{uname})
+	<select id="getLastPID"
+		resultType="String">
+		SELECT MAX(pid) FROM post where user_id = (SELECT user_id FROM user_info where uname = #{uname})
 	</select>
+	<insert id="addImages">
+		INSERT INTO images values (
+			iid_seq.nextval,
+			#{pid},
+			#{pimg}
+		)
+	</insert>
+	<insert id="addPost">
+		INSERT INTO post(pid, user_id) values (
+			pid_seq.nextval,
+			(SELECT user_id FROM user_info WHERE uname = #{uname})
+		)
+	</insert>
 </mapper>

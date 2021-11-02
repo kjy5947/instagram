@@ -3,6 +3,7 @@ package com.team1.insta.post.controller;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.servlet.http.Cookie;
@@ -55,7 +56,7 @@ public class FileUploadController {
 	       }
 	       User user = userMapper.getUserByUsername(uname);
 	       model.addAttribute("user", user);
-	       model.addAttribute("pid", postMapper.getNewPID(uname));
+	       model.addAttribute("pid", postMapper.getLastPID(uname));
 		   return "post/contents";
 	   }
 	    
@@ -71,26 +72,25 @@ public class FileUploadController {
 	    		}
 	    	}
 	    	String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-	    	
-	       postMapper.getNewPID(uname);
-		       
+	    	String pid = postMapper.getLastPID(uname);
 	        Iterator<String> itr =  multipartRequest.getFileNames();
 	        
 	        String rootPath = request.getSession().getServletContext().getRealPath("/");
 	        rootPath = rootPath.replace("\\", "/");
 	        String attach_path = "resources/images/";
-//	        String filePath = "/Users/soyoung/Developer/instagram/src/main/webapp/resources/images"; //설정파일로 뺀다.
 	        
 	        while (itr.hasNext()) { //받은 파일들을 모두 돌린다.
-	            
 	            MultipartFile mpf = multipartRequest.getFile(itr.next());
 	     
 	            String originalFilename = mpf.getOriginalFilename(); //파일명
-	            String fileFullPath = rootPath + attach_path + uname + currentTime + "." + (originalFilename.split("\\.")[1]); //파일 전체 경로
-	     
+	            String pimg = uname + "_" + currentTime + "_" + originalFilename;
+	            String fileFullPath = rootPath + attach_path + pimg; //파일 전체 경로
+	            System.out.println("pid/pimg: " + pid + "/" + pimg);
+	            
 	            try {
 	                //파일 저장
 	                mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서 처리
+		            postMapper.addImages(pid, fileFullPath);
 
 	                System.out.println("originalFilename => "+originalFilename);
 	                System.out.println("fileFullPath => "+fileFullPath);
