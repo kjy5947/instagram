@@ -221,7 +221,7 @@
                     <p>
                     	${main}
                     </p>
-                </details>
+                </details> 
             </div>
             <c:forEach var="commentCount" items="${post.commentCountList }">
             	<c:set var="count" value="${commentCount.count}"/>
