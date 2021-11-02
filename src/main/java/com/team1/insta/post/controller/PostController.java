@@ -67,6 +67,10 @@ public class PostController {
 
 
 
+   @Value("${file.dir}")
+   private String fileDir;
+
+   
 	@GetMapping("/home/{userName}")
 	public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
 
@@ -92,7 +96,7 @@ public class PostController {
 			User urlUser = userMapper.getUserByUsername(userName);      
 			urlusername = urlUser.getUname();
 			if(urlusername.equals(mySid)) {
-				return "post/personal"; 
+				return "post/personal/personal"; 
 			}
 			else {
 				return "redirect:" + "/";
@@ -100,69 +104,124 @@ public class PostController {
 
 		}
 
-	}
-
-	@PostMapping("/home/{userName}")
-
-	public String getString(HttpServletRequest request, MultipartHttpServletRequest multireq, RedirectAttributes redirectAttribute, Model model,
-			@PathVariable String userName, @RequestParam MultipartFile file) 
-					throws IllegalStateException, IOException {
-		log.info("이게 내 이름이다!? : " + userName);
-		String urlusername = "";
-		User urlUser;
-		urlUser = userMapper.getUserByUsername(userName);
-		log.info("Post페이지의 유저정보 : " + urlUser);
-		urlusername = urlUser.getUname();
-		log.info("Post페이지의 이름 : " + urlusername);
-		Cookie[] cookies = request.getCookies();
-
-		String mySid = "";
-		Iterator<String> itr = multireq.getFileNames();
-		List<MultipartFile> mpf = multireq.getFiles(itr.next());
-		if(cookies == null) {
-
-			return "user/login";
-		}else {
-
-			for(Cookie cookie :cookies)
-				if(cookie.getName().equals("sid"))
-					mySid = cookie.getValue();
-
-			// 고른 이미지로 업데이트 
-			userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
-			redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
-			if (!file.isEmpty()) {
-
-				//String relativePath = multireq.getSession().getServletContext().getRealPath("resources/images");
-				//String fullPath = fileDir + file.getOriginalFilename();
-				String root_path = request.getSession().getServletContext().getRealPath("/");
-				String attach_path = "\\resources\\images\\";
-				System.out.println("root패뜨 : " + root_path);
-				//String fullPath = relativePath + file.getOriginalFilename();
-				String fullPath = root_path + attach_path + file.getOriginalFilename();
-				log.info(" fullPath={}", fullPath);
-				file.transferTo(new File(fullPath));
-
-			}
-			// !이미지 업데이트 끝
-			//////////////////////////////////////
-			log.info(userName);
-			//model.addAttribute("oneUser", userMapper.getUser(mySid));
-
-
-			if(urlusername.equals(mySid)) {
-				return "redirect:"+ userName; 
-			}
-			else {
-				return "redirect:"+ userName;
-			}
-
-		}
-
-
-
 
 	}//getString 끝
+
+   
+   @PostMapping("/home/{userName}")
+   
+   public String getString(HttpServletRequest request, MultipartHttpServletRequest multireq, RedirectAttributes redirectAttribute, Model model,
+         @PathVariable String userName, @RequestParam MultipartFile file) 
+         throws IllegalStateException, IOException {
+	   log.info("이게 내 이름이다!? : " + userName);
+	   	   String urlusername = "";
+	   	   User urlUser;
+           urlUser = userMapper.getUserByUsername(userName);
+           log.info("Post페이지의 유저정보 : " + urlUser);
+           urlusername = urlUser.getUname();
+           log.info("Post페이지의 이름 : " + urlusername);
+           Cookie[] cookies = request.getCookies();
+         
+         String mySid = "";
+
+         if(cookies == null) {
+            
+            return "user/login";
+         }else {
+         
+            for(Cookie cookie :cookies)
+               if(cookie.getName().equals("sid"))
+                     mySid = cookie.getValue();
+            
+            // 고른 이미지로 업데이트 
+            userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
+            redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
+            if (!file.isEmpty()) {
+               
+            	//String relativePath = multireq.getSession().getServletContext().getRealPath("resources/images");
+            	//String fullPath = fileDir + file.getOriginalFilename();
+            	String root_path = request.getSession().getServletContext().getRealPath("/");
+            	root_path = root_path.replace("\\", "/");
+            	log.info("root path : " + root_path);
+            	String attach_path = "/resources/images/";
+
+            	//String fullPath = relativePath + file.getOriginalFilename();
+            	String fullPath = root_path + attach_path + file.getOriginalFilename();
+            	
+               log.info(" fullPath={}", fullPath);
+               file.transferTo(new File(fullPath));
+      
+            }
+            // !이미지 업데이트 끝
+            //////////////////////////////////////
+            log.info(userName);
+            //model.addAttribute("oneUser", userMapper.getUser(mySid));
+            
+            
+            if(urlusername.equals(mySid)) {
+               return "redirect:"+ userName; 
+            }
+            else {
+               return "redirect:"+ userName;
+            }
+             
+         }
+      
+      
+     
+       
+   }//getString 끝
+   
+   
+   
+
+   // 寃뚯떆臾  蹂댁뿬二쇨린 +  뿬 윭媛 吏   뜲 씠 꽣 view, Javascript濡   꽆湲곌린
+
+   @GetMapping("/personal")
+   public String userInfo(@RequestParam(value ="uname") String uname, Model model) {
+      
+      User user = userMapper.getUserBytype(new KeyConfirm("", uname));
+      
+      List<Post> postList =  postMapper.getPostList(user.getUser_id());
+      List<List<Images>> imagesList = new ArrayList<>();
+      List<PostJoinImages> postJoinImageList = new ArrayList<>();
+      List<List<LikeManage>> likeManageList = new ArrayList<>();
+      List<PostJoinImages> taggedPostJoinImageList = new ArrayList<>();
+      List<List<CommentManage>> commentManageList = new ArrayList<>();
+      List<TagPerson> tagpersonList = postMapper.getTagPersonByUserId(user.getUser_id());
+      
+      for(Post post : postList) {
+         imagesList.add(postMapper.getImagesList(post.getPid()));
+         postJoinImageList.add(postMapper.getPostJoinImages(post.getPid()));
+         likeManageList.add(postMapper.getLikeManage(post.getPid()));   
+         commentManageList.add(postMapper.getCommentList(post.getPid()));
+      }
+      
+      for(TagPerson tagperson : tagpersonList) {
+         taggedPostJoinImageList.add(postMapper.getPostJoinImages(tagperson.getPid()));
+      }
+      
+      List<Follow> followerList = postMapper.getFollower(user.getUser_id());
+      List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
+       
+      
+      model.addAttribute("user", user);
+      
+      model.addAttribute("postList", JSONArray.fromObject(postList));
+      model.addAttribute("imagesList", JSONArray.fromObject(imagesList));
+      model.addAttribute("postJoinImageList", JSONArray.fromObject(postJoinImageList));
+      model.addAttribute("likeManageList", JSONArray.fromObject(likeManageList));
+      model.addAttribute("taggedPostJoinImageList", JSONArray.fromObject(taggedPostJoinImageList));
+      model.addAttribute("followerList", JSONArray.fromObject(followerList));
+      model.addAttribute("followingrList", JSONArray.fromObject(followingrList));      
+      model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));      
+      
+      return "post/personal";
+   }
+
+
+
+
 
 
 
@@ -202,19 +261,19 @@ public class PostController {
 
 		String mySid = null;
 
-//		if(cookies == null) {
-//
-//			return "redirect:" + "user/login";
-//		}else {
-//
-//			for(Cookie cookie :cookies) {
-//				if(cookie.getName().equals("sid")) {
-//					mySid = cookie.getValue();
-//				}
-//			}
-//		}
+		if(cookies == null) {
+
+			return "redirect:" + "user/login";
+		}else {
+
+			for(Cookie cookie :cookies) {
+				if(cookie.getName().equals("sid")) {
+					mySid = cookie.getValue();
+				}
+			}
+		
 			
-			//			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
+			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
 
 			model.addAttribute("user", user);
 
@@ -228,7 +287,7 @@ public class PostController {
 			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
 
 			return "post/personal";
-		
+		}
 
 	}
 }

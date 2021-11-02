@@ -1,0 +1,42 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>비밀번호 변경</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../resources/css/user/edit/password.css?ver=3" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+	<div class="container p-5 mt-3 border" style="width: 935px">
+
+            <form class="was-validated" id="join" method="POST" action="${editedUser.uname}">
+                
+             	
+             	<div class="mb-3">
+                  이전 비밀번호 <input type="password" class="form-control" id="beforePwd" placeholder="이전 비밀번호" name="beforepassword" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required>
+                  <div class="invalid-feedback">영문, 숫자, 특수문자를 한 개 이상 포함하여 8자리 이상 입력해주세요.</div>
+                </div>
+                <div class="mb-3">
+                  1차 비밀번호 <input type="password" class="form-control" id="firstPwd" placeholder="1차 비밀번호" name="firstpassword" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required>
+                  <div class="invalid-feedback">영문, 숫자, 특수문자를 한 개 이상 포함하여 8자리 이상 입력해주세요.</div>
+                </div>
+                <div class="mb-3">
+                  2차 비밀번호 <input type="password" class="form-control" id="secondPwd" placeholder="2차 비밀번호" name="secondpassword" oninput = "checkAll()" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required>
+                  <div class="invalid-feedback">영문, 숫자, 특수문자를 한 개 이상 포함하여 8자리 이상 입력해주세요.</div>
+                </div>
+                <div class="d-grid">
+              	  <button type="submit" class="btn btn-primary btn-block submit-button" id="join-btn" disabled>변경</button>
+                </div>
+            </form>
+          </div>
+</body>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../resources/js/user/edit/password.js?ver=5"/>"></script>
+</html>
