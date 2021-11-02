@@ -116,16 +116,16 @@ public class PostController {
    public String getString(HttpServletRequest request, MultipartHttpServletRequest multireq, RedirectAttributes redirectAttribute, Model model,
          @PathVariable String userName, @RequestParam MultipartFile file) 
          throws IllegalStateException, IOException {
-	   	   log.info("이게 내 이름이다!? : " + userName);
 	   	   String urlusername = "";
 	   	   User urlUser;
+	   	   String mySid = "";
            urlUser = userMapper.getUserByUsername(userName);
            log.info("Post페이지의 유저정보 : " + urlUser);
            urlusername = urlUser.getUname();
            log.info("Post페이지의 이름 : " + urlusername);
            Cookie[] cookies = request.getCookies();
          
-         String mySid = "";
+         
 
          if(cookies == null) {
             
