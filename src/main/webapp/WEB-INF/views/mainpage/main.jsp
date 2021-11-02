@@ -273,7 +273,8 @@
             	%>
             	<div style="grid-column: 1/5;
                         margin-left: 15px;
-                        margin-top: 15px;">
+                        margin-top: 15px;
+                        margin-bottom: 15px;">
             	<% 
 	            	if (commentUnameList.size() == 0)  {
 	            	} else if (commentUnameList.size() == 1) { %>
