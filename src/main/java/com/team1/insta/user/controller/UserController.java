@@ -68,7 +68,11 @@ public class UserController {
 		}
 	    return "user/update";
 	}
-	
+	@PostMapping("/users/profile/{userName}")
+	public String profilehey() {
+		
+		return "post/personal/editedcookie";
+	}
 	@PostMapping("/users/{userName}")
 	public String editUser(HttpServletRequest request,HttpServletResponse response, Model model, @PathVariable String userName, @ModelAttribute EditRequest editrequest)
 			throws IOException, ServletException {
@@ -162,67 +166,6 @@ public class UserController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //비밀번호 변경 시작
 	@GetMapping("/password/{userName}")
@@ -287,10 +230,10 @@ public class UserController {
 		///////////////////////////////////////////////////////////////////////////////
 		if(userpassword.equals(convertedpassword)) {
 				userMapper.setPassword(newpassword, userinfo.getUser_id());
-				out.println("<script>alert('비밀번호를 변경하였습니다.'); location.href='" + "/instagram/home/" + userName+ "';</script>");
+				out.println("<script>alert('비밀번호를 변경하였습니다.'); location.href='" + "/insta/home/" + userName+ "';</script>");
 				out.flush();
 		}else {
-			out.println("<script>alert('이전 비밀번호가 틀렸습니다.'); location.href='" + "/instagram/password/" + userName+ "';</script>");
+			out.println("<script>alert('이전 비밀번호가 틀렸습니다.'); location.href='" + "/insta/password/" + userName+ "';</script>");
 			out.flush();
 		}
 		
