@@ -113,7 +113,7 @@ public class PostController {
    public String getString(HttpServletRequest request, MultipartHttpServletRequest multireq, RedirectAttributes redirectAttribute, Model model,
          @PathVariable String userName, @RequestParam MultipartFile file) 
          throws IllegalStateException, IOException {
-	   log.info("이게 내 이름이다!? : " + userName);
+	   	   log.info("이게 내 이름이다!? : " + userName);
 	   	   String urlusername = "";
 	   	   User urlUser;
            urlUser = userMapper.getUserByUsername(userName);

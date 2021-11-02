@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resources/css/user/edit/update.css?ver=3"></link>
+<link rel="stylesheet" href="../resources/css/user/edit/update.css?ver=5"></link>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -18,22 +18,23 @@
 			<div class="content__item1">
 				<div class="item-img">
 					<form name="userProfileImageForm" id="userProfileImageForm" method="POST" 
-					action="${oneUser.uname}"/>
+					action="/insta/profile/${editedUser.uname}"/>
 						<input type="file" name="file" style="display: none;"
 							id="userProfileImage" />
 					
-						<img src=${editedUser.profile_img} 
+						<img id="basicUserProfileImage" src=${editedUser.profile_img} 
 						onerror="this.src='../resources/images/originalProfile.jpg'" />
 					</form>
 				</div>
 				
 				<div class="item-username">
 					<h2>${editedUser.uname}</h2>
-					<div>프로필 바꾸기</div>
+					<div onclick="prfUpload()">프로필 바꾸기</div>
 				</div>
-				
 			</div>
-		
+			
+			<!-- content_item1 끝 -->
+			<!-- /////////////////////////////////////////////////////////////////////// -->
 			<!-- 프로필 수정 내용 -->
 			<form id="profileUpdate" action="" method="POST">
 				<div class="content__item2">
@@ -59,7 +60,7 @@
 				<div class="content__item4">
 				
 					<div class="item-title">
-					<label>공개여부  </label>
+					<label>공개여부 </label>
 					</div>
 					
 					<div class="item-input">
@@ -116,5 +117,5 @@
 	</section>
 	<!-- profile 셋팅 끝 -->
 </body>
-<script src="../resources/js/user/edit/update.js?ver=5"></script>
+<script src="../resources/js/user/edit/update.js?ver=2"></script>
 </html>
