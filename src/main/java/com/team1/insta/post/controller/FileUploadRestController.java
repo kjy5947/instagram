@@ -67,8 +67,10 @@ public class FileUploadRestController {
 //	}
 	
 	@PostMapping(value = "/posting", produces = MediaType.APPLICATION_JSON_VALUE)
-	public void posting(@Param("content") String content, @Param("user_id") String userId, @Param("pid") String pid) {
-		
+	public void posting(@Param("content") String content, @Param("userId") String userId, @Param("pid") String pid) {
+		System.out.println(content);
+		System.out.println(userId);
+		System.out.println(pid);
 		List<String> taggedName = new ArrayList<>();
 		String contentName = content;
 		for(int i = 0 ; i < content.length() ; i += contentName.indexOf(" ") ) {
@@ -101,6 +103,7 @@ public class FileUploadRestController {
 		List<User> taggedUserList = new ArrayList<>();
 		
 		for(String tagName : taggedName) {
+			System.out.println(tagName);
 			taggedUserList.add(userMapper.getUserByUsername(tagName));
 		}
 		
@@ -109,6 +112,7 @@ public class FileUploadRestController {
 		}
 		
 		for(String text : taggedText) {
+			System.out.println(text);
 			postMapper.addTagText(pid, text);
 		}
 		

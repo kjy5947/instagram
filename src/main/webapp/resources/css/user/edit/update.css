@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 .main{
 	box-sizing: border-box;
 	padding-top:55px;
@@ -32,13 +30,14 @@
 
 /* 이미지 프로필 영역 */
 .editted-profile .editted-content .content__item1{
-	/*border:1px solid blue;*/
 	
 	display:flex;
-	margin-left : 10%;
+	padding-left:100px;
+	margin-right : 50%;
 	margin-bottom:20px;
 }
 
+/* 아래 모든 form들의 content_item시리즈 */
 .editted-profile .editted-content form > div{
 
 	display:flex;
@@ -54,9 +53,9 @@
 
 
 .editted-profile .editted-content .content__item1 .item-img img{
-	width:38px;
-	height:38px;
-	margin-top:20px;
+	width:50px;
+	height:50px;
+	margin-top:26px;
 	margin-left:50px;
 	border-radius:50%;
 }
@@ -66,9 +65,13 @@
 	margin-top:17px;
 	flex:4;
 }
+.item-username > div{
+	cursor : pointer;
+	color : #0095f6;
+}
 
 
-form{
+.editted-profile .editted-content > form{
 	/*border : 1px solid red;*/
 	float : right;
 	width: 80%;
@@ -101,15 +104,17 @@ form{
 }
 
 .content__item4 .item-input{
-	border : 2px solid blue;
+	display : flex;
+	justify-content : flex-start;
+	margin-top: 6px;
 	height:20px;
 }
 
-.check {
-	height : 100%;
-	border : 2px solid pink;
-	margin-right : 80px;
+.check{
+	zoom : 0.7;
+	margin-right : 93%;
 }
+
 
 .editted-profile .editted-content .content__item5 .item-input{
 	display: block;
@@ -143,19 +148,3 @@ textarea{
   color: #fff;
   cursor: pointer;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

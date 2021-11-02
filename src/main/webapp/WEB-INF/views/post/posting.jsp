@@ -31,7 +31,7 @@
       <div class="modal-header">
         <h4 class="modal-title">새 게시물 만들기</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        <button type="button" class="shareBtn" onclick="shareBtnAction()" >공유하기</button>
+        <button type="button" class="shareBtn" id="shareBtn" >공유하기</button>
       </div>
 
       <!-- Modal body -->
@@ -68,6 +68,7 @@
 <script type="text/javascript">
 	// const userId = ${user.user_id};
 	const userId = "4";
+	const pid= "9";
 </script>
 <script src="<c:url value="/resources/js/post/fileUpload/posting.js"/>"></script>
 </body>

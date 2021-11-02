@@ -167,10 +167,13 @@ function sendFileToServer(formData,status)
 }
 
 });
+const shareBtn = document.getElementById("shareBtn");
 
-function shareBtnAction() {
-	
-	let contentTextArea = document.getElementById("contentTextArea");
+shareBtn.addEventListener('click', () => {
+	let contentTextArea = document.getElementById("contentTextArea").value;
+	console.log(contentTextArea);
+	console.log(userId);
+	console.log(pid);
 	
 	const xhttp = new XMLHttpRequest();			
 		xhttp.addEventListener('readystatechange', (e) => {
@@ -182,9 +185,12 @@ function shareBtnAction() {
 			};
 		});
 	
-		xhttp.open('POST', '/insta/fileUploadRest/posting?content='+ contentTextArea + '&user_id=' + userId + "&pid="+pid , true);
+		xhttp.open('POST', '/insta/fileUploadRest/posting?content='+ contentTextArea + '&userId=' + userId + "&pid="+pid , true);
 
 		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
 		
 		xhttp.send();
-};
+});
+
+
+
