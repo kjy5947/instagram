@@ -29,4 +29,5 @@ public interface PostMapper {
 	public List<LikeManage> likeDecide(@Param("pId") String pId, @Param("userId") String userId);
 	public int addLike(@Param("pId") String pId, @Param("userId") String userId);
 	public int deleteLike(@Param("pId") String pId, @Param("userId") String userId);
+	public int getNewPID(String uname);
 }
