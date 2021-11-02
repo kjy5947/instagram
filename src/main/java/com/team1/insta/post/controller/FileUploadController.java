@@ -3,19 +3,30 @@ package com.team1.insta.post.controller;
 import java.io.File;
 import java.util.Iterator;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.team1.insta.post.dao.mapper.PostMapper;
+import com.team1.insta.user.dao.mapper.UserMapper;
+import com.team1.insta.user.dto.User;
+
 @Controller
 public class FileUploadController {
+
+	@Autowired
+	UserMapper userMapper;
+	@Autowired
+	PostMapper postMapper;
+	
 	   @RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
 	    public String dragAndDrop(Model model) {
 	        
@@ -31,8 +42,18 @@ public class FileUploadController {
 	    }
 	   
 	   @RequestMapping(value = "/postingImages")
-	   public String postingImages() {
-		   
+	   public String postingImages(HttpServletRequest request, Model model) {
+		   Cookie[] cookies = request.getCookies();
+	         
+	       String uname = "";
+	       for(Cookie cookie :cookies) {
+               if(cookie.getName().equals("sid")) {
+            	   uname = cookie.getValue();
+               }
+	       }
+	       User user = userMapper.getUserByUsername(uname);
+	       model.addAttribute("user", user);
+	       model.addAttribute("pid", postMapper.getNewPID(uname));
 		   return "post/contents";
 	   }
 	    

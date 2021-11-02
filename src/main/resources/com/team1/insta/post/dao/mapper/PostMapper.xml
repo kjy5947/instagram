@@ -90,5 +90,8 @@
 	<delete id="deleteLike">
 		DELETE FROM like_manage WHERE pid= #{pId} AND user_id= #{userId}
 	</delete>
-
+	<select id="getNewPID"
+		resultType="int">
+		SELECT MAX(pid) + 1 FROM post where uid = (SELECT uid FROM user_info where uname = #{uname})
+	</select>
 </mapper>

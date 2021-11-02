@@ -16,8 +16,9 @@
 		<div>
 			<!-- contents -->
 			
-			<label for="comment">Comments:</label>
-			<textarea class="form-control" rows="10" id="comment" name="text"></textarea>
+			<label for="uname">${user.uname }</label>
+			<label for="pid">${pid }</label>
+			<textarea class="form-control" rows="10" id="comment" name="text" style="border: 0px;"></textarea>
 		</div>
 	</div>
 	
