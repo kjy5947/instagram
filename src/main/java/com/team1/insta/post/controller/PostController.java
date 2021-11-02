@@ -141,10 +141,13 @@ public class PostController {
             	//String relativePath = multireq.getSession().getServletContext().getRealPath("resources/images");
             	//String fullPath = fileDir + file.getOriginalFilename();
             	String root_path = request.getSession().getServletContext().getRealPath("/");
-            	String attach_path = "\\resources\\images\\";
+            	root_path = root_path.replace("\\", "/");
+            	log.info("root path : " + root_path);
+            	String attach_path = "/resources/images/";
 
             	//String fullPath = relativePath + file.getOriginalFilename();
             	String fullPath = root_path + attach_path + file.getOriginalFilename();
+            	
                log.info(" fullPath={}", fullPath);
                file.transferTo(new File(fullPath));
       
