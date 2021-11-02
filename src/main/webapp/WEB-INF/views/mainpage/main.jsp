@@ -258,7 +258,7 @@
 					                 grid-column: 1/5;
 			                         margin-left: 15px;
 			                         margin-top: 15px;
-			                         cursor: pointer;"
+			                         cursor: pointer;" 
 			                         onclick="location.href='http://localhost:8080/insta/mainpage/main'"
 			                         >댓글 ${commentCount.count}개 모두 보기</div>
             		<%} else if (count == 0) {
