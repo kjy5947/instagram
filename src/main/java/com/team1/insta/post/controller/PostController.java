@@ -166,9 +166,9 @@ public class PostController {
             }
             else {
                return "redirect:"+ userName;
-            }
+            }//else
              
-         }
+         }//else
       
       
      

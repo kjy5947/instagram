@@ -18,7 +18,7 @@
 			<div class="content__item1">
 				<div class="item-img">
 					<form name="userProfileImageForm" id="userProfileImageForm" method="POST" 
-					action="/insta/profile/${editedUser.uname}"/>
+					action="/insta/users/profile/${editedUser.uname}"/>
 						<input type="file" name="file" style="display: none;"
 							id="userProfileImage" />
 					
