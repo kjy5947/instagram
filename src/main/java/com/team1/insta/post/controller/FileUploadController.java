@@ -101,6 +101,7 @@ public class FileUploadController {
 	            try {
 	                //파일 저장
 	                mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서 처리
+	                Thread.sleep(1000);
 		            postMapper.addImages("../resources/images/" + pimg, uname);
 
 	                System.out.println("originalFilename => "+originalFilename);
