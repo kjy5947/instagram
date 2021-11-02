@@ -12,7 +12,7 @@
 	Object obj = request.getAttribute("usernameInfo");
 
 	String us = (String)obj;
-	response.sendRedirect("/instagram/home/" + us);
+	response.sendRedirect("/insta/home/" + us);
 
 	%>
 </body>
