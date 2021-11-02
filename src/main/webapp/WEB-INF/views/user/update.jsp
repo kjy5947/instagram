@@ -95,7 +95,7 @@
 				
 				<div class="content__item7">
 				
-					<div class="item-title">전화번호</div>
+					<div class="item-title">휴대폰 번호</div>
 					<div class="item-input">
 						<input type="text" name="phoneNumber" value=${editedUser.phone_number}
 					/>

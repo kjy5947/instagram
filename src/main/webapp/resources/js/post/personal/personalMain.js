@@ -1,3 +1,8 @@
+
+	console.log("로그인 ID다! : " + loginUserId);
+	console.log("Path ID다! : " + userId);
+
+/*test 끝*/
 function popup(obj){
    var op = document.getElementsByClassName(obj)[0];
    op.style.display = "flex";   
@@ -194,17 +199,19 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	// user name
 	const postingUname = document.createElement('div');
 	postingUname.setAttribute('class', 'postingUname');
-	postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/post/personal?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
-	
+	//postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/post/personal?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
+	postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/home/" + uname + "?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
+	console.log("무슨 값인지 몰라서 출력하는 값 : <a href='"+window.location.protocol+ "//" + window.location.host +"/insta/home/" + uname + "?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp");
 	
 	//follow Button
 		postingUname.innerHTML += "•";
 		
-		const followBtn = document.createElement('button');
-		//const followBtn = document.getelementbyid('btn2');
+		//const followBtn = document.createElement('button');
+		const followBtn = document.getElementById('btn2');
+		console.log("postJointImage.pid? " +postJoinImage.pid);
 		followBtn.setAttribute('id', 'followBtn' + postJoinImage.pid);
 		
-	if(loginUserId != userId) {
+	if(loginUserId == userId) {
 		followBtn.style.display = 'none';
 	};
 	

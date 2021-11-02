@@ -16,7 +16,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="<c:url value = "../resources/css/post/personal/personalMain.css"/>">-->
 <link rel="stylesheet"
-	href="../resources/css/post/personal/personalMain.css?ver=5" />
+	href="../resources/css/post/personal/personalMain.css?ver=2" />
 
 
 
@@ -153,7 +153,7 @@
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 
-<script src="../resources/js/post/personal/personalMain.js"></script>
+<script src="../resources/js/post/personal/personalMain.js?ver=5"></script>
 
 
 <link rel="stylesheet"

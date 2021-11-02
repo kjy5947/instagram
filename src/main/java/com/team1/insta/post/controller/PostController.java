@@ -78,8 +78,29 @@ public class PostController {
 		Cookie[] cookies = request.getCookies();
 		/////////////////////////////////////////////////////////////////
 		// 수환님 코드 추가하기.
+		User user = userMapper.getUserBytype(new KeyConfirm("", userName));
 		
-		
+		List<Post> postList =  postMapper.getPostList(user.getUser_id());
+		List<List<Images>> imagesList = new ArrayList<>();
+		List<PostJoinImages> postJoinImageList = new ArrayList<>();
+		List<List<LikeManage>> likeManageList = new ArrayList<>();
+		List<PostJoinImages> taggedPostJoinImageList = new ArrayList<>();
+		List<List<CommentManage>> commentManageList = new ArrayList<>();
+		List<TagPerson> tagpersonList = postMapper.getTagPersonByUserId(user.getUser_id());
+
+		for(Post post : postList) {
+			imagesList.add(postMapper.getImagesList(post.getPid()));
+			postJoinImageList.add(postMapper.getPostJoinImages(post.getPid()));
+			likeManageList.add(postMapper.getLikeManage(post.getPid()));	
+			commentManageList.add(postMapper.getCommentList(post.getPid()));
+		}
+
+		for(TagPerson tagperson : tagpersonList) {
+			taggedPostJoinImageList.add(postMapper.getPostJoinImages(tagperson.getPid()));
+		}
+
+		List<Follow> followerList = postMapper.getFollower(user.getUser_id());
+		List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
 
 		/////////////////////////////////////////////////////////////////
 		String mySid = "";
@@ -95,17 +116,25 @@ public class PostController {
 					mySid = cookie.getValue();
 			//////////////////////////////////////
 
-			model.addAttribute("oneUser", userMapper.getUserByUsername(mySid));
+			model.addAttribute("oneUser", userMapper.getUserByUsername(userName));
 			User urlUser = userMapper.getUserByUsername(userName);      
 			urlusername = urlUser.getUname();
-			if(urlusername.equals(mySid)) {
-				return "post/personal/personal"; 
-			}
-			else {
-				return "redirect:" + "/";
-			}
+			
+			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
+			model.addAttribute("user", user);
+			model.addAttribute("postList", JSONArray.fromObject(postList));
+			model.addAttribute("imagesList", JSONArray.fromObject(imagesList));
+			model.addAttribute("postJoinImageList", JSONArray.fromObject(postJoinImageList));
+			model.addAttribute("likeManageList", JSONArray.fromObject(likeManageList));
+			model.addAttribute("taggedPostJoinImageList", JSONArray.fromObject(taggedPostJoinImageList));
+			model.addAttribute("followerList", JSONArray.fromObject(followerList));
+			model.addAttribute("followingrList", JSONArray.fromObject(followingrList));		
+			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
 
-		}
+			return "post/personal/personal"; 
+			
+			
+		}//else
 
 
 	}//getString 끝
@@ -290,7 +319,7 @@ public class PostController {
 			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
 
 			return "post/personal";
-		}
+		}//else
 
 	}
 }

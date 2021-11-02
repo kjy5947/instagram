@@ -57,6 +57,7 @@
 	height:50px;
 	margin-top:26px;
 	margin-left:50px;
+	background-size: contain;
 	border-radius:50%;
 }
 
