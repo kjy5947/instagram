@@ -69,10 +69,21 @@ public class UserController {
 	    return "user/update";
 	}
 	@PostMapping("/users/profile/{userName}")
-	public String profilehey() {
+	public String profilehey(HttpServletRequest request, @PathVariable String userName) {
+		
+		
+		log.info(userName);
+		User urlUser;
+		String urlusername = ""; // url에 담긴 유저이름을 담을 변수
+		String mySid = ""; // 쿠키에서 긁어온 유저정보를 담을 변수
+		urlUser = userMapper.getUserByUsername(userName);
+		
+		Cookie[] cookies = request.getCookies();
+		
 		
 		return "post/personal/editedcookie";
 	}
+	
 	@PostMapping("/users/{userName}")
 	public String editUser(HttpServletRequest request,HttpServletResponse response, Model model, @PathVariable String userName, @ModelAttribute EditRequest editrequest)
 			throws IOException, ServletException {

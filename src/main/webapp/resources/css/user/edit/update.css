@@ -141,9 +141,9 @@ textarea{
 }
 
 .content__item8 .item-input .btn{
+	background-color: #0095f6;
+  	color: #fff;
   border: 0;
-  
   padding: 5px 9px;
-  
   cursor: pointer;
 }
