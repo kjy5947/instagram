@@ -24,6 +24,7 @@ $(document).on("drop",".dragAndDropDiv",function(e){
     e.preventDefault();
     var files = e.originalEvent.dataTransfer.files;
     console.log("진입1");
+    addPostByUser();
     handleFileUpload(files,objDragAndDrop);
 });
 
@@ -44,6 +45,7 @@ $(document).on('drop', function (e){
 $('input[type=file]').on('change', function(e) {
     var files = e.originalEvent.target.files;
     console.log("진입2");
+    addPostByUser();
     handleFileUpload(files,objDragAndDrop);
 });
 
@@ -150,4 +152,10 @@ function sendFileToServer(formData,status)
     
 }
 
+function addPostByUser(){
+	$.ajax({
+		url : "/insta/fileUpload/addPosting",
+		type : "POST"
+	})
+}
 });
