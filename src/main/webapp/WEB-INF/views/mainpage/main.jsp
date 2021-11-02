@@ -269,7 +269,6 @@
 			                        margin-left: 15px;
 			                        margin-top: 15px;
 			                        cursor: pointer;"
-			                        onclick="location.href='http://localhost:8080/insta/mainpage/main'"
 			                        >댓글 ${commentCount.count}개</div>
             		<%}%>
             </c:forEach>
