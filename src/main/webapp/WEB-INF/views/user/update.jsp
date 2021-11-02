@@ -16,18 +16,22 @@
 		<article class="editted-content">
 		
 			<div class="content__item1">
-				<div class="item-img" onclick="userProfileEdit()">
+				<div class="item-img">
 					<form name="userProfileImageForm" id="userProfileImageForm" method="POST" 
 					action="${oneUser.uname}"/>
-					<input type="file" name="file" style="display: none;"
-						id="userProfileImage" />
+						<input type="file" name="file" style="display: none;"
+							id="userProfileImage" />
+					
+						<img src=${editedUser.profile_img} 
+						onerror="this.src='../resources/images/originalProfile.jpg'" />
 					</form>
-					<img src=${editedUser.profile_img} 
-					onerror="this.src='../resources/images/originalProfile.jpg'" />
 				</div>
+				
 				<div class="item-username">
 					<h2>${editedUser.uname}</h2>
+					<div>프로필 바꾸기</div>
 				</div>
+				
 			</div>
 		
 			<!-- 프로필 수정 내용 -->

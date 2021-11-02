@@ -48,7 +48,7 @@ function modalImage(){
 	      }
 	    reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
 	   });
-	}
+}
 
 
 function profileEdit(){
