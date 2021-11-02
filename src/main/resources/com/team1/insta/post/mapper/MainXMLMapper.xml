@@ -22,7 +22,8 @@
 	  	select count(pimg) as count from images where pid=#{post_id}
   	</select>
   	<select id="getCommentList" resultType="com.team1.insta.post.dto.PidComments">
-	  	select user_id, contents from comment_manage where pid=#{post_id}
+	  	SELECT uname, contents FROM comment_manage 
+    		INNER JOIN user_info using(user_id) where pid=#{post_id}
   	</select>
   	<select id="getCommentCountList" resultType="com.team1.insta.post.dto.PidCommentCount">
 	  	select count(cid) as count from comment_manage where pid=#{post_id}

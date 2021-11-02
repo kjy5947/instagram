@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class PidComments {
-	private Integer user_id;
+	private String uname;
 	private String contents;
 }
