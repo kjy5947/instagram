@@ -112,7 +112,7 @@ body {
     display: grid; 
     width: 700px;
     border: lightgray solid 1px;
-    margin-left: 320px;
+    margin-left: 350px;
     grid-template-columns: 10% 10% 60% 20%;
     margin-bottom: 30px;
     

@@ -22,6 +22,21 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
+	<%
+		Cookie cookie = null;
+		Cookie[] cookies = null;
+		
+		cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; ++i) {
+				cookie = cookies[i];
+				if (cookie.getName().equals("sid")) {
+					pageContext.setAttribute("sid", cookie.getValue());
+				}
+			}
+		}
+	%>
+	
     <div id="highBar"> 
         <img id="highlogo" onclick="location.href='http://localhost:8080/insta/mainpage/main'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png"></img>
 
@@ -57,7 +72,8 @@
             </span>
             <i style="vertical-align: top;
 			          padding-top: 2px;
-			          cursor: pointer;" class="far fa-user"></i>
+			          cursor: pointer;"
+			          onclick="location.href='http://localhost:8080/insta/home/${sid}'" class="far fa-user"></i>
 	     </div>
 
     </div>
@@ -113,7 +129,7 @@
 		int postNum = 0; 
 		String postCarouselName;
 	%>
-    <c:forEach var="post" items="${posts }">
+    <c:forEach var="post" items="${posts }"> 
     
     	<%
     		postCarouselName = "carousel-example-generic" + postNum;
@@ -318,8 +334,8 @@
             
         </div>
     </c:forEach>
-
-
+	
+	
     
 
 
