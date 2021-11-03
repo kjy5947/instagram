@@ -118,6 +118,14 @@ body{
   background: transparent;
 }
 
+#btnen{
+	 border: 1px solid rgba(219, 219, 219,1);
+	  border-radius: 4px;
+	  color: #262626;
+	  font-weight: bold;
+	  background: transparent;
+}
+
 #btn2{
 	background-color: #0095f6;
   	color: #fff;
