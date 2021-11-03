@@ -1,3 +1,8 @@
+
+	console.log("로그인 ID다! : " + loginUserId);
+	console.log("Path ID다! : " + userId);
+
+/*test 끝*/
 function popup(obj){
    var op = document.getElementsByClassName(obj)[0];
    op.style.display = "flex";   
@@ -67,12 +72,6 @@ function passwordEdit(){
 	var params = fullUrl.indexOf("home");
 	var username = fullUrl.substring(params+4);
  	location.replace("/insta/password" + username);
-}
-
-
-function clickme(){
-
-   console.log("why are you click me?");
 }
 
 
@@ -200,18 +199,33 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	// user name
 	const postingUname = document.createElement('div');
 	postingUname.setAttribute('class', 'postingUname');
-	postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/post/personal?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
-	
+	//postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/post/personal?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
+	postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/home/" + uname + "?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
+	console.log("무슨 값인지 몰라서 출력하는 값 : <a href='"+window.location.protocol+ "//" + window.location.host +"/insta/home/" + uname + "?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp");
 	
 	//follow Button
 		postingUname.innerHTML += "•";
 		
-		const followBtn = document.createElement('button');
+		//const followBtn = document.createElement('button');
+		const followBtn = document.getElementById('btn2');
+		const followBtn2 = document.getElementById('btnen');
+		console.log("followBtn2의 내부값 : ? " + followBtn2.value);
+		console.log("postJointImage.pid? " + postJoinImage.pid);
 		followBtn.setAttribute('id', 'followBtn' + postJoinImage.pid);
 		
-	if(loginUserId != userId) {
+	if(loginUserId == userId) {
 		followBtn.style.display = 'none';
+		followBtn2.style.display = 'inline';
+	}else{
+		followBtn.style.display = 'inline';
+		followBtn2.style.display = 'none';
 	};
+	
+	
+	
+	
+	
+	
 	
 	// followBtn decide
 	const followBtnDecideXhttp = new XMLHttpRequest();			
@@ -229,7 +243,9 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 			}
 		}
 	});
+	// end - followBtn decide
 		
+	
 	followBtnDecideXhttp.open('POST', '/insta/postRest/FollowDecide', true);
 
 	followBtnDecideXhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');

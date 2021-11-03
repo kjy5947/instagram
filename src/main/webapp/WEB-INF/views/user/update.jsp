@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resources/css/user/edit/update.css?ver=5"></link>
+<link rel="stylesheet" href="../resources/css/user/edit/update.css?ver=4"></link>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -18,7 +18,7 @@
 			<div class="content__item1">
 				<div class="item-img">
 					<form name="userProfileImageForm" id="userProfileImageForm" method="POST" 
-					action="/insta/profile/${editedUser.uname}"/>
+					action="/insta/users/profile/${editedUser.uname}"/>
 						<input type="file" name="file" style="display: none;"
 							id="userProfileImage" />
 					
@@ -95,7 +95,7 @@
 				
 				<div class="content__item7">
 				
-					<div class="item-title">전화번호</div>
+					<div class="item-title">휴대폰 번호</div>
 					<div class="item-input">
 						<input type="text" name="phoneNumber" value=${editedUser.phone_number}
 					/>

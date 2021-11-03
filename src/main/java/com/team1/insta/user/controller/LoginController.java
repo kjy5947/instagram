@@ -38,7 +38,7 @@ public class LoginController {
 		Cookie cookie = new Cookie("sid", id_val);
 		
 		cookie.setMaxAge(60*120);//2�ð� ���� ��Ű�������ϰ� ����.
-		log.info("���� sid : "+ cookie);
+		log.info("사용자 이름 sid : "+ cookie);
 		log.info(cookie.getValue());
 		res.addCookie(cookie);
 	}
@@ -70,7 +70,7 @@ public class LoginController {
 						//session.setAttribute("sid", id);
 						makeCookieVal(res, id);
 						log.info("1");
-						return "mainpage/main";
+						return "redirect:/mainpage/main";
 					}
 				}
 			}
@@ -96,7 +96,7 @@ public class LoginController {
 						//session.setAttribute("sid", id);
 						makeCookieVal(res, id);
 						
-						return "mainpage/main";
+						return "redirect:/mainpage/main";
 					}
 				}
 			}
@@ -120,7 +120,7 @@ public class LoginController {
 						//session.setAttribute("sid", id);
 						makeCookieVal(res, id);
 						
-						return "mainpage/main";
+						return "redirect:/mainpage/main";
 					}
 				}
 			}

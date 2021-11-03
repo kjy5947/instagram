@@ -126,9 +126,10 @@
 		)
 	</insert>
 	<insert id="addPost">
-		INSERT INTO post(pid, user_id) values (
+		INSERT INTO post(pid, user_id, pcontents) values (
 			pid_seq.nextval,
-			(SELECT user_id FROM user_info WHERE uname = #{uname})
+			(SELECT user_id FROM user_info WHERE uname = #{uname}),
+			' '
 		)
 	</insert>
 	

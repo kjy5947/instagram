@@ -1,5 +1,6 @@
 package com.team1.insta.user.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team1.insta.user.dao.mapper.UserMapper;
 import com.team1.insta.user.dto.EditRequest;
@@ -61,18 +64,15 @@ public class UserController {
 					model.addAttribute("editedUser", userMapper.getUserByUsername(mySid));
 				}else {
 					System.out.println("이거 맞냐고");
-					outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='redirect:/';</script>");
+					outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='/insta/home/" + userName + "';</script>");
 					outt.flush();
 				}
 			}
 		}
 	    return "user/update";
 	}
-	@PostMapping("/users/profile/{userName}")
-	public String profilehey() {
-		
-		return "post/personal/editedcookie";
-	}
+	
+	
 	@PostMapping("/users/{userName}")
 	public String editUser(HttpServletRequest request,HttpServletResponse response, Model model, @PathVariable String userName, @ModelAttribute EditRequest editrequest)
 			throws IOException, ServletException {
@@ -125,8 +125,56 @@ public class UserController {
 	}
 	// 개인정보 수정 끝
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
+	@PostMapping("/users/profile/{userName}")
+	public String profilehey(HttpServletRequest request, @PathVariable String userName,RedirectAttributes redirectAttribute,
+			@RequestParam MultipartFile file) throws IllegalStateException, IOException {
+		
+		
+		log.info(userName);
+		User urlUser;
+		String urlusername = ""; // url에 담긴 유저이름을 담을 변수
+		String mySid = ""; // 쿠키에서 긁어온 유저정보를 담을 변수
+		urlUser = userMapper.getUserByUsername(userName);
+		
+		Cookie[] cookies = request.getCookies();
+		
+		
+		if(cookies == null) {
+			
+			return "user/login";
+		}else {// cookie값이 존재할때 내가 찾는 cookie값이 있는지 체크.
+			for (Cookie cookie : cookies)
+				if(cookie.getName().equals("sid"))
+					mySid = cookie.getValue();
+			
+			
+			userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
+			redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
+			
+			if(!file.isEmpty()) {
+				
+				String root_path = request.getSession().getServletContext().getRealPath("/");
+            	root_path = root_path.replace("\\", "/");
+            	log.info("root path : " + root_path);
+            	String attach_path = "/resources/images/";
+
+            	String fullPath = root_path + attach_path + file.getOriginalFilename();
+            	
+               log.info(" fullPath={}", fullPath);
+               file.transferTo(new File(fullPath));
+			}//!file.isEmpty()의 if문.
+			
+			if(urlusername.equals(mySid)) {
+               return "redirect:/users/"+ userName; 
+            }
+            else {
+               return "redirect:/users/"+ userName;
+            }
+		}//else
+		
+		
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	@GetMapping("/join")
 	public String join() {
