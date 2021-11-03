@@ -49,6 +49,8 @@ $('input[type=file]').on('change', function(e) {
     handleFileUpload(files,objDragAndDrop);
 });
 
+
+
 function handleFileUpload(files,obj)
 {
 
@@ -80,8 +82,7 @@ function handleFileUpload(files,obj)
 	
 	let ImgContentsModal = document.getElementById("ImgContentsModal");
 	ImgContentsModal.style.display = "flex";
-	
-	
+		
 	const xhttp = new XMLHttpRequest();			
 		xhttp.addEventListener('readystatechange', (e) => {
 			const readyState = e.target.readyState;
@@ -91,15 +92,23 @@ function handleFileUpload(files,obj)
 			
 				let pidUsermap = JSON.parse(e.target.responseText);
 				
-				const user = pidUsermap["user"];
-				const postJoinImage = pidUsermap["postJoinImage"];
-				console.log(postJoinImage);
-
+				user = pidUsermap["user"];
+				postJoinImage = pidUsermap["postJoinImage"];
+				
+				userId = user.user_id;
+				pid = postJoinImage.pid;
+				
+				getPidUserId(pid, userId);
+				
+				console.log(pid);
 				const contentImg = document.getElementById("contentImg");
 				
 				const img = document.createElement('img')
-				img.src = postJoinImage.pimg;
-				console.log(postJoinImage.pimg);
+				
+				postJoinImage.pimg.substring(3);
+				const tempUrl = "/insta/" + postJoinImage.pimg.substring(3);
+				
+				img.src = tempUrl;
 				
 				
 				const contentUserInfo = document.getElementById("contentUserInfo");
@@ -122,7 +131,9 @@ function handleFileUpload(files,obj)
 				contentUserInfo.appendChild(contentUname);
 				
 				contentArea.appendChild(textArea);
+
 			};
+			
 		});
 	
 		xhttp.open('POST', '/insta/fileUploadRest/postingImages' , true);
@@ -130,7 +141,6 @@ function handleFileUpload(files,obj)
 		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');		
 		
 		xhttp.send();
-		
 		
 };
 
@@ -229,7 +239,10 @@ function addPostByUser(){
 }
 });
 
-const shareBtn = document.getElementById("shareBtn");
+function getPidUserId(pid, userId) {
+	tempPid = pid;
+	tempUserId = userId;
+};
 
 shareBtn.addEventListener('click', () => {
 	let contentTextArea = document.getElementById("contentTextArea").value;
@@ -240,11 +253,11 @@ shareBtn.addEventListener('click', () => {
 			const httpStatus = e.target.status;
 			
 			if(readyState == 4 && httpStatus == 200) {
-				const contentDiv = document.getElementById("contentDiv");
+				const ImgContentsModal = document.getElementById("ImgContentsModal");
 				const postCompleted = document.getElementById("postCompleted");
 				
-				contentDiv.styled.display = "none";
-				postCompleted.styled.display = "flex";
+				ImgContentsModal.style.display = "none";
+				postCompleted.style.display = "flex";
 			};
 		});
 	
@@ -252,7 +265,7 @@ shareBtn.addEventListener('click', () => {
 
 		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
 		
-		const postsupport = {
+		postsupport = {
 			user_id : userId,
 			pid : pid,
 			content : contentTextArea

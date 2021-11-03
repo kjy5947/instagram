@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 .shareBtn{
 	display: none;
 	background-color: transparent;
@@ -42,7 +43,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: white;
-	border-top: 20px;
+	margin-top: 10px;
 }
 
 .contentUserInfo > img{
@@ -82,4 +83,6 @@
 
 #postCompleted {
 	display: none;
+	font-size: 50px;
+	
 }

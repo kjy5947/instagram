@@ -71,12 +71,11 @@
 						</div>
 					</div>
 				</div>
-				<div id="postCompleted">전송완료</div>
+				<div id="postCompleted">게시완료</div>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-
+<script type="text/javascript">
 </script>
 	<script src="<c:url value="/resources/js/post/fileUpload/posting.js"/>"></script>
 </body>

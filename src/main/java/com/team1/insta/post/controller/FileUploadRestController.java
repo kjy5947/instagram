@@ -50,8 +50,11 @@ public class FileUploadRestController {
 		
 		User user = userMapper.getUserByUsername(uname);
 		String pid = postMapper.getLastPID(uname);
+		PostJoinImages pji = null;
 		
-		PostJoinImages pji = postMapper.getPostJoinImages(pid);
+		while(pji == null) {
+			pji = postMapper.getPostJoinImages(pid);
+		}
 		System.out.println(pji);
 		Map<String, Object> map = new HashMap<>();
 
