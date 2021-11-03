@@ -206,19 +206,19 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	//follow Button
 		postingUname.innerHTML += "•";
 		
-		//const followBtn = document.createElement('button');
-		const followBtn = document.getElementById('btn2');
-		const followBtn2 = document.getElementById('btnen');
-		console.log("followBtn2의 내부값 : ? " + followBtn2.value);
-		console.log("postJointImage.pid? " + postJoinImage.pid);
+		const followBtn = document.createElement('button');
+		//const followBtn = document.getElementById('btn2');
+		//const followBtn2 = document.getElementById('btnen');
+		// console.log("followBtn2의 내부값 : ? " + followBtn2.value);
+		// console.log("postJointImage.pid? " + postJoinImage.pid);
 		followBtn.setAttribute('id', 'followBtn' + postJoinImage.pid);
 		
 	if(loginUserId == userId) {
 		followBtn.style.display = 'none';
-		followBtn2.style.display = 'inline';
+		// followBtn2.style.display = 'inline';
 	}else{
 		followBtn.style.display = 'inline';
-		followBtn2.style.display = 'none';
+		// followBtn2.style.display = 'none';
 	};
 	
 	
