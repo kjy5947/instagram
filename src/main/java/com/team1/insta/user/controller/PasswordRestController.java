@@ -84,7 +84,7 @@ public class PasswordRestController {
 
 			messageHelper.setFrom("instagram");
 			messageHelper.setTo(user.getUemail());
-			messageHelper.setSubject(user.getUname() + "�떂, �뜑�슧 媛꾪렪�븯寃� Instagram�뿉 �떎�떆 濡쒓렇�씤 �빐蹂댁꽭�슂");
+			messageHelper.setSubject(user.getUname() + "님, 더욱 간편하게 Instagram에 다시 로그인 해보세요");
 			String htmlContent = "<!DOCTYPE html>\r\n"
 					+ "<html lang=\"en\">\r\n"
 					+ "\r\n"
