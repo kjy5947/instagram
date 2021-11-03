@@ -372,6 +372,7 @@ button[id^="followBtn"].following {
 	display: flex;
 	align-items: center;
 	margin-bottom: 30px;
+	width: 80%;
 }
 
 .postCommentsLi > img, .otherUserComment > img {
