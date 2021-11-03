@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="highBar"> 
-        <img id="highlogo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png"></img>
+        <img id="highlogo" onclick="location.href='http://localhost:8080/insta/mainpage/main'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png"></img>
 
         <div class="topnav">
             <div class="search-container">

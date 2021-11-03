@@ -29,6 +29,7 @@
     margin: auto;
 	width: 100px;
 	height: auto;
+	cursor: pointer;
 }
 
 body {
