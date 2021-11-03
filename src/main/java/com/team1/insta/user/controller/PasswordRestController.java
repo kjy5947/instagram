@@ -135,7 +135,7 @@ public class PasswordRestController {
 					+ "    color: white;\r\n"
 					+ "    vertical-align: middle;\r\n"
 					+ "    display: table-cell;\">\r\n"
-					+ "                鍮꾨�踰덊샇 �옱�꽕�젙\r\n"
+					+ "                비밀번호 재설정\r\n"
 					+ "            </a>\r\n"
 					+ "        </div>\r\n"
 					+ "        <br><br>\r\n"
