@@ -48,7 +48,7 @@
             <span style="padding-right: 10px;
 				         font-size: 30px;
 				         cursor: pointer;" class="material-icons-outlined">
-                explore
+				add_box
             </span>
             <span style="padding-right: 10px;
 			             font-size: 30px;
