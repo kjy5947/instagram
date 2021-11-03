@@ -311,7 +311,7 @@
 	            		<span style="margin-right: 7px; font-weight: bold;">${Uname1}</span><span>${Contents1}</span>
 	            	<%} else { %>
 	            		<span style="margin-right: 7px; font-weight: bold;">${Uname1}</span><span>${Contents1}</span> <br>
-	            		<span style="margin-right: 7px; font-weight: bold;">${Uname2}</span><span>${Contents1}</span>
+	            		<span style="margin-right: 7px; font-weight: bold;">${Uname2}</span><span>${Contents2}</span>
 	            	<%} %>
             	</div>
             
