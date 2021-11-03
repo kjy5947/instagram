@@ -1,5 +1,3 @@
-/*
- 
 
  function checkId(){
     var uname = $('#uname').val();
@@ -30,8 +28,7 @@
 };
  
  
- 
- */
+
    var idResult = false;
 function checkAll(){
     var joinBtn = document.getElementById('join-btn');
