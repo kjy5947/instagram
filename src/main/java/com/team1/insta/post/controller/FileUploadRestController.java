@@ -12,12 +12,16 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team1.insta.post.dao.mapper.PostMapper;
 import com.team1.insta.post.dto.CommentManage;
 import com.team1.insta.post.dto.LikeManage;
+import com.team1.insta.post.dto.Post;
+import com.team1.insta.post.dto.PostJoinImages;
+import com.team1.insta.post.dto.PostSupport;
 import com.team1.insta.user.dao.mapper.UserMapper;
 import com.team1.insta.user.dto.User;
 
@@ -32,88 +36,80 @@ public class FileUploadRestController {
 	@Autowired
 	PostMapper postMapper;
 
-//	@PostMapping(value = "/postingImages", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public Map<String, Integer> likeRealTimeLookup(HttpServletRequest request) {
-//
-//		Cookie[] cookies = request.getCookies();
-//
-//		String uname = "";
-//		for(Cookie cookie :cookies) {
-//			if(cookie.getName().equals("sid")) {
-//				uname = cookie.getValue();
-//			}
-//		}
-//		User user = userMapper.getUserByUsername(uname);
-//		String pid = postMapper.getNewPID(uname);
-//
-//		
-////		Map<String, Integer> cnt = new HashMap<>();
-////
-////
-////
-////		List<LikeManage> likeManage = postMapper.getLikeManage(pid);
-////		List<CommentManage> commentManage =postMapper.getCommentList(pid);
-////
-////		cnt.put("like", likeManage.size());
-////		cnt.put("comment", commentManage.size());
-//
-//
-//		//		ResponseEntity<List<LikeManage>> likeListEntity =  ResponseEntity
-//		//				.status(HttpStatus.OK)
-//		//				.contentType(MediaType.APPLICATION_JSON)
-//		//				.body(likeManage);
-//
-//		return cnt;
-//	}
+	@PostMapping(value = "/postingImages", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> postingImages(HttpServletRequest request) {
+
+		Cookie[] cookies = request.getCookies();
+
+		String uname = "";
+		for(Cookie cookie :cookies) {
+			if(cookie.getName().equals("sid")) {
+				uname = cookie.getValue();
+			}
+		}
+		
+		User user = userMapper.getUserByUsername(uname);
+		String pid = postMapper.getLastPID(uname);
+		
+		PostJoinImages pji = postMapper.getPostJoinImages(pid);
+		System.out.println(pji);
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("user", user);
+		map.put("postJoinImage", pji);
+
+		return map;
+	}
 	
 	@PostMapping(value = "/posting", produces = MediaType.APPLICATION_JSON_VALUE)
-	public void posting(@Param("content") String content, @Param("userId") String userId, @Param("pid") String pid) {
-		System.out.println(content);
-		System.out.println(userId);
-		System.out.println(pid);
+	public void posting(@RequestBody PostSupport postSupport) {
+		
+		
+		String content = postSupport.getContent();
+		
+		String[] contentSplitName = content.split("@");
+		
 		List<String> taggedName = new ArrayList<>();
-		String contentName = content;
-		for(int i = 0 ; i < content.length() ; i += contentName.indexOf(" ") ) {
-			int tagFirstIndex = contentName.indexOf("@")+1;
-			int tagLastIndex = contentName.indexOf(" ");
-			
-			if(tagFirstIndex > tagLastIndex) {
-				contentName = contentName.substring(tagLastIndex+1);
-			} else {
-				taggedName.add(contentName.substring(tagFirstIndex, tagLastIndex));
-				contentName = contentName.substring(tagLastIndex+1);
+		for(int i = 1 ; i < contentSplitName.length ; i++) {
+			try {
+				taggedName.add(contentSplitName[i].substring(0, contentSplitName[i].lastIndexOf(" ")));
+			} catch (Exception e) {
+				taggedName.add(contentSplitName[i].substring(0));
 			}
 		}
+			
+		
+		String[] contentSplitText = content.split("#");
 		
 		List<String> taggedText = new ArrayList<>();
-		String contentText = content;
-		for(int i = 0 ; i < content.length() ; i += contentText.indexOf(" ") ) {
-			int tagFirstIndex = contentText.indexOf("#")+1;
-			int tagLastIndex = contentText.indexOf(" ");
-			
-			if(tagFirstIndex > tagLastIndex) {
-				contentText = contentText.substring(tagLastIndex+1);
-			} else {
-				taggedText.add(contentText.substring(tagFirstIndex, tagLastIndex));
-				contentText = contentText.substring(tagLastIndex+1);
+		for(int i = 1 ; i < contentSplitText.length ; i++) {
+			try {
+				taggedText.add(contentSplitText[i].substring(0, contentSplitText[i].lastIndexOf(" ")));
+			} catch (Exception e) {
+				taggedText.add(contentSplitText[i].substring(0));
 			}
+			
 		}
+	
 		
-		postMapper.uppdatePost(pid, userId, content);
+		
+		postMapper.uppdatePost(postSupport.getPid(), postSupport.getUser_id(), content);
 		List<User> taggedUserList = new ArrayList<>();
 		
 		for(String tagName : taggedName) {
-			System.out.println(tagName);
-			taggedUserList.add(userMapper.getUserByUsername(tagName));
+			try {
+				taggedUserList.add(userMapper.getUserByUsername(tagName));
+			} catch (Exception e) {
+				
+			}
 		}
 		
 		for(User user : taggedUserList) {
-			postMapper.addTagPerson(pid, user.getUser_id());
+			postMapper.addTagPerson(postSupport.getPid(), user.getUser_id());
 		}
 		
 		for(String text : taggedText) {
-			System.out.println(text);
-			postMapper.addTagText(pid, text);
+			postMapper.addTagText(postSupport.getPid(), text);
 		}
 		
 		

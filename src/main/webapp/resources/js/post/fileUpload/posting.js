@@ -24,6 +24,7 @@ $(document).on("drop",".dragAndDropDiv",function(e){
     e.preventDefault();
     var files = e.originalEvent.dataTransfer.files;
     console.log("진입1");
+    addPostByUser();
     handleFileUpload(files,objDragAndDrop);
 });
 
@@ -44,6 +45,7 @@ $(document).on('drop', function (e){
 $('input[type=file]').on('change', function(e) {
     var files = e.originalEvent.target.files;
     console.log("진입2");
+    addPostByUser();
     handleFileUpload(files,objDragAndDrop);
 });
 
@@ -78,6 +80,58 @@ function handleFileUpload(files,obj)
 	
 	let ImgContentsModal = document.getElementById("ImgContentsModal");
 	ImgContentsModal.style.display = "flex";
+	
+	
+	const xhttp = new XMLHttpRequest();			
+		xhttp.addEventListener('readystatechange', (e) => {
+			const readyState = e.target.readyState;
+			const httpStatus = e.target.status;
+			
+			if(readyState == 4 && httpStatus == 200) {
+			
+				let pidUsermap = JSON.parse(e.target.responseText);
+				
+				const user = pidUsermap["user"];
+				const postJoinImage = pidUsermap["postJoinImage"];
+				console.log(postJoinImage);
+
+				const contentImg = document.getElementById("contentImg");
+				
+				const img = document.createElement('img')
+				img.src = postJoinImage.pimg;
+				console.log(postJoinImage.pimg);
+				
+				
+				const contentUserInfo = document.getElementById("contentUserInfo");
+				const userimg = document.createElement('img')
+				userimg.src = user.profile_img;
+				
+				const contentUname = document.createElement('div')
+				contentUname.setAttribute('class', "contentUname");
+				contentUname.innerHTML = "<a href='"+window.location.protocol+ "//" +window.location.host +"/insta/post/personal?uname=" + user.uname + "'>" + user.uname +"</a>&nbsp&nbsp";
+				
+				const contentArea = document.getElementById("contentArea");
+				const textArea = document.createElement('textarea')
+				textArea.setAttribute('id', 'contentTextArea');
+				textArea.setAttribute('placeholder', '문구 입력...');
+				textArea.setAttribute('autocomplete', 'off');
+				
+				contentImg.appendChild(img);
+				
+				contentUserInfo.appendChild(userimg);
+				contentUserInfo.appendChild(contentUname);
+				
+				contentArea.appendChild(textArea);
+			};
+		});
+	
+		xhttp.open('POST', '/insta/fileUploadRest/postingImages' , true);
+
+		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');		
+		
+		xhttp.send();
+		
+		
 };
 
 var rowCount=0;
@@ -166,14 +220,19 @@ function sendFileToServer(formData,status)
     
 }
 
+
+function addPostByUser(){
+	$.ajax({
+		url : "/insta/fileUpload/addPosting",
+		type : "POST"
+	})
+}
 });
+
 const shareBtn = document.getElementById("shareBtn");
 
 shareBtn.addEventListener('click', () => {
 	let contentTextArea = document.getElementById("contentTextArea").value;
-	console.log(contentTextArea);
-	console.log(userId);
-	console.log(pid);
 	
 	const xhttp = new XMLHttpRequest();			
 		xhttp.addEventListener('readystatechange', (e) => {
@@ -181,16 +240,26 @@ shareBtn.addEventListener('click', () => {
 			const httpStatus = e.target.status;
 			
 			if(readyState == 4 && httpStatus == 200) {
+				const contentDiv = document.getElementById("contentDiv");
+				const postCompleted = document.getElementById("postCompleted");
 				
+				contentDiv.styled.display = "none";
+				postCompleted.styled.display = "flex";
 			};
 		});
 	
-		xhttp.open('POST', '/insta/fileUploadRest/posting?content='+ contentTextArea + '&userId=' + userId + "&pid="+pid , true);
+		xhttp.open('POST', '/insta/fileUploadRest/posting' , true);
 
 		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
 		
-		xhttp.send();
+		const postsupport = {
+			user_id : userId,
+			pid : pid,
+			content : contentTextArea
+		}
+		
+		
+		xhttp.send(JSON.stringify(postsupport));
 });
-
 
 
