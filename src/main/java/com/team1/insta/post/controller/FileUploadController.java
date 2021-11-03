@@ -59,6 +59,7 @@ public class FileUploadController {
 	       model.addAttribute("pid", postMapper.getLastPID(uname));
 		   return "post/contents";
 	   }
+	   
 	   @RequestMapping(value = "/fileUpload/addPosting")
 	   public String addPosting(HttpServletRequest request) {
 		   Cookie[] cookies = request.getCookies();

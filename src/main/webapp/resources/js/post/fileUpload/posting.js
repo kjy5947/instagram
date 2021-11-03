@@ -49,6 +49,8 @@ $('input[type=file]').on('change', function(e) {
     handleFileUpload(files,objDragAndDrop);
 });
 
+
+
 function handleFileUpload(files,obj)
 {
 
@@ -63,8 +65,84 @@ function handleFileUpload(files,obj)
         sendFileToServer(fd,status);
     
     }
-    document.getElementById('uploadImage').submit();
-}
+    
+	// content popup  
+	
+	let modalBody = document.getElementById("modalBody");
+	modalBody.style.display = 'none';
+
+	let statusbar = document.getElementsByClassName("statusbar odd");
+    statusbar[0].style.display = 'none';
+
+	let btn_close = document.getElementsByClassName("btn-close");
+    btn_close[0].style.display = 'none';
+	
+	let shareBtn = document.getElementsByClassName("shareBtn");
+    shareBtn[0].style.display = 'block';
+	
+	let ImgContentsModal = document.getElementById("ImgContentsModal");
+	ImgContentsModal.style.display = "flex";
+		
+	const xhttp = new XMLHttpRequest();			
+		xhttp.addEventListener('readystatechange', (e) => {
+			const readyState = e.target.readyState;
+			const httpStatus = e.target.status;
+			
+			if(readyState == 4 && httpStatus == 200) {
+			
+				let pidUsermap = JSON.parse(e.target.responseText);
+				
+				user = pidUsermap["user"];
+				postJoinImage = pidUsermap["postJoinImage"];
+				
+				userId = user.user_id;
+				pid = postJoinImage.pid;
+				
+				getPidUserId(pid, userId);
+				
+				console.log(pid);
+				const contentImg = document.getElementById("contentImg");
+				
+				const img = document.createElement('img')
+				
+				postJoinImage.pimg.substring(3);
+				const tempUrl = "/insta/" + postJoinImage.pimg.substring(3);
+				
+				img.src = tempUrl;
+				
+				
+				const contentUserInfo = document.getElementById("contentUserInfo");
+				const userimg = document.createElement('img')
+				userimg.src = user.profile_img;
+				
+				const contentUname = document.createElement('div')
+				contentUname.setAttribute('class', "contentUname");
+				contentUname.innerHTML = "<a href='"+window.location.protocol+ "//" +window.location.host +"/insta/post/personal?uname=" + user.uname + "'>" + user.uname +"</a>&nbsp&nbsp";
+				
+				const contentArea = document.getElementById("contentArea");
+				const textArea = document.createElement('textarea')
+				textArea.setAttribute('id', 'contentTextArea');
+				textArea.setAttribute('placeholder', '문구 입력...');
+				textArea.setAttribute('autocomplete', 'off');
+				
+				contentImg.appendChild(img);
+				
+				contentUserInfo.appendChild(userimg);
+				contentUserInfo.appendChild(contentUname);
+				
+				contentArea.appendChild(textArea);
+
+			};
+			
+		});
+	
+		xhttp.open('POST', '/insta/fileUploadRest/postingImages' , true);
+
+		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');		
+		
+		xhttp.send();
+		
+};
 
 var rowCount=0;
 function createStatusbar(obj){
@@ -152,6 +230,7 @@ function sendFileToServer(formData,status)
     
 }
 
+
 function addPostByUser(){
 	$.ajax({
 		url : "/insta/fileUpload/addPosting",
@@ -159,3 +238,41 @@ function addPostByUser(){
 	})
 }
 });
+
+function getPidUserId(pid, userId) {
+	tempPid = pid;
+	tempUserId = userId;
+};
+
+shareBtn.addEventListener('click', () => {
+	let contentTextArea = document.getElementById("contentTextArea").value;
+	
+	const xhttp = new XMLHttpRequest();			
+		xhttp.addEventListener('readystatechange', (e) => {
+			const readyState = e.target.readyState;
+			const httpStatus = e.target.status;
+			
+			if(readyState == 4 && httpStatus == 200) {
+				const ImgContentsModal = document.getElementById("ImgContentsModal");
+				const postCompleted = document.getElementById("postCompleted");
+				
+				ImgContentsModal.style.display = "none";
+				postCompleted.style.display = "flex";
+			};
+		});
+	
+		xhttp.open('POST', '/insta/fileUploadRest/posting' , true);
+
+		xhttp.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+		
+		postsupport = {
+			user_id : userId,
+			pid : pid,
+			content : contentTextArea
+		}
+		
+		
+		xhttp.send(JSON.stringify(postsupport));
+});
+
+

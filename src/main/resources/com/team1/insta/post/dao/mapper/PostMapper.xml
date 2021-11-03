@@ -90,10 +90,34 @@
 	<delete id="deleteLike">
 		DELETE FROM like_manage WHERE pid= #{pId} AND user_id= #{userId}
 	</delete>
+
 	<select id="getLastPID"
 		resultType="String">
 		SELECT MAX(pid) FROM post where user_id = (SELECT user_id FROM user_info where uname = #{uname})
+
 	</select>
+
+	
+	<update id="uppdatePost">
+		UPDATE post set user_id = #{userId}, pcontents = #{pcontents} WHERE pid= #{pId}
+	</update>
+	
+	<insert id="addTagPerson">
+		insert into tag_person values (
+		tag_person_seq.nextval,
+		#{userId},
+		#{pId}
+		)
+	</insert>
+	
+	<insert id="addTagText">
+		insert into tag_text values (
+		tag_text_seq.nextval,
+		#{tcontents},
+		#{pId}
+		)
+	</insert>
+	
 	<insert id="addImages">
 		INSERT INTO images values (
 			iid_seq.nextval,
@@ -108,4 +132,9 @@
 			' '
 		)
 	</insert>
+	
+	<select id="getLastPost" resultType="com.team1.insta.post.dto.Post">
+		SELECT * FROM post WHERE user_id = #{userId}  AND <![CDATA[ ROWNUM <= 1 ]]> ORDER BY pid desc
+	</select>
+
 </mapper>

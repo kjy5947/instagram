@@ -29,7 +29,11 @@ public interface PostMapper {
 	public List<LikeManage> likeDecide(@Param("pId") String pId, @Param("userId") String userId);
 	public int addLike(@Param("pId") String pId, @Param("userId") String userId);
 	public int deleteLike(@Param("pId") String pId, @Param("userId") String userId);
+	public void uppdatePost(@Param("pId") String pId, @Param("userId") String userId, @Param("pcontents") String pcontents);
+	public void addTagPerson(@Param("pId") String pId, @Param("userId") String userId);
+	public void addTagText(@Param("pId") String pId, @Param("tcontents") String tcontents);
 	public String getLastPID(String uname);
 	public int addImages(@Param("pimg") String pimg,@Param("uname") String uname);
 	public int addPost(String uname);
+	public Post getLastPost(@Param("userId") String userId);
 }
