@@ -56,7 +56,7 @@
 				<div class="name-group">
 					<h2>${oneUser.uname }</h2>
 
-					<button id="btn1" class="subbtn" onclick="location.href='../post/upload'">게시물 등록</button>
+					<button id="btnen" class="subbtn" value="게시물" onclick="location.href='../post/upload'">게시물 등록</button>
 					<button id="btn2" class="subbtn" onclick="">팔로우</button>
 					<button class="modified" onclick="popup('modal-info')">
 						<i class="fas fa-cog"></i>
@@ -153,7 +153,7 @@
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 
-<script src="../resources/js/post/personal/personalMain.js?ver=5"></script>
+<script src="../resources/js/post/personal/personalMain.js?ver=2"></script>
 
 
 <link rel="stylesheet"

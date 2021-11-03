@@ -64,7 +64,7 @@ public class UserController {
 					model.addAttribute("editedUser", userMapper.getUserByUsername(mySid));
 				}else {
 					System.out.println("이거 맞냐고");
-					outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='redirect:/';</script>");
+					outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='/insta/home/" + userName + "';</script>");
 					outt.flush();
 				}
 			}
