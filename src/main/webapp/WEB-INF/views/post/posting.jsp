@@ -39,7 +39,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 					<button type="button" class="shareBtn" id="shareBtn">공유하기</button>
 				</div>
-
+				
 				<!-- Modal body -->
 				<div id="modalBody" class="modal-body dragAndDropDiv"
 					style="display: flex; justify-context: center; flex-direction: column; padding: 30% 20%;">
