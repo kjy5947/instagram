@@ -9,6 +9,7 @@ window.onpopstate=function(event){
 var profileEdited = document.getElementById("btn1");
 var presentUser = document.getElementById("btn2");
 var wheel = document.getElementsByClassName("modified");
+var mark = document.getElementById("mark");
 
 var presentUrl = window.location.href;
 var startparam = presentUrl.indexOf("home");
@@ -39,11 +40,20 @@ function followState(){
 
 	if(presentText == "팔로우"){
 		presentUser.innerText = "언팔";
+		presentUser.style.cursor="default";
 		presentUser.className = "unfollow";
+		mark.className = "mark";
 	}else{
 		presentUser.innerText = "팔로우";
+		presentUser.style.cursor="pointer";
 		presentUser.className = "follow";
+		mark.className = "unmark";
 	}
+}
+
+function checkfollow(){
+	var presentText = presentUser.innerText;
+	
 }
 
 function popup(obj){

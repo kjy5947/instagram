@@ -16,7 +16,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="<c:url value = "../resources/css/post/personal/personalMain.css"/>">-->
 <link rel="stylesheet"
-	href="../resources/css/post/personal/personalMain.css?ver=5" />
+	href="../resources/css/post/personal/personalMain.css?ver=4" />
 
 
 
@@ -61,6 +61,7 @@
 					
 
 					<button id= "btn2" value=${loginUser.uname} class="follow" onclick="followState()">팔로우</button>
+					<button id ="mark" class="unmark" onclick="checkfollow()">체크</button>
 					<button class="modified" onclick="popup('modal-info')">
 						<i class="fas fa-cog"></i>
 					</button>
@@ -155,7 +156,7 @@
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 
-<script src="../resources/js/post/personal/personalMain.js?ver=2"></script>
+<script src="../resources/js/post/personal/personalMain.js?ver=5"></script>
 
 
 <link rel="stylesheet"

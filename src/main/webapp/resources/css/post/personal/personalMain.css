@@ -60,6 +60,7 @@ body{
   background-size: cover;
 }
 .profile .profile-right .name-group {
+
   display: flex;
 
 }
@@ -171,6 +172,24 @@ a:link {
   	border-radius: 4px;
  	font-weight: bold;
   	cursor : pointer;
+}
+
+.mark{
+	display : inline;
+	margin-right: 10px;
+ 	margin-top : 25px;
+	color: #262626;
+	background: transparent;
+ 	height : 30px;
+  	width: 60px;
+  	border: 1px solid rgba(219, 219, 219,1);
+  	border-radius: 4px;
+ 	font-weight: bold;
+  	cursor : pointer;
+}
+
+.unmark{
+	display : none;
 }
 /**************************************************** content *********************************/
 
