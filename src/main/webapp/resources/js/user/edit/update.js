@@ -12,6 +12,15 @@ if(document.getElementsByClassName("check")[0].getAttribute('id') == "Y/"){
     
 }
 
+function moveMine(){
+
+	var strr = window.location.href;
+
+	var params = strr.indexOf("users");
+	var xx = strr.substring(params+5);
+ 	location.replace("/insta/home" + xx);
+}
+
 
 function prfUpload(){
 

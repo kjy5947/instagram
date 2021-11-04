@@ -16,7 +16,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="<c:url value = "../resources/css/post/personal/personalMain.css"/>">-->
 <link rel="stylesheet"
-	href="../resources/css/post/personal/personalMain.css?ver=2" />
+	href="../resources/css/post/personal/personalMain.css?ver=5" />
 
 
 
@@ -53,26 +53,28 @@
 
 
 			<div class="profile-right">
+			
+				<!-- uname 나오는 곳 -->
 				<div class="name-group">
 					<h2>${oneUser.uname }</h2>
+					<button id="btn1" class="subbtn" value="게시물" onclick="profileEdit()">프로필 편집</button>
+					
 
-					<button id="btnen" class="subbtn" value="게시물" onclick="location.href='../post/upload'">게시물 등록</button>
-					<button id="btn2" class="subbtn" onclick="">팔로우</button>
+					<button id= "btn2" value=${loginUser.uname} class="follow" onclick="followState()">팔로우</button>
 					<button class="modified" onclick="popup('modal-info')">
 						<i class="fas fa-cog"></i>
 					</button>
 				</div>
 
-	<!-- 
 
 				<div class="subscribe">
 					<ul>
-						<li>게시물<span onclick="clickme()">${fn:length(postList) }</span></li>
-						<li><a href=""> 팔로워</a><span>${fn:length(followerList) }</span></li>
-						<li><a href=""> 팔로잉</a><span>${fn:length(followingrList) }</span></li>
+						<li>게시물<span onclick="clickme()">&nbsp;${fn:length(postList) }</span></li>
+						<li><a href=""> 팔로워</a><span>&nbsp;${fn:length(followerList) }</span></li>
+						<li><a href=""> 팔로잉</a><span>&nbsp;${fn:length(followingrList) }</span></li>
 					</ul>
 				</div>
-	 -->
+
 				<div class="state">
 					<h4>${oneUser.user_introduce}</h4>
 				</div>

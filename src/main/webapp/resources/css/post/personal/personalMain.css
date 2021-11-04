@@ -61,7 +61,7 @@ body{
 }
 .profile .profile-right .name-group {
   display: flex;
-  margin-bottom: 20px;
+
 }
 .profile .profile-right .name-group h2 {
   font-weight: normal;
@@ -85,30 +85,59 @@ body{
 
 .profile .profile-right .subscribe {
   height: 28px;
+  position:relative;
   margin-bottom: 5px;
+
 }
 .profile .profile-right .subscribe ul {
   display: flex;
+  position: absolute;
+  top: -13px;
+  width: 500px;
+  float:left;
+  
 }
 .profile .profile-right .subscribe ul li {
   margin-right: 25px;
+  position:relative;
+  left : -38px;
+  list-style: none;
+
 }
 .profile .profile-right .subscribe ul li a {
   font-size: 16px;
   color: #262626;
+
 }
+a:link {
+	text-decoration: none;
+}
+
+
+
 .profile .profile-right .subscribe ul li a span {
   font-weight: bold;
   margin-left: 4px; 
 }
+.state{
+	position : relative;
+
+	height: 90px;
+}
+
 .profile .profile-right .state h4 {
-  margin-bottom: 2px;
+  position : absolute;
+  top : -20px;
+
+  height : 100%;
+  width : 100%;
 }
 
 .subbtn {
   margin-right: 10px;
   margin-top : 21px;
-  height : 32px;
+  height : 30px;
+  cursor : pointer;
   
   /*border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);*/
   border: 1px solid rgba(219, 219, 219,1);
@@ -118,18 +147,29 @@ body{
   background: transparent;
 }
 
-#btnen{
-	 border: 1px solid rgba(219, 219, 219,1);
-	  border-radius: 4px;
-	  color: #262626;
-	  font-weight: bold;
-	  background: transparent;
-}
-
-#btn2{
+.follow{
+	margin-right: 10px;
+ 	margin-top : 25px;
 	background-color: #0095f6;
   	color: #fff;
+ 	height : 30px;
+  	width: 60px;
+  	border: 1px solid rgba(219, 219, 219,1);
   	border-radius: 4px;
+ 	font-weight: bold;
+  	cursor : pointer;
+}
+
+.unfollow{
+	margin-right: 10px;
+ 	margin-top : 25px;
+	color: #262626;
+	background: transparent;
+ 	height : 30px;
+  	width: 60px;
+  	border: 1px solid rgba(219, 219, 219,1);
+  	border-radius: 4px;
+ 	font-weight: bold;
   	cursor : pointer;
 }
 /**************************************************** content *********************************/

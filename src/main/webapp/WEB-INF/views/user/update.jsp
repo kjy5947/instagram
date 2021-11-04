@@ -28,7 +28,7 @@
 				</div>
 				
 				<div class="item-username">
-					<h2>${editedUser.uname}</h2>
+					<h2 onclick="moveMine()">${editedUser.uname}</h2>
 					<div onclick="prfUpload()">프로필 바꾸기</div>
 				</div>
 			</div>
@@ -117,5 +117,5 @@
 	</section>
 	<!-- profile 셋팅 끝 -->
 </body>
-<script src="../resources/js/user/edit/update.js?ver=2"></script>
+<script src="../resources/js/user/edit/update.js?ver=5"></script>
 </html>

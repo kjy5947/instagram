@@ -1,8 +1,51 @@
+ 
+window.onpopstate=function(event){
 
-	console.log("로그인 ID다! : " + loginUserId);
-	console.log("Path ID다! : " + userId);
+	if(event){
+		window.history.back();
+	}
+}
 
-/*test 끝*/
+var profileEdited = document.getElementById("btn1");
+var presentUser = document.getElementById("btn2");
+var wheel = document.getElementsByClassName("modified");
+
+var presentUrl = window.location.href;
+var startparam = presentUrl.indexOf("home");
+var urlName = presentUrl.substring(startparam + 5);
+
+console.log("presentUser: " + presentUser.value); 
+console.log("urlName: " + urlName); 
+console.log(presentUser.value == urlName);
+
+
+/* 프로필편집, 팔로우버튼 활성, 비활성 유무 */
+if(presentUser.value == urlName){
+			profileEdited.style.display = "inline";
+			presentUser.style.display = "none";
+			
+	
+}else{
+			profileEdited.style.display = "none";
+			presentUser.style.display = "inline";
+			
+}
+/* 끝 - 프로필편집, 팔로우버튼 활성, 비활성 유무 */
+
+
+function followState(){
+
+	var presentText = presentUser.innerText;
+
+	if(presentText == "팔로우"){
+		presentUser.innerText = "언팔";
+		presentUser.className = "unfollow";
+	}else{
+		presentUser.innerText = "팔로우";
+		presentUser.className = "follow";
+	}
+}
+
 function popup(obj){
    var op = document.getElementsByClassName(obj)[0];
    op.style.display = "flex";   
@@ -22,8 +65,6 @@ function modalImage(){
    
    
 }
-
-
 
 
  function profileUpload() {
@@ -207,23 +248,19 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 		postingUname.innerHTML += "•";
 		
 		const followBtn = document.createElement('button');
-		//const followBtn = document.getElementById('btn2');
-		//const followBtn2 = document.getElementById('btnen');
-		// console.log("followBtn2의 내부값 : ? " + followBtn2.value);
-		// console.log("postJointImage.pid? " + postJoinImage.pid);
 		followBtn.setAttribute('id', 'followBtn' + postJoinImage.pid);
 		
-	if(loginUserId == userId) {
-		followBtn.style.display = 'none';
-		// followBtn2.style.display = 'inline';
-	}else{
-		followBtn.style.display = 'inline';
-		// followBtn2.style.display = 'none';
-	};
+		
+
+		
+		if(loginUserId == userId) {
+			followBtn.style.display = 'none';
+
+		}else{
+			followBtn.style.display = 'inline';
+		};
 	
-	
-	
-	
+		
 	
 	
 	

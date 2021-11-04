@@ -102,25 +102,29 @@ public class PostController {
 		List<Follow> followerList = postMapper.getFollower(user.getUser_id());
 		List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
 
-		/////////////////////////////////////////////////////////////////
-		String mySid = "";
-		String urlusername ="";
-
-		if(cookies == null) {
-
-			return "redirect:" + "user/login";
-		}else {
-
-			for(Cookie cookie :cookies)
-				if(cookie.getName().equals("sid"))
-					mySid = cookie.getValue();
+			/////////////////////////////////////////////////////////////////
+			String mySid = "";
+			String urlusername ="";
+	
+			if(cookies == null) {
+	
+				return "redirect:" + "user/login";
+			}else {
+	
+				for(Cookie cookie :cookies)
+					if(cookie.getName().equals("sid"))
+						mySid = cookie.getValue();
 			//////////////////////////////////////
-
+		
+			
 			model.addAttribute("oneUser", userMapper.getUserByUsername(userName));
 			User urlUser = userMapper.getUserByUsername(userName);      
 			urlusername = urlUser.getUname();
-			
+			request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
 			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
+
+			
+			//   수환님꺼 코드 //
 			model.addAttribute("user", user);
 			model.addAttribute("postList", JSONArray.fromObject(postList));
 			model.addAttribute("imagesList", JSONArray.fromObject(imagesList));
@@ -130,7 +134,7 @@ public class PostController {
 			model.addAttribute("followerList", JSONArray.fromObject(followerList));
 			model.addAttribute("followingrList", JSONArray.fromObject(followingrList));		
 			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
-
+			// 끝 - 수환님꺼 코드 //
 			return "post/personal/personal"; 
 			
 			
@@ -140,8 +144,7 @@ public class PostController {
 	}//getString 끝
 
    
-   @PostMapping("/home/{userName}")
-   
+   @PostMapping("/home/{userName}")  
    public String getString(HttpServletRequest request, MultipartHttpServletRequest multireq, RedirectAttributes redirectAttribute, Model model,
          @PathVariable String userName, @RequestParam MultipartFile file) 
          throws IllegalStateException, IOException {
@@ -153,7 +156,7 @@ public class PostController {
            urlusername = urlUser.getUname();
            log.info("Post페이지의 이름 : " + urlusername);
            Cookie[] cookies = request.getCookies();
-         
+			request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
          
 
          if(cookies == null) {
@@ -198,11 +201,9 @@ public class PostController {
             }//else
              
          }//else
-      
-      
-     
+
        
-   }//getString 끝
+   }//home post내용 끝
    
    
    

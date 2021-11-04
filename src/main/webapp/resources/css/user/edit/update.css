@@ -63,14 +63,20 @@
 
 /* 이미지옆에 보이는 username*/
 .editted-profile .editted-content .content__item1 .item-username{
+	
 	margin-top:17px;
 	flex:4;
+	
 }
 .item-username > div{
 	cursor : pointer;
 	color : #0095f6;
 }
 
+.item-username h2{
+	
+	cursor : pointer;
+}
 
 .editted-profile .editted-content > form{
 	/*border : 1px solid red;*/
