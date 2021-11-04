@@ -53,6 +53,11 @@ function followState(){
 
 function checkfollow(){
 	var presentText = presentUser.innerText;
+	if(presentText == "언팔"){
+		mark.className = "unmark";
+		presentUser.innerText = "팔로우";
+		presentUser.className = "follow";
+	}
 	
 }
 
