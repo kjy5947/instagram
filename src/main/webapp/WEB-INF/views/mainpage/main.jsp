@@ -86,7 +86,7 @@
             <i style="vertical-align: top;
 			          padding-top: 2px;
 			          cursor: pointer;"
-			          onclick="location.href='http://localhost:8080/insta/home/${sid}'" class="far fa-user"></i>
+			          onclick="location.href='/insta/home/${sid}'" class="far fa-user"></i>
 	     </div>
 
     </div>
