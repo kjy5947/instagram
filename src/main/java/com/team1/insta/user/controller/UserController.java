@@ -59,16 +59,20 @@ public class UserController {
 		for(Cookie cookie : cookies) {
 			if(cookie.getName().equals("sid")) {
 				mySid = cookie.getValue();
-				if(userName.equals(mySid)) {
-					
-					model.addAttribute("editedUser", userMapper.getUserByUsername(mySid));
-				}else {
-					System.out.println("이거 맞냐고");
-					outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='/insta/home/" + userName + "';</script>");
-					outt.flush();
-				}
 			}
 		}
+		if(!mySid.equals("")) {
+			if(userName.equals(mySid)) {
+				
+				model.addAttribute("editedUser", userMapper.getUserByUsername(mySid));
+			}else {
+				System.out.println("이거 맞냐고");
+				outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='/insta/home/" + userName + "';</script>");
+				outt.flush();
+			}
+	
+		}
+	
 	    return "user/update";
 	}
 	
@@ -80,6 +84,8 @@ public class UserController {
 		//@RequestParam("username") String username
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		
+		Cookie[] cookies = request.getCookies();
 		
 		PrintWriter out = response.getWriter();
 		
@@ -105,20 +111,29 @@ public class UserController {
 		
 		
 		userMapper.updateUserInfo(userName, editedname, introduce, followacpt, realName, phoneNum);
+		
+		if(!editedname.equals(userName)) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("sid")) {
+					
+				}
+			}
+		}
+		
 		String usernameInfo ="";
 		
 		request.setAttribute("usernameInfo", userName);
-		Cookie[] cookies = request.getCookies();
+
 		String mySid = "";
 		///쿠키 재 지정
-		for(Cookie cookie : cookies) {
-			if(cookie.getName().equals("sid")) {
-				
-				cookie = new Cookie("sid", editedname);
-				response.addCookie(cookie);
-				System.out.println("나의 쿠키내용 : " + cookie.getValue());
-			}
-		}
+//		for(Cookie cookie : cookies1) {
+//			if(cookie.getName().equals("sid")) {
+//				
+//				cookie = new Cookie("sid", editedname);
+//				response.addCookie(cookie);
+//				System.out.println("나의 쿠키내용 : " + cookie.getValue());
+//			}
+//		}
 		
 	    return "post/personal/editedcookie";
 		

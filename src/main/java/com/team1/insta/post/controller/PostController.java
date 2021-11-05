@@ -102,28 +102,29 @@ public class PostController {
 		List<Follow> followerList = postMapper.getFollower(user.getUser_id());
 		List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
 
-			/////////////////////////////////////////////////////////////////
-			String mySid = "";
-			String urlusername ="";
-	
-			if(cookies == null) {
-	
-				return "redirect:" + "user/login";
-			}else {
-	
-				for(Cookie cookie :cookies)
-					if(cookie.getName().equals("sid"))
-						mySid = cookie.getValue();
-			//////////////////////////////////////
-		
-			
-			model.addAttribute("oneUser", userMapper.getUserByUsername(userName));
-			User urlUser = userMapper.getUserByUsername(userName);      
-			urlusername = urlUser.getUname();
-			request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
-			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
+		/////////////////////////////////////////////////////////////////
+		// 로그인한 cookie정보 얻어오기.
+		String mySid = "";
+		String urlusername ="";
 
-			
+		if(cookies == null) {
+
+			return "redirect:" + "user/login";
+		}else {
+
+			for(Cookie cookie :cookies)
+				if(cookie.getName().equals("sid"))
+					mySid = cookie.getValue();
+		/////////////////////////////////////////////////////////////////
+	
+		
+		model.addAttribute("oneUser", userMapper.getUserByUsername(userName));
+		User urlUser = userMapper.getUserByUsername(userName);      
+		urlusername = urlUser.getUname();
+		request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
+		model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
+
+		
 			//   수환님꺼 코드 //
 			model.addAttribute("user", user);
 			model.addAttribute("postList", JSONArray.fromObject(postList));

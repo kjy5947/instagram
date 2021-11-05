@@ -27,4 +27,5 @@ public interface UserMapper {
 	
 	public String existUser(@Param("uname") String uname);
 	
+	public User getUserLoginInfo(@Param("email") String email,@Param("phone") String phone, @Param("uname") String uname);
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team1.insta.user.dao.mapper.UserMapper;
+import com.team1.insta.user.dto.User;
 
 import jdk.internal.org.jline.utils.Log;
 import lombok.extern.log4j.Log4j;
@@ -33,12 +34,16 @@ public class LoginController {
 	UserMapper userMapper;
 	
 	
-	public void makeCookieVal(HttpServletResponse res, String id_val) {
+	public void makeCookieVal(HttpServletResponse res, String email, String phone, String uname) {
 		
-		Cookie cookie = new Cookie("sid", id_val);
+		User loginUser;
+		loginUser = userMapper.getUserLoginInfo(email, phone, uname);
 		
-		cookie.setMaxAge(60*120);//2�ð� ���� ��Ű�������ϰ� ����.
-		log.info("사용자 이름 sid : "+ cookie);
+		log.info("loginUser가 얻어지는지 디버깅포인트");
+		//cookie.setMaxAge(60*120);//2�ð� ���� ��Ű�������ϰ� ����.
+		log.info("로그인을 통해 생성된 sid : "+ loginUser.getUname());
+		Cookie cookie = new Cookie("sid", loginUser.getUname());
+		log.info("loginUser가 얻어짐");
 		log.info(cookie.getValue());
 		res.addCookie(cookie);
 	}
@@ -56,19 +61,24 @@ public class LoginController {
 		boolean idCheck = false;
         for (int i = 0; i < id.length(); i++) {
             if (!Character.isDigit(id.charAt(i))) {
-                isNumeric = false;
+                isNumeric = false;//전화번호로 로그인하지 않았다는 의미.
             }
         }
 		if(id.contains("@")) 
-		{
+		{//email이 일치하는게 있는지 체크.
+
 			for(int i = 0; i < userMapper.getList().size(); i++) {
+				log.info("email 1단계");
 				if(userMapper.getList().get(i).getUemail().equals(id))
 				{
+					log.info("email 2단계");
 					idCheck = true;
 					if(userMapper.getList().get(i).getPassword().equals(pw))
 					{
+						log.info("email 3단계");
 						//session.setAttribute("sid", id);
-						makeCookieVal(res, id);
+
+						makeCookieVal(res, id, null, null);
 						log.info("1");
 						return "redirect:/mainpage/main";
 					}
@@ -86,7 +96,7 @@ public class LoginController {
 
 		}
 		else if(isNumeric || Pattern.matches("^\\d{3}-\\d{4}-\\d{4}$", id))
-		{
+		{//phoneNumber가 일치하는게 있는지 체크.
 			for(int i = 0; i < userMapper.getList().size(); i++) {
 				if(userMapper.getList().get(i).getPhone_number().equals(id))
 				{
@@ -94,7 +104,7 @@ public class LoginController {
 					if(userMapper.getList().get(i).getPassword().equals(pw))
 					{
 						//session.setAttribute("sid", id);
-						makeCookieVal(res, id);
+						makeCookieVal(res, null, id, null);
 						
 						return "redirect:/mainpage/main";
 					}
@@ -109,17 +119,20 @@ public class LoginController {
 				model.addAttribute("idcheck", "fail");
 			}
 		}
-		else
+		else//uname이 일치하는게 있는지 체크.
 		{
 			for(int i = 0; i < userMapper.getList().size(); i++) {
+				log.info("uname 0단계");
 				if(userMapper.getList().get(i).getUname().equals(id))
 				{
+					log.info("uname 1단계");
 					idCheck = true;
 					if(userMapper.getList().get(i).getPassword().equals(pw))
 					{
+						log.info("uname 2단계");
 						//session.setAttribute("sid", id);
-						makeCookieVal(res, id);
-						
+						makeCookieVal(res, null, null, id);
+						log.info("uname 3단계");
 						return "redirect:/mainpage/main";
 					}
 				}

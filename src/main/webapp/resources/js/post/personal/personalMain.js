@@ -6,6 +6,8 @@ window.onpopstate=function(event){
 	}
 }
 
+
+
 var profileEdited = document.getElementById("btn1");
 var presentUser = document.getElementById("btn2");
 var wheel = document.getElementsByClassName("modified");
@@ -22,14 +24,15 @@ console.log(presentUser.value == urlName);
 
 /* 프로필편집, 팔로우버튼 활성, 비활성 유무 */
 if(presentUser.value == urlName){
-			profileEdited.style.display = "inline";
-			presentUser.style.display = "none";
-			
-	
+		profileEdited.style.display = "inline";
+		presentUser.style.display = "none";
+		/* 얘가 팔로우버튼 */
+
 }else{
-			profileEdited.style.display = "none";
-			presentUser.style.display = "inline";
-			
+		
+		profileEdited.style.display = "none";
+		presentUser.style.display = "inline";
+		
 }
 /* 끝 - 프로필편집, 팔로우버튼 활성, 비활성 유무 */
 

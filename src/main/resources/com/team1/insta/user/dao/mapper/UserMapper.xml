@@ -41,7 +41,23 @@
 
 		</choose>
 	</select>
-
+	
+	<select id = "getUserLoginInfo" resultType="com.team1.insta.user.dto.User">
+		select * from user_info
+		
+		<where>
+			<if test="email !=null">
+				OR uemail = #{email}
+			</if>
+			<if test= "phone != null">
+				OR phone_number = #{phone}
+			</if>
+			<if test= "uname != null">
+				OR uname = #{uname}
+			</if>
+		</where>
+	</select>
+	
 	<update id="setPassword">
 		UPDATE user_info SET password = #{newPassword} WHERE user_id = #{userId}
 

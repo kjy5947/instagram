@@ -18,7 +18,11 @@
 <link rel="stylesheet"
 	href="../resources/css/post/personal/personalMain.css?ver=4" />
 
-
+<!--
+ 
+	oneUser : 현재 url에 해당되는 계정페이지의 정보를 담고 있음
+	loginUser : 현재 로그인한 유저의 정보를 담고 있음
+ -->
 
 </head>
 <body>
@@ -66,7 +70,7 @@
 						<i class="fas fa-cog"></i>
 					</button>
 				</div>
-
+				<div class ="follow-state" style="display:none;"></div>
 
 				<div class="subscribe">
 					<ul>
