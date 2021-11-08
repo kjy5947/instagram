@@ -1,12 +1,11 @@
- 
+/* 
 window.onpopstate=function(event){
 
 	if(event){
 		window.history.back();
 	}
 }
-
-
+*/
 
 var profileEdited = document.getElementById("btn1");
 var presentUser = document.getElementById("btn2");
@@ -22,7 +21,7 @@ console.log("urlName: " + urlName);
 console.log(presentUser.value == urlName);
 
 
-/* 프로필편집, 팔로우버튼 활성, 비활성 유무 */
+/* [프로필편집, 팔로우] 버튼 활성, 비활성 유무 */
 if(presentUser.value == urlName){
 		profileEdited.style.display = "inline";
 		presentUser.style.display = "none";
@@ -34,28 +33,54 @@ if(presentUser.value == urlName){
 		presentUser.style.display = "inline";
 		
 }
-/* 끝 - 프로필편집, 팔로우버튼 활성, 비활성 유무 */
+
+/* 기본이 '팔로우'로 보일지, '언팔'로 보일지. */
 
 
+
+/* 끝 - [프로필편집, 팔로우] 버튼 활성, 비활성 유무 */
+
+var presentText = presentUser.innerText;
+if(presentText == "팔로우"){
+	presentUser.className = "follow";
+	mark.className = "unmark";
+}else{
+	presentUser.className = "unfollow";
+	mark.className = "mark";
+}
+
+if(presentUser.className == "unfollow"){
+	presentUser.disabled = true;
+}else{
+	presentUser.disabled = false;
+}
+
+/* 팔로우버튼을 클릭했을때 (팔로우,언팔)글자 바꾸기 */
 function followState(){
 
-	var presentText = presentUser.innerText;
+	
 
 	if(presentText == "팔로우"){
 		presentUser.innerText = "언팔";
-		presentUser.style.cursor="default";
 		presentUser.className = "unfollow";
 		mark.className = "mark";
+		
+		var submitfollow = document.followButton;
+		
+		var followButton = document.getElementById("followTF");
+		followButton.setAttribute("value", "follow");
+		console.log(followButton.value);
+		submitfollow.submit();
+		
 	}else{
 		presentUser.innerText = "팔로우";
-		presentUser.style.cursor="pointer";
 		presentUser.className = "follow";
 		mark.className = "unmark";
 	}
 }
 
 function checkfollow(){
-	var presentText = presentUser.innerText;
+
 	if(presentText == "언팔"){
 		mark.className = "unmark";
 		presentUser.innerText = "팔로우";

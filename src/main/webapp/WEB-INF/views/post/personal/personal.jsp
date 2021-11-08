@@ -16,7 +16,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="<c:url value = "../resources/css/post/personal/personalMain.css"/>">-->
 <link rel="stylesheet"
-	href="../resources/css/post/personal/personalMain.css?ver=4" />
+	href="../resources/css/post/personal/personalMain.css?ver=2" />
 
 <!--
  
@@ -64,8 +64,11 @@
 					<button id="btn1" class="subbtn" value="게시물" onclick="profileEdit()">프로필 편집</button>
 					
 
-					<button id= "btn2" value=${loginUser.uname} class="follow" onclick="followState()">팔로우</button>
-					<button id ="mark" class="unmark" onclick="checkfollow()">체크</button>
+					<form name="followButton" action="/insta/follow/${oneUser.uname}" method="POST">
+						<input id="followTF" name="button" style="display:none;"></input>
+						<button id= "btn2" value=${loginUser.uname} class="follow" onclick="followState()">${follow}</button>
+						<button id ="mark" class="unmark" onclick="checkfollow()">체크</button>
+					</form>
 					<button class="modified" onclick="popup('modal-info')">
 						<i class="fas fa-cog"></i>
 					</button>
@@ -85,7 +88,7 @@
 				</div>
 			</div>
 			<!--  profile-right  -->
-
+			
 
 		</div>
 	</section>

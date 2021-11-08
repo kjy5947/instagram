@@ -29,6 +29,6 @@
 	  	select count(cid) as count from comment_manage where pid=#{post_id}
   	</select>
   	
-  	
+
   	
 </mapper>

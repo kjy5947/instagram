@@ -65,9 +65,7 @@
 	</update>
 
 
-	<select id="getUser" resultType="com.team1.insta.user.dto.User">
-		select * from user_info where user_id = #{user_id}
-	</select>
+
 
 	<select id="getUserByUsername"
 		resultType="com.team1.insta.user.dto.User">
@@ -92,13 +90,23 @@
 		</set>
 		where uname = #{stdname}
 	</update>
-
+	
 
 	<select id="existUser" resultType="String">
 	
-		select uname from user_info where uname = #{uname}
+		select user_id from user_info where uname = #{uname}
 		
 	</select>
 
+	<select id="getFollowInfo" resultType="com.team1.insta.post.dto.UserToUserFollow">
+  		SELECT DISTINCT f.from_user, f.to_user, u.follow_accept, f.fid, f.follow_time, f.follow_condition
+  		FROM user_info u INNER JOIN follow f
+  		ON (f.from_user = #{cookieUser} and f.to_user = #{queryVar} and u.user_id = #{queryVar})
+  	</select>
+  	
+  	<select id="addFollow">
+  		insert into follow values(follow_seq.nextval, #{cookieUser}, #{queryVar}, sysdate, 'Y')
+  	</select>
+	
 
 </mapper>

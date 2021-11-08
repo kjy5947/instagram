@@ -9,6 +9,7 @@ import com.team1.insta.post.dto.PidImages;
 import com.team1.insta.post.dto.PidLike;
 import com.team1.insta.post.dto.PidLikeCount;
 import com.team1.insta.post.dto.Post;
+import com.team1.insta.post.dto.UserToUserFollow;
 
 public interface MainXMLMapper {
 	public List<Post> getPostList();
@@ -25,6 +26,5 @@ public interface MainXMLMapper {
 	
 	public List<PidCommentCount> getCommentCountList(String post_id);
 	
-
 }
 

@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +52,7 @@ import com.team1.insta.post.dto.LikeManage;
 import com.team1.insta.post.dto.Post;
 import com.team1.insta.post.dto.PostJoinImages;
 import com.team1.insta.post.dto.TagPerson;
+import com.team1.insta.post.dto.UserToUserFollow;
 import com.team1.insta.user.dto.KeyConfirm;
 import com.team1.insta.user.dto.User;
 
@@ -64,7 +67,7 @@ public class PostController {
 
 	@Autowired
 	PostMapper postMapper;
-
+	
 
 
    @Value("${file.dir}")
@@ -74,12 +77,21 @@ public class PostController {
 	@GetMapping("/home/{userName}")
 	public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
 
-		log.info(userName);
+		log.info("get home : " + userName);
 		Cookie[] cookies = request.getCookies();
+		
+		//팔로우 정보
+		
+		
+		
+		
+		
+		
+		
 		/////////////////////////////////////////////////////////////////
 		// 수환님 코드 추가하기.
 		User user = userMapper.getUserBytype(new KeyConfirm("", userName));
-		
+		log.info("수환님 user : " + user);
 		List<Post> postList =  postMapper.getPostList(user.getUser_id());
 		List<List<Images>> imagesList = new ArrayList<>();
 		List<PostJoinImages> postJoinImageList = new ArrayList<>();
@@ -108,23 +120,41 @@ public class PostController {
 		String urlusername ="";
 
 		if(cookies == null) {
-
+		
 			return "redirect:" + "user/login";
 		}else {
-
+			
 			for(Cookie cookie :cookies)
 				if(cookie.getName().equals("sid"))
 					mySid = cookie.getValue();
 		/////////////////////////////////////////////////////////////////
+			
+		/////////////////////////////////////////////////////////////////
+			// 팔로우 버튼의 모양
+			
+			User unameUser = null;
+			UserToUserFollow followState = null;
+			unameUser = userMapper.getUserByUsername(mySid);
+			
+			followState = userMapper.getFollowInfo(unameUser.getUser_id(), userMapper.getUserByUsername(userName).getUser_id());
+			if(followState != null) {
+				request.setAttribute("follow", "언팔");
+			}else {
+				request.setAttribute("follow", "팔로우");
+			}
+			
+			
+			
+			
+			model.addAttribute("oneUser", userMapper.getUserByUsername(userName));
+			User urlUser = userMapper.getUserByUsername(userName);      
+			urlusername = urlUser.getUname();
+			request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
+			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
 	
-		
-		model.addAttribute("oneUser", userMapper.getUserByUsername(userName));
-		User urlUser = userMapper.getUserByUsername(userName);      
-		urlusername = urlUser.getUname();
-		request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
-		model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
-
-		
+			
+			
+		/////////////////////////////////////////////////////////////////
 			//   수환님꺼 코드 //
 			model.addAttribute("user", user);
 			model.addAttribute("postList", JSONArray.fromObject(postList));
@@ -136,6 +166,8 @@ public class PostController {
 			model.addAttribute("followingrList", JSONArray.fromObject(followingrList));		
 			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
 			// 끝 - 수환님꺼 코드 //
+			
+			log.info("여기는 아니겠지?");
 			return "post/personal/personal"; 
 			
 			
@@ -147,7 +179,7 @@ public class PostController {
    
    @PostMapping("/home/{userName}")  
    public String getString(HttpServletRequest request, MultipartHttpServletRequest multireq, RedirectAttributes redirectAttribute, Model model,
-         @PathVariable String userName, @RequestParam MultipartFile file) 
+         @PathVariable String userName, @RequestParam MultipartFile file, @RequestParam String button) 
          throws IllegalStateException, IOException {
 	   	   String urlusername = "";
 	   	   User urlUser;
@@ -158,8 +190,10 @@ public class PostController {
            log.info("Post페이지의 이름 : " + urlusername);
            Cookie[] cookies = request.getCookies();
 			request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
-         
-
+        
+		//////////////////////////////////////////////////////////////
+		
+		//////////////////////////////////////////////////////////////			
          if(cookies == null) {
             
             return "user/login";
@@ -170,10 +204,12 @@ public class PostController {
                      mySid = cookie.getValue();
             
             // 고른 이미지로 업데이트 
-            userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
-            redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
+
             if (!file.isEmpty()) {
-               
+            	
+                userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
+                redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
+            	
             	//String relativePath = multireq.getSession().getServletContext().getRealPath("resources/images");
             	//String fullPath = fileDir + file.getOriginalFilename();
             	String root_path = request.getSession().getServletContext().getRealPath("/");
@@ -205,6 +241,50 @@ public class PostController {
 
        
    }//home post내용 끝
+//   
+   @PostMapping("/follow/{userName}")
+   public String getFollow(HttpServletRequest request, HttpServletResponse response,@RequestParam String button, @PathVariable String userName) {
+	   
+	   Cookie[] cookies = request.getCookies();
+	   log.info("follow 컨트롤러 들렸다가 감");
+	   ///////////////////////////////////////////////
+	   //쿠키값 꺼내기
+	   String mySid = "";
+
+		if(cookies == null) {
+		
+			return "redirect:" + "user/login";
+		}else {
+			
+			for(Cookie cookie :cookies)
+				if(cookie.getName().equals("sid"))
+					mySid = cookie.getValue();
+		}
+	   ///////////////////////////////////////////////////
+	   
+	   if(button.equals("follow")) {
+			User u = userMapper.getUserByUsername(userName);
+			if(u.getFollow_accept() == 'Y') {
+				userMapper.addFollow(userMapper.existUser(mySid), userMapper.existUser(userName));
+			}else {
+				request.setAttribute("follow", "요청됨");
+			}
+		}else {
+			log.info("param button값 : 없음.");
+		}
+	   
+	   String urlusername = "";
+   	   User urlUser;
+       urlUser = userMapper.getUserByUsername(userName);
+       log.info("Post페이지의 유저정보 : " + urlUser);
+       urlusername = urlUser.getUname();
+       log.info("Post페이지의 이름 : " + urlusername);
+		
+	   
+	   //return "redirect:"+ "/home/" + userName;
+       return "post/personal/editedcookie"; 
+   }
+   
    
    
    

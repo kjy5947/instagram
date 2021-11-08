@@ -171,7 +171,7 @@ a:link {
   	border: 1px solid rgba(219, 219, 219,1);
   	border-radius: 4px;
  	font-weight: bold;
-  	cursor : pointer;
+  	cursor : default;
 }
 
 .mark{
