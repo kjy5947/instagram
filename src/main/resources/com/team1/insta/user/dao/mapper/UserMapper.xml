@@ -115,5 +115,9 @@
   		insert into follow values(follow_seq.nextval, #{cookieUser}, #{queryVar}, sysdate, 'Y')
   	</insert>
 	
+	<delete id="cancelFollow">
+		delete from follow where from_user = #{cookieUser} AND to_user = #{queryVar}  
+		
+	</delete>
 	
 </mapper>

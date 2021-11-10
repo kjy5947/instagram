@@ -137,12 +137,13 @@ public class PostController {
 			unameUser = userMapper.getUserByUsername(mySid);
 			
 			followState = userMapper.getFollowInfo(unameUser.getUser_id(), userMapper.getUserByUsername(userName).getUser_id());
+			log.info("followState : " + followState);
 			if(followState != null) {
 				request.setAttribute("follow", "언팔");
 			}else {
-				log.info("언팔 상황임");
+
 				request.setAttribute("follow", "팔로우");
-				log.info("언팔 상황임2");
+
 			}
 			
 			
@@ -153,7 +154,6 @@ public class PostController {
 			urlusername = urlUser.getUname();
 			request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
 			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
-			log.info("언팔 상황임3");
 			
 			
 		/////////////////////////////////////////////////////////////////
@@ -168,8 +168,7 @@ public class PostController {
 			model.addAttribute("followingrList", JSONArray.fromObject(followingrList));		
 			model.addAttribute("commentManageList", JSONArray.fromObject(commentManageList));		
 			// 끝 - 수환님꺼 코드 //
-			
-			log.info("여기는 아니겠지?");
+			request.setAttribute("flwstate", "mu");
 			return "post/personal/personal"; 
 			
 			
@@ -229,6 +228,7 @@ public class PostController {
             // !이미지 업데이트 끝
             //////////////////////////////////////
             log.info(userName);
+            request.setAttribute("flwstate", "mu");
             //model.addAttribute("oneUser", userMapper.getUser(mySid));
             
             
@@ -263,16 +263,32 @@ public class PostController {
 					mySid = cookie.getValue();
 		}
 	   ///////////////////////////////////////////////////
-	   
+		User unameUser = null;
+		UserToUserFollow followState = null;
+		unameUser = userMapper.getUserByUsername(mySid);//쿠키에 저장된 로그인유저
+		
+		
 	   if(button.equals("follow")) {
+		   log.info("--------------------------------");
+		   log.info("follow버튼을 누름");
 			User u = userMapper.getUserByUsername(userName);
+			followState = userMapper.getFollowInfo(unameUser.getUser_id(), u.getUser_id());
 			if(u.getFollow_accept() == 'Y') {
 				
-				userMapper.addFollow(userMapper.existUser(mySid), userMapper.existUser(userName));
-				request.setAttribute("follow", "언팔");
+				if(followState == null) {
+					userMapper.addFollow(userMapper.existUser(mySid), userMapper.existUser(userName));
+					request.setAttribute("follow", "언팔");
+				}else {
+					
+				}
 			}else {
 				request.setAttribute("follow", "요청됨");
 			}
+		}else if(button.equals("cancel")) {
+			log.info("--------------------------------");
+			   log.info("cancel버튼을 누름");
+			userMapper.cancelFollow(userMapper.existUser(mySid), userMapper.existUser(userName));
+			request.setAttribute("follow", "팔로우");
 		}else {
 			log.info("param button값 : 없음.");
 		}

@@ -21,7 +21,7 @@ console.log("urlName: " + urlName);
 
 
 
-/* [프로필편집, 팔로우] 버튼 활성, 비활성 유무 */
+/* [프로필편집], [팔로우] 버튼 활성, 비활성 유무 */
 if(presentUser.value == urlName){
 		profileEdited.style.display = "inline";
 		presentUser.style.display = "none";
@@ -42,9 +42,11 @@ if(presentUser.value == urlName){
 
 var presentText = presentUser.innerText;
 if(presentText == "팔로우"){
+	console.log("최종 : 팔로우");
 	presentUser.className = "follow";
 	mark.className = "unmark";
 }else{
+	console.log("최종 : 언팔");
 	presentUser.className = "unfollow";
 	mark.className = "mark";
 }
@@ -71,7 +73,6 @@ function followState(){
 		var followButton = document.getElementById("followTF");
 		followButton.setAttribute("value", "follow");
 		console.log(followButton.value);
-		console.log("follow로 넘어가는 url : " + document.followButton.action);
 		submitfollow.submit();
 		
 	}else{
@@ -89,7 +90,10 @@ function checkfollow(){
 		presentUser.className = "follow";
 		
 		/* DB에 follow취소를 해주는걸 위해 해주는 선작업 */
-		
+		var submitfollow = document.followButton;
+		var followButton = document.getElementById("followTF");
+		followButton.setAttribute("value", "cancel");
+		submitfollow.submit();
 	}
 	
 }

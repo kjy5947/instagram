@@ -65,7 +65,7 @@
 					
 
 					<form name="followButton" action="/insta/follow/${oneUser.uname}" method="POST">
-						<input id="followTF" name="button" style="display:none;"></input>
+						<input id="followTF" name="button" value="${flwstate}" style="display:none;"></input>
 						<button id= "btn2" value=${loginUser.uname} class="follow" onclick="followState()">${follow}</button>
 						<button id ="mark" class="unmark" onclick="checkfollow()">체크</button>
 					</form>
