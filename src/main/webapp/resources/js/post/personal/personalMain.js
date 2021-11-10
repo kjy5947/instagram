@@ -18,7 +18,7 @@ var urlName = presentUrl.substring(startparam + 5);
 
 console.log("presentUser: " + presentUser.value); 
 console.log("urlName: " + urlName); 
-console.log(presentUser.value == urlName);
+
 
 
 /* [프로필편집, 팔로우] 버튼 활성, 비활성 유무 */
@@ -283,9 +283,11 @@ const addToContentOut  =  (postJoinImage, contentOut) => {
 	// user name
 	const postingUname = document.createElement('div');
 	postingUname.setAttribute('class', 'postingUname');
-	//postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/post/personal?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
-	postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/home/" + uname + "?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
-	console.log("무슨 값인지 몰라서 출력하는 값 : <a href='"+window.location.protocol+ "//" + window.location.host +"/insta/home/" + uname + "?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp");
+	postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/post/personal?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
+	
+	
+	//postingUname.innerHTML = "<a href='"+window.location.protocol+ "//" + window.location.host +"/insta/home/" + uname + "?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp";
+	//console.log("무슨 값인지 몰라서 출력하는 값 : <a href='"+window.location.protocol+ "//" + window.location.host +"/insta/home/" + uname + "?uname=" + uname + "'>" + uname +"</a>&nbsp&nbsp");
 	
 	//follow Button
 		postingUname.innerHTML += "•";

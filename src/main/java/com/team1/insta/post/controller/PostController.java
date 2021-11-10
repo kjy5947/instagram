@@ -140,7 +140,9 @@ public class PostController {
 			if(followState != null) {
 				request.setAttribute("follow", "언팔");
 			}else {
+				log.info("언팔 상황임");
 				request.setAttribute("follow", "팔로우");
+				log.info("언팔 상황임2");
 			}
 			
 			
@@ -151,7 +153,7 @@ public class PostController {
 			urlusername = urlUser.getUname();
 			request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
 			model.addAttribute("loginUser", userMapper.getUserByUsername(mySid));
-	
+			log.info("언팔 상황임3");
 			
 			
 		/////////////////////////////////////////////////////////////////

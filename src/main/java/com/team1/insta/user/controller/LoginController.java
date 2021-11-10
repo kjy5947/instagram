@@ -68,14 +68,11 @@ public class LoginController {
 		{//email이 일치하는게 있는지 체크.
 
 			for(int i = 0; i < userMapper.getList().size(); i++) {
-				log.info("email 1단계");
 				if(userMapper.getList().get(i).getUemail().equals(id))
 				{
-					log.info("email 2단계");
 					idCheck = true;
 					if(userMapper.getList().get(i).getPassword().equals(pw))
 					{
-						log.info("email 3단계");
 						//session.setAttribute("sid", id);
 
 						makeCookieVal(res, id, null, null);
@@ -122,17 +119,13 @@ public class LoginController {
 		else//uname이 일치하는게 있는지 체크.
 		{
 			for(int i = 0; i < userMapper.getList().size(); i++) {
-				log.info("uname 0단계");
 				if(userMapper.getList().get(i).getUname().equals(id))
 				{
-					log.info("uname 1단계");
 					idCheck = true;
 					if(userMapper.getList().get(i).getPassword().equals(pw))
 					{
-						log.info("uname 2단계");
 						//session.setAttribute("sid", id);
 						makeCookieVal(res, null, null, id);
-						log.info("uname 3단계");
 						return "redirect:/mainpage/main";
 					}
 				}
