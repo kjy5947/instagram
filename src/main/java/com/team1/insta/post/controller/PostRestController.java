@@ -23,6 +23,10 @@ import com.team1.insta.post.dto.PostJoinImages;
 import com.team1.insta.user.dao.mapper.UserMapper;
 import com.team1.insta.user.dto.User;
 
+import jdk.internal.org.jline.utils.Log;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @RestController
 @RequestMapping("/postRest")
 public class PostRestController {
@@ -36,7 +40,9 @@ public class PostRestController {
 	@PostMapping(value = "/commentGetUser", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getCommentUser(@RequestBody CommentManage commentManage) {
 		
-		User user = userMapper.getUser(commentManage.getUser_id());
+		log.info("commentManage의 user_id 값 : " + commentManage.getUser_id());
+		User user = null;
+		user = userMapper.getUser(commentManage.getUser_id());
 		
 		ResponseEntity<User> userEntity =  ResponseEntity
 				.status(HttpStatus.OK)

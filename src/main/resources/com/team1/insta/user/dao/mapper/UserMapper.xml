@@ -9,6 +9,11 @@
 		select * from user_info order by user_id
 	</select>
 	
+	<select id="getUser" resultType="com.team1.insta.user.dto.User">
+		select * from user_info where user_id = #{user_id}
+	
+	</select>
+	
 	<insert id="newUser">
 		INSERT INTO user_info(user_id, uname, uemail, real_name, password,
 		phone_number)
@@ -41,6 +46,8 @@
 
 		</choose>
 	</select>
+	
+	
 	
 	<select id = "getUserLoginInfo" resultType="com.team1.insta.user.dto.User">
 		select * from user_info
