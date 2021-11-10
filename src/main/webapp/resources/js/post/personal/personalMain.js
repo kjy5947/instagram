@@ -65,11 +65,13 @@ function followState(){
 		presentUser.className = "unfollow";
 		mark.className = "mark";
 		
-		var submitfollow = document.followButton;
 		
+		/* DB에 follow추가를 해주는걸 위해 해주는 선작업 */
+		var submitfollow = document.followButton;
 		var followButton = document.getElementById("followTF");
 		followButton.setAttribute("value", "follow");
 		console.log(followButton.value);
+		console.log("follow로 넘어가는 url : " + document.followButton.action);
 		submitfollow.submit();
 		
 	}else{
@@ -85,6 +87,9 @@ function checkfollow(){
 		mark.className = "unmark";
 		presentUser.innerText = "팔로우";
 		presentUser.className = "follow";
+		
+		/* DB에 follow취소를 해주는걸 위해 해주는 선작업 */
+		
 	}
 	
 }

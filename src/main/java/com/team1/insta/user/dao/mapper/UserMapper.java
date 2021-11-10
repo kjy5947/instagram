@@ -34,5 +34,8 @@ public interface UserMapper {
 	
 	public UserToUserFollow getFollowInfo(@Param("cookieUser") String cookieUser, @Param("queryVar") String queryVar);
 	
-	public Follow addFollow(@Param("cookieUser") String cookieUser, @Param("queryVar") String queryVar);
+	public void addFollow(@Param("cookieUser") String cookieUser, @Param("queryVar") String queryVar);
+	
+	public void cancelFollow(@Param("cookieUser") String cookieUser, @Param("queryVar") String queryVar);
+	
 }

@@ -111,9 +111,9 @@
   		ON (f.from_user = #{cookieUser} and f.to_user = #{queryVar} and u.user_id = #{queryVar})
   	</select>
   	
-  	<select id="addFollow">
+  	<insert id="addFollow">
   		insert into follow values(follow_seq.nextval, #{cookieUser}, #{queryVar}, sysdate, 'Y')
-  	</select>
+  	</insert>
 	
-
+	
 </mapper>

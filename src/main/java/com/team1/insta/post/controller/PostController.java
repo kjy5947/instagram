@@ -267,7 +267,9 @@ public class PostController {
 	   if(button.equals("follow")) {
 			User u = userMapper.getUserByUsername(userName);
 			if(u.getFollow_accept() == 'Y') {
+				
 				userMapper.addFollow(userMapper.existUser(mySid), userMapper.existUser(userName));
+				request.setAttribute("follow", "언팔");
 			}else {
 				request.setAttribute("follow", "요청됨");
 			}
@@ -282,7 +284,8 @@ public class PostController {
        urlusername = urlUser.getUname();
        log.info("Post페이지의 이름 : " + urlusername);
 		
-	   
+       String usernameInfo ="";
+       request.setAttribute("usernameInfo", userName);
 	   //return "redirect:"+ "/home/" + userName;
        return "post/personal/editedcookie"; 
    }

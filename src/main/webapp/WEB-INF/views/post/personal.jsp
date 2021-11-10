@@ -19,7 +19,7 @@
 	href="../resources/css/post/personal/personalMain.css?ver=2" />
 
 
-
+	<!-- 안쓰는 메인view페이지 -->
 </head>
 <body>
 
