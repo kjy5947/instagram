@@ -112,12 +112,16 @@
   	</select>
   	
   	<insert id="addFollow">
-  		insert into follow values(follow_seq.nextval, #{cookieUser}, #{queryVar}, sysdate, 'Y')
+  		insert into follow values(follow_seq.nextval, #{cookieUser}, #{queryVar}, sysdate, #{situation})
   	</insert>
 	
 	<delete id="cancelFollow">
 		delete from follow where from_user = #{cookieUser} AND to_user = #{queryVar}  
 		
 	</delete>
+	
+	<update id="updateFollow">
+		update follow set follow_condition = #{situation} where from_user = #{cookieUser} and to_user = #{queryVar}
+	</update>
 	
 </mapper>

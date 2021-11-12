@@ -16,7 +16,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="<c:url value = "../resources/css/post/personal/personalMain.css"/>">-->
 <link rel="stylesheet"
-	href="../resources/css/post/personal/personalMain.css?ver=2" />
+	href="../resources/css/post/personal/personalMain.css?ver=6" />
 
 <!--
  
@@ -32,7 +32,7 @@
 	<section class="profile">
 		<!--유저정보 섹션-->
 		<div class="topProfile">
-
+		
 			<!--유저이미지-->
 			<div class="profile-left">
 				<div class="profile-img-wrap story-border"
@@ -66,7 +66,7 @@
 
 					<form name="followButton" action="/insta/follow/${oneUser.uname}" method="POST">
 						<input id="followTF" name="button" value="${flwstate}" style="display:none;"></input>
-						<button id= "btn2" value=${loginUser.uname} class="follow" onclick="followState()">${follow}</button>
+						<button id= "btn2" value=${loginUser.uname} class="${classFollow}" onclick="followState()">${follow}</button>
 						<button id ="mark" class="unmark" onclick="checkfollow()">체크</button>
 					</form>
 					<button class="modified" onclick="popup('modal-info')">
@@ -89,7 +89,7 @@
 			</div>
 			<!--  profile-right  -->
 			
-
+		
 		</div>
 	</section>
 
@@ -163,7 +163,7 @@
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 
-<script src="../resources/js/post/personal/personalMain.js?ver=5"></script>
+<script src="../resources/js/post/personal/personalMain.js?ver=8"></script>
 
 
 <link rel="stylesheet"

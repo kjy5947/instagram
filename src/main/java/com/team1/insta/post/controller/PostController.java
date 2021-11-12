@@ -139,11 +139,32 @@ public class PostController {
 			followState = userMapper.getFollowInfo(unameUser.getUser_id(), userMapper.getUserByUsername(userName).getUser_id());
 			log.info("followState : " + followState);
 			if(followState != null) {
-				request.setAttribute("follow", "언팔");
-			}else {
-
+				if(followState.getFollow_accept() == 'N') {
+					if(followState.getFollow_condition().equals("A")) {
+						log.info("요청됨으로 설정함");
+						request.setAttribute("follow", "요청됨");
+						request.setAttribute("classFollow", "ing");
+					}else if(followState.getFollow_condition().equals("Y")) {
+						log.info("언팔로 설정함");
+						request.setAttribute("follow", "언팔");
+						request.setAttribute("classFollow", "unfollow");
+					}
+				}else{//getFollow_accept() == 'Y'로 되어있는 경우
+					log.info("언팔로 설정함");
+					request.setAttribute("follow", "언팔");
+					request.setAttribute("classFollow", "unfollow");
+				}
+			}else {	//followState == null인 경우.
+				
 				request.setAttribute("follow", "팔로우");
-
+				if(userMapper.getUserByUsername(userName).getFollow_accept() == 'N') {
+					log.info("ing 여기찍혀야함");
+					request.setAttribute("classFollow", "ing");
+				}else {
+					log.info("follow?");
+					request.setAttribute("classFollow", "follow");
+				}
+				
 			}
 			
 			
@@ -275,20 +296,26 @@ public class PostController {
 			followState = userMapper.getFollowInfo(unameUser.getUser_id(), u.getUser_id());
 			if(u.getFollow_accept() == 'Y') {
 				
-				if(followState == null) {
-					userMapper.addFollow(userMapper.existUser(mySid), userMapper.existUser(userName));
+				if(followState == null) {//follow관계가 아니라면,
+					userMapper.addFollow(userMapper.existUser(mySid), userMapper.existUser(userName), "Y");
 					request.setAttribute("follow", "언팔");
+					request.setAttribute("classFollow", "unfollow");
 				}else {
 					
 				}
-			}else {
-				request.setAttribute("follow", "요청됨");
+			}else {//getFollow_accept() == 'N'일떄
+				if(followState == null) {//follow관계가 아니라면,
+					request.setAttribute("follow", "요청됨");
+					request.setAttribute("classFollow", "ing");
+					userMapper.addFollow(userMapper.existUser(mySid),userMapper.existUser(userName),"A");
+				}
 			}
 		}else if(button.equals("cancel")) {
 			log.info("--------------------------------");
 			   log.info("cancel버튼을 누름");
 			userMapper.cancelFollow(userMapper.existUser(mySid), userMapper.existUser(userName));
 			request.setAttribute("follow", "팔로우");
+			request.setAttribute("classFollow", "follow");
 		}else {
 			log.info("param button값 : 없음.");
 		}

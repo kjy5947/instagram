@@ -34,23 +34,38 @@ if(presentUser.value == urlName){
 		
 }
 
-/* 기본이 '팔로우'로 보일지, '언팔'로 보일지. */
+
 
 
 
 /* 끝 - [프로필편집, 팔로우] 버튼 활성, 비활성 유무 */
 
-var presentText = presentUser.innerText;
-if(presentText == "팔로우"){
-	console.log("최종 : 팔로우");
-	presentUser.className = "follow";
-	mark.className = "unmark";
+if(presentUser.className == "ing"){
+	console.log("ing로 바껴있음");
+	console.log(presentUser.className);
 }else{
-	console.log("최종 : 언팔");
-	presentUser.className = "unfollow";
-	mark.className = "mark";
+	console.log("다른걸로 바껴있음");
+	console.log(presentUser.className);
 }
 
+
+/* 기본이 '팔로우'로 보일지, '언팔'로 보일지. */
+var presentText = presentUser.innerText;
+if(presentText == "팔로우" && presentUser.className == "ing"){
+	console.log("최종 : 팔로우");
+	presentUser.className = "requesting";
+	mark.className = "unmark";
+}else if(presentText == "팔로우" && presentUser.className == "follow"){
+	mark.className = "unmark";
+
+}else if(presentText == "요청됨"){
+	mark.className = "mark";	
+}
+else{
+	console.log("최종 : 언팔");
+	mark.className = "mark";
+}
+/*//////////////////////////////////////////////*/
 if(presentUser.className == "unfollow"){
 	presentUser.disabled = true;
 }else{
@@ -59,28 +74,36 @@ if(presentUser.className == "unfollow"){
 
 /* 팔로우버튼을 클릭했을때 (팔로우,언팔)글자 바꾸기 */
 function followState(){
-
-	
-
+	 var presentUser2 = document.getElementById("btn2");
+	 console.log("버튼 클릭했을때 처음의 class명 : " + presentUser2.className);
 	if(presentText == "팔로우"){
-		presentUser.innerText = "언팔";
-		presentUser.className = "unfollow";
-		mark.className = "mark";
 		
 		
 		/* DB에 follow추가를 해주는걸 위해 해주는 선작업 */
+		if(presentUser2.className == "ing"){
+			console.log("ing찍혀야하는데? : " + presentUser2.className);
+			presentUser2.innerText = "요청됨";
+			mark.className = "mark";
+		}else if(presentUser2.className === "follow"){
+			console.log("이거아닌데? : " + presentUser2.className);
+			presentUser2.innerText = "언팔";
+			mark.className = "mark";	
+		}
+		
 		var submitfollow = document.followButton;
 		var followButton = document.getElementById("followTF");
 		followButton.setAttribute("value", "follow");
 		console.log(followButton.value);
 		submitfollow.submit();
 		
-	}else{
-		presentUser.innerText = "팔로우";
-		presentUser.className = "follow";
+	}else{/*presentText == "언팔" */
+	
+		presentUser2.innerText = "팔로우";
+		presentUser2.className = "follow";
 		mark.className = "unmark";
 	}
 }
+/*끝 - followState함수 */
 
 function checkfollow(){
 
