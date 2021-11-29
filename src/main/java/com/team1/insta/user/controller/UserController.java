@@ -92,7 +92,7 @@ public class UserController {
 		String followacpt ="";
 		String editedname = editrequest.getUname();
 		log.info("이미 있는 계정 :"+ editedname);
-		if(userMapper.existUser(editedname)!=null && !userName.equals(userMapper.existUser(editedname))) {
+		if(userMapper.existUser(editedname)!=null && userName.equals(userMapper.existUser(editedname))) {
 			
 			out.println("<script language='javascript'>alert('이미 등록된 계정입니다.');"+"location.href='/insta/users/"+userName+"';</script>");
 			out.flush();
