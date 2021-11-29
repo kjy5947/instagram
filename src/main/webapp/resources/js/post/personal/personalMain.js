@@ -105,9 +105,10 @@ function followState(){
 }
 /*끝 - followState함수 */
 
+/*presentText = presentUser.innerText; */
 function checkfollow(){
 
-	if(presentText == "언팔"){
+	if(presentText == "언팔" || presentText == "요청됨"){
 		mark.className = "unmark";
 		presentUser.innerText = "팔로우";
 		presentUser.className = "follow";
