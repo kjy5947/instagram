@@ -163,7 +163,7 @@
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 
-<script src="../resources/js/post/personal/personalMain.js?ver=2"></script>
+<script src="../resources/js/post/personal/personalMain.js?ver=4"></script>
 
 
 <link rel="stylesheet"

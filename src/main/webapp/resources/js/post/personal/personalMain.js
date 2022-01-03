@@ -39,13 +39,11 @@ if(presentUser.value == urlName){
 
 
 /* 끝 - [프로필편집, 팔로우] 버튼 활성, 비활성 유무 */
-
+/* presentUser = document.getElementById("btn2") */
 if(presentUser.className == "ing"){
-	console.log("ing로 바껴있음");
-	console.log(presentUser.className);
+	console.log("class값 : " + presentUser.className);
 }else{
-	console.log("다른걸로 바껴있음");
-	console.log(presentUser.className);
+	console.log("ing가 아닌 class값 : " + presentUser.className);
 }
 
 
@@ -59,9 +57,9 @@ if(presentText == "팔로우" && presentUser.className == "ing"){
 	mark.className = "unmark";
 
 }else if(presentText == "요청됨"){
-	mark.className = "mark";	
+	mark.className = "mark";
 }
-else{
+else{ /* presentText이 "언팔" 일때. */
 	console.log("최종 : 언팔");
 	mark.className = "mark";
 }
@@ -87,7 +85,8 @@ function followState(){
 		}else if(presentUser2.className === "follow"){
 			console.log("이거아닌데? : " + presentUser2.className);
 			presentUser2.innerText = "언팔";
-			mark.className = "mark";	
+			mark.className = "mark";
+			presentUser.className = "unfollow";
 		}
 		
 		var submitfollow = document.followButton;

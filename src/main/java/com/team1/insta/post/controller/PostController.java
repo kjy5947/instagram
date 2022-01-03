@@ -81,15 +81,9 @@ public class PostController {
 		Cookie[] cookies = request.getCookies();
 		
 		//팔로우 정보
-		
-		
-		
-		
-		
-		
-		
+
 		/////////////////////////////////////////////////////////////////
-		// 수환님 코드 추가하기.
+		// 수환님 코드 시작1.
 		User user = userMapper.getUserBytype(new KeyConfirm("", userName));
 		log.info("수환님 user : " + user);
 		List<Post> postList =  postMapper.getPostList(user.getUser_id());
@@ -113,7 +107,7 @@ public class PostController {
 
 		List<Follow> followerList = postMapper.getFollower(user.getUser_id());
 		List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
-
+		// 수환님 코드 끝1.
 		/////////////////////////////////////////////////////////////////
 		// 로그인한 cookie정보 얻어오기.
 		String mySid = "";
@@ -166,9 +160,7 @@ public class PostController {
 				}
 				
 			}
-			
-			
-			
+
 			
 			model.addAttribute("oneUser", userMapper.getUserByUsername(userName));
 			User urlUser = userMapper.getUserByUsername(userName);      
@@ -307,7 +299,7 @@ public class PostController {
 				if(followState == null) {//follow관계가 아니라면,
 					request.setAttribute("follow", "요청됨");
 					request.setAttribute("classFollow", "ing");
-					userMapper.addFollow(userMapper.existUser(mySid),userMapper.existUser(userName),"A");
+					userMapper.addFollow(userMapper.existUser(mySid),userMapper.existUser(userName), "A");
 				}
 			}
 		}else if(button.equals("cancel")) {

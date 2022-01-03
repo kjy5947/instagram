@@ -199,6 +199,10 @@ a:link {
  	font-weight: bold;
   	cursor : default;
 }
+/*
+unfollow는 id = "btn2"인 버튼의 class값임.
+rgba(219, 219, 219,1) : 하얀버튼 
+*/
 
 .mark{
 	display : inline;
@@ -213,6 +217,9 @@ a:link {
  	font-weight: bold;
   	cursor : pointer;
 }
+/*
+mark는 체크 라고 적힌 박스가 생기게 할지의 유무내용임.
+rgba(219, 219, 219,1) : 하얀버튼 */
 
 .unmark{
 	display : none;
