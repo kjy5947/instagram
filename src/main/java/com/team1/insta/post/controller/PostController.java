@@ -193,7 +193,7 @@ public class PostController {
    
    @PostMapping("/home/{userName}")  
    public String getString(HttpServletRequest request, MultipartHttpServletRequest multireq, RedirectAttributes redirectAttribute, Model model,
-         @PathVariable String userName, @RequestParam MultipartFile file, @RequestParam String button) 
+         @PathVariable String userName, @RequestParam MultipartFile file) 
          throws IllegalStateException, IOException {
 	   	   String urlusername = "";
 	   	   User urlUser;
