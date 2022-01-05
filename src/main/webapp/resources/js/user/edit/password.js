@@ -8,12 +8,7 @@ console.log(str.indexOf('password'));
 
 var url = location.origin + '/insta/home/' + str.substring(37, str.length);
 
-window.onpopstate = function(event){
-	
-	if(event){
-		history.pushState(null,null,str.substring(37, str.length));
-	}
-}
+
 
 
 history.pushState(null, null, null);

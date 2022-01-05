@@ -172,6 +172,15 @@ function modalImage(){
 }
 
 
+function basicProfileEdit(){
+
+	var strr = window.location.href;
+	var params = strr.indexOf("home");
+	var xx = strr.substring(params+4);
+ 	location.href = "/insta/users" + xx;
+	
+}
+
 function profileEdit(obj){
    
    	var op = document.getElementsByClassName(obj)[0];

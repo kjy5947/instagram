@@ -61,7 +61,7 @@
 				<!-- uname 나오는 곳 -->
 				<div class="name-group">
 					<h2>${oneUser.uname }</h2>
-					<button id="btn1" class="subbtn" value="게시물" onclick="profileEdit()">프로필 편집</button>
+					<button id="btn1" class="subbtn" value="게시물" onclick="basicProfileEdit()">프로필 편집</button>
 					
 
 					<form name="followButton" action="/insta/follow/${oneUser.uname}" method="POST">
@@ -163,7 +163,7 @@
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 
-<script src="../resources/js/post/personal/personalMain.js?ver=2"></script>
+<script src="../resources/js/post/personal/personalMain.js?ver=1"></script>
 
 
 <link rel="stylesheet"
