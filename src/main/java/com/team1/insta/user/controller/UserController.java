@@ -66,7 +66,6 @@ public class UserController {
 				
 				model.addAttribute("editedUser", userMapper.getUserByUsername(mySid));
 			}else {
-				System.out.println("이거 맞냐고");
 				outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='/insta/home/" + userName + "';</script>");
 				outt.flush();
 			}
@@ -76,7 +75,7 @@ public class UserController {
 	    return "user/update";
 	}
 	
-	
+	// 개인정보 수정 페이지
 	@PostMapping("/users/{userName}")
 	public String editUser(HttpServletRequest request,HttpServletResponse response, Model model, @PathVariable String userName, @ModelAttribute EditRequest editrequest)
 			throws IOException, ServletException {
@@ -140,6 +139,7 @@ public class UserController {
 	}
 	// 개인정보 수정 끝
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	@PostMapping("/users/profile/{userName}")
 	public String profilehey(HttpServletRequest request, @PathVariable String userName,RedirectAttributes redirectAttribute,
 			@RequestParam MultipartFile file) throws IllegalStateException, IOException {
