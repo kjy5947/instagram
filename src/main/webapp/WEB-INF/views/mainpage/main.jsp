@@ -50,7 +50,7 @@
 	%>
 	
     <div id="highBar"> 
-        <img id="highlogo" onclick="location.href='http://localhost:8080/insta/mainpage/main'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png"></img>
+        <img id="highlogo" onclick="location.href='/insta/mainpage/main'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png"></img>
 
         <div class="topnav">
             <div class="search-container">
@@ -65,7 +65,7 @@
             <span style="padding-right: 10px;
 			             font-size: 30px;
 			             cursor: pointer;" 
-			             onclick="location.href='http://localhost:8080/insta/mainpage/main'" class="material-icons-outlined">
+			             onclick="location.href='/insta/mainpage/main'" class="material-icons-outlined">
                 home
             </span>
             <i style="vertical-align: top; 
