@@ -172,22 +172,26 @@ function modalImage(){
 }
 
 
-function profileEdit(){
+function profileEdit(obj){
    
+   	var op = document.getElementsByClassName(obj)[0];
+   	op.style.display = "none";   
 	var strr = window.location.href;
 
 	var params = strr.indexOf("home");
 	var xx = strr.substring(params+4);
- 	location.replace("/insta/users" + xx);
+ 	location.href = "/insta/users" + xx;
 }
 
-function passwordEdit(){
+function passwordEdit(obj){
 
+	var op = document.getElementsByClassName(obj)[0];
+   	op.style.display = "none";
 	var fullUrl = window.location.href;
 
 	var params = fullUrl.indexOf("home");
 	var username = fullUrl.substring(params+4);
- 	location.replace("/insta/password" + username);
+ 	location.href = "/insta/password" + username;
 }
 
 

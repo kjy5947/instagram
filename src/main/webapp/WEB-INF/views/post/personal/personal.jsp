@@ -70,7 +70,7 @@
 						<button id ="mark" class="unmark" onclick="checkfollow()">체크</button>
 					</form>
 					<button class="modified" onclick="popup('modal-info')">
-						<i class="fas fa-cog"></i>
+						<i class="fas fa-cog"></i><!-- 톱니바퀴아이콘 팝업 -->
 					</button>
 				</div>
 				<div class ="follow-state" style="display:none;"></div>
@@ -133,8 +133,8 @@
 	<div class="modal-info">
 	   <div class="modal">
 	
-	      <button id="profileImage" onclick="profileEdit()">개인정보 수정</button>
-	      <button id="profileImage" onclick="passwordEdit()">비밀번호 변경</button>
+	      <button id="profileImage" onclick="profileEdit('modal-info')">개인정보 수정</button>
+	      <button id="profileImage" onclick="passwordEdit('modal-info')">비밀번호 변경</button>
 	      <button onclick="closePopup('modal-info')">취소</button>
 	   </div>
 	</div>
@@ -163,7 +163,7 @@
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 
-<script src="../resources/js/post/personal/personalMain.js?ver=4"></script>
+<script src="../resources/js/post/personal/personalMain.js?ver=2"></script>
 
 
 <link rel="stylesheet"

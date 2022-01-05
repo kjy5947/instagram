@@ -8,12 +8,18 @@ console.log(str.indexOf('password'));
 
 var url = location.origin + '/insta/home/' + str.substring(37, str.length);
 
-window.onpopstate = function(e){
-
+window.onpopstate = function(event){
+	
+	if(event){
+		history.pushState(null,null,str.substring(37, str.length));
+	}
 }
 
+
+history.pushState(null, null, null);
+
 history.pushState(null,null,str.substring(37, str.length));
-history.back();
+//history.back();
 //
 //console.log("내 이동할 url" + url);
 //history.pushState(null, null, url);

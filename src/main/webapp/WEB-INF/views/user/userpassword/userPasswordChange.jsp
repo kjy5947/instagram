@@ -60,5 +60,5 @@
 
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../resources/js/user/edit/password.js?ver=6"/>"></script>
+    <script src="../resources/js/user/edit/password.js?ver=2"/>"></script>
 </html>
