@@ -10,7 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-		<a href="http://localhost:8116/insta/home/${editedUser.uname}">뒤로가기</a>
 
 
 		<div class="container p-5 mt-3 border" style="width: 735px; height: 700px; margin-top:100px;">

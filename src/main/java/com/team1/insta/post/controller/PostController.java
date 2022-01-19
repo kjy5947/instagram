@@ -75,17 +75,26 @@ public class PostController {
 
    
 	@GetMapping("/home/{userName}")
-	public String getPersonalPage(HttpServletRequest request, Model model, @PathVariable String userName) {
+	public String getPersonalPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String userName) {
 
 		log.info("get home : " + userName);
 		Cookie[] cookies = request.getCookies();
+		String mySid = "";
+		String urlusername ="";
 		
-		//팔로우 정보
+		
+		// 로그인cookie정보 얻어오기.
+        for(Cookie cookie :cookies)
+            if(cookie.getName().equals("sid"))
+                  mySid = cookie.getValue();
 
 		/////////////////////////////////////////////////////////////////
 		// 수환님 코드 시작1.
 		User user = userMapper.getUserBytype(new KeyConfirm("", userName));
 		log.info("수환님 user : " + user);
+		
+		
+		
 		List<Post> postList =  postMapper.getPostList(user.getUser_id());
 		List<List<Images>> imagesList = new ArrayList<>();
 		List<PostJoinImages> postJoinImageList = new ArrayList<>();
@@ -109,22 +118,15 @@ public class PostController {
 		List<Follow> followingrList = postMapper.getFollowing(user.getUser_id());
 		// 수환님 코드 끝1.
 		/////////////////////////////////////////////////////////////////
-		// 로그인한 cookie정보 얻어오기.
-		String mySid = "";
-		String urlusername ="";
 
-		if(cookies == null) {
-		
+
+
+		if(mySid.equals("")) {
 			return "redirect:" + "user/login";
-		}else {
-			
-			for(Cookie cookie :cookies)
-				if(cookie.getName().equals("sid"))
-					mySid = cookie.getValue();
-		/////////////////////////////////////////////////////////////////
-			
-		/////////////////////////////////////////////////////////////////
-			// 팔로우 버튼의 모양
+		}
+	else {
+			/////////////////////////////////////////////////////////////////
+			//팔로우 정보
 			
 			User unameUser = null;
 			UserToUserFollow followState = null;
@@ -187,8 +189,7 @@ public class PostController {
 			
 		}//else
 
-
-	}//getString 끝
+	}//GetMapping("/home/{userName}") 끝
 
    
    @PostMapping("/home/{userName}")  
@@ -203,7 +204,7 @@ public class PostController {
            urlusername = urlUser.getUname();
            log.info("Post페이지의 이름 : " + urlusername);
            Cookie[] cookies = request.getCookies();
-			request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
+           request.setAttribute("username", userName);//어떤 유저페이지인지 username정보
         
 		//////////////////////////////////////////////////////////////
 		
@@ -217,28 +218,24 @@ public class PostController {
                if(cookie.getName().equals("sid"))
                      mySid = cookie.getValue();
             
-            // 고른 이미지로 업데이트 
-
+            //시작 : 고른 이미지로 업데이트 
             if (!file.isEmpty()) {
             	
                 userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
                 redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
-            	
-            	//String relativePath = multireq.getSession().getServletContext().getRealPath("resources/images");
-            	//String fullPath = fileDir + file.getOriginalFilename();
-            	String root_path = request.getSession().getServletContext().getRealPath("/");
-            	root_path = root_path.replace("\\", "/");
-            	log.info("root path : " + root_path);
-            	String attach_path = "/resources/images/";
 
-            	//String fullPath = relativePath + file.getOriginalFilename();
+            	String root_path = request.getSession().getServletContext().getRealPath("/");
+            	
+            	root_path = root_path.replace("\\", "/"); 
+            	//mac과의 호환을 위해서 하는 처리.(mac에서는 '/'로 해줘야 처리가 가능하나, window는 '\\'와 '/' 둘다 가능.)
+            	String attach_path = "/resources/images/";
             	String fullPath = root_path + attach_path + file.getOriginalFilename();
             	
                log.info(" fullPath={}", fullPath);
                file.transferTo(new File(fullPath));
       
             }
-            // !이미지 업데이트 끝
+            // 끝 : 고른 이미지로 업데이트
             //////////////////////////////////////
             log.info(userName);
             request.setAttribute("flwstate", "mu");
@@ -283,7 +280,7 @@ public class PostController {
 		
 	   if(button.equals("follow")) {
 		   log.info("--------------------------------");
-		   log.info("follow버튼을 누름");
+		   log.info("follow버튼 누른 상태");
 			User u = userMapper.getUserByUsername(userName);
 			followState = userMapper.getFollowInfo(unameUser.getUser_id(), u.getUser_id());
 			if(u.getFollow_accept() == 'Y') {

@@ -24,6 +24,7 @@ public interface UserMapper {
 	
 	public void updateUser(@Param("uname") String uname, @Param("profile_img") String profileImg);
 	
+
 	public void updateUserInfo(@Param("stdname") String stdname, @Param("uname") String uname, 
 			@Param("userIntroduce") String userIntroduce, @Param("followAccept") String followAccept,
 			@Param("realName") String realName, @Param("phoneNumber") String phoneNumber);

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +47,8 @@ public class UserController {
 	//private final UserMapper usermp;
 
 	@GetMapping("/users/{userName}")
-	public String editUserPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String userName)
+	public String editUserPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String userName
+			)
 			throws IOException {
 		
 		response.setCharacterEncoding("UTF-8");
@@ -55,15 +57,16 @@ public class UserController {
 		Cookie[] cookies = request.getCookies();
 		String mySid = "";
 		PrintWriter outt = response.getWriter();
-		
+
 		for(Cookie cookie : cookies) {
 			if(cookie.getName().equals("sid")) {
 				mySid = cookie.getValue();
+				log.info("현재 쿠키값 : " + mySid);
 			}
-		}
+		}//for문 끝.
+
 		if(!mySid.equals("")) {
-			if(userName.equals(mySid)) {
-				
+			if(userName.equals(mySid)) {		
 				model.addAttribute("editedUser", userMapper.getUserByUsername(mySid));
 			}else {
 				outt.println("<script>alert('이동할 수 없는 링크 입니다.'); location.href='/insta/home/" + userName + "';</script>");
@@ -77,8 +80,9 @@ public class UserController {
 	
 	// 개인정보 수정 페이지
 	@PostMapping("/users/{userName}")
-	public String editUser(HttpServletRequest request,HttpServletResponse response, Model model, @PathVariable String userName, @ModelAttribute EditRequest editrequest)
-			throws IOException, ServletException {
+	public String editUser(HttpServletRequest request,HttpServletResponse response, Model model, @PathVariable String userName, @ModelAttribute EditRequest editrequest,
+			@RequestParam(name="uname") String uname, @RequestParam(name="realName") String realNames) throws IOException
+{
 		
 		//@RequestParam("username") String username
 		response.setCharacterEncoding("UTF-8");
@@ -90,52 +94,76 @@ public class UserController {
 		
 		String followacpt ="";
 		String editedname = editrequest.getUname();
-		log.info("이미 있는 계정 :"+ editedname);
-		if(userMapper.existUser(editedname)!=null && userName.equals(userMapper.existUser(editedname))) {
-			
-			out.println("<script language='javascript'>alert('이미 등록된 계정입니다.');"+"location.href='/insta/users/"+userName+"';</script>");
-			out.flush();
-//				return "redirect:" + "/users/" + userName;
-		}
 		String introduce = editrequest.getUserIntroduce();
+		String realName = editrequest.getRealName();
+		String phoneNum = editrequest.getPhoneNumber();
+		
 		if(editrequest.getFollowAccept() == null) {
 			followacpt = "N";
 		}else {
 			followacpt = "Y";
 		}
-		String realName = editrequest.getRealName();
-		String phoneNum = editrequest.getPhoneNumber();
-		
+	
 		log.info("follow state : " + followacpt);
 		
+		User exitedcheck = null;
+		log.info("extiedcheck의 존재 유무 : " + exitedcheck);
+		exitedcheck = userMapper.getUserByUsername(uname);
 		
-		userMapper.updateUserInfo(userName, editedname, introduce, followacpt, realName, phoneNum);
-		
-		if(!editedname.equals(userName)) {
-			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("sid")) {
-					
-				}
-			}
-		}
+		PrintWriter outt = response.getWriter();
 		
 		String usernameInfo ="";
-		
 		request.setAttribute("usernameInfo", userName);
+		int updatechk = 0;
+		try {
+			//여기서 userName은 개인정보수정하는 사람이 로그인한 유저의 username인지 체크하기위한 목적이다.
+			userMapper.updateUserInfo(userName, editedname, introduce, followacpt, realName, phoneNum);
+			request.setAttribute("usernameInfo", editedname);//업데이트된 username으로 editedname을 set시킨다.
+			updatechk = 1;
+		} catch (DuplicateKeyException e) {
+			outt.println("<script>alert('이미 있는 username입니다.');location.href='/insta/users/" + userName + "';</script>");
+			outt.flush();
+			//return "redirect:/users/"+ userName; 
+		}
+		
+			if(updatechk == 1) {//update가 되었다면
+				//return "post/personal/editedcookie";
+				log.info("home으로 이동");
+				//return "redirect:/home/"+ editedname;
+				if(!userName.equals(editedname)) {
+					///쿠키 재 지정
+					for(Cookie cookie : cookies) {
+						if(cookie.getName().equals("sid")) {
+							
+							cookie = new Cookie("sid", editedname);
+							cookie.setPath("/insta");
+							response.addCookie(cookie);
+							log.info("변경한 쿠키값 : " + cookie.getValue());
+						}
+					}//for
+					
+				}
+				
+//				outt.println("<script>location.href='/insta/home/" + editedname + "';</script>");
+//				outt.flush();
+				return "post/personal/editedcookie";
+			}else {
+				log.info("업데이트 없음");
+				return "user/update";
+			}
 
-		String mySid = "";
-		///쿠키 재 지정
-//		for(Cookie cookie : cookies1) {
-//			if(cookie.getName().equals("sid")) {
-//				
-//				cookie = new Cookie("sid", editedname);
-//				response.addCookie(cookie);
-//				System.out.println("나의 쿠키내용 : " + cookie.getValue());
-//			}
+		
+		
+//		if(!exitedcheck.getUname().equals("") && !exitedcheck.getUname().equals(userName)) {
+//			log.info("이미 다른 사람이 사용하는 username");
+//			outt.println("<script>alert('이미 있는 username입니다.'); location.href='/insta/home/" + userName + "';</script>");
+//			outt.flush();
+//			return "post/personal/editedcookie";
 //		}
 		
-	    return "post/personal/editedcookie";
-		
+
+
+			//return "post/personal/editedcookie";
 	}
 	// 개인정보 수정 끝
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,6 +194,7 @@ public class UserController {
 			userMapper.updateUser(userName, "../resources/images/" + file.getOriginalFilename());
 			redirectAttribute.addFlashAttribute("oneUser", userMapper.getUserByUsername(mySid));
 			
+			// 프로필 업데이트.
 			if(!file.isEmpty()) {
 				
 				String root_path = request.getSession().getServletContext().getRealPath("/");
