@@ -16,8 +16,9 @@ var presentUrl = window.location.href;
 var startparam = presentUrl.indexOf("home");
 var urlName = presentUrl.substring(startparam + 5);
 
-console.log("presentUser: " + presentUser.value); 
-console.log("urlName: " + urlName); 
+/*presentUser = 로그인한 유저 / urlName = 현재 들어와 있는 유저페이지*/
+console.log("로그인 유저: " + presentUser.value); 
+console.log("해당페이지 유저: " + urlName); 
 
 
 
@@ -41,16 +42,16 @@ if(presentUser.value == urlName){
 /* 끝 - [프로필편집, 팔로우] 버튼 활성, 비활성 유무 */
 /* presentUser = document.getElementById("btn2") */
 if(presentUser.className == "ing"){
-	console.log("class값 : " + presentUser.className);
+	console.log("class값 : 버튼 클릭시 " + presentUser.className + "할 수 있는 상태");
 }else{
-	console.log("ing가 아닌 class값 : " + presentUser.className);
+	console.log("ing가 아닌 class값 : 버튼 클릭시 " + presentUser.className+ "할 수 있는 상태");
 }
 
 
 /* 기본이 '팔로우'로 보일지, '언팔'로 보일지. */
 var presentText = presentUser.innerText;
 if(presentText == "팔로우" && presentUser.className == "ing"){
-	console.log("최종 : 팔로우");
+	/*presentText의 메시지 : 팔로우");*/
 	presentUser.className = "requesting";
 	mark.className = "unmark";
 }else if(presentText == "팔로우" && presentUser.className == "follow"){
@@ -60,7 +61,7 @@ if(presentText == "팔로우" && presentUser.className == "ing"){
 	mark.className = "mark";
 }
 else{ /* presentText이 "언팔" 일때. */
-	console.log("최종 : 언팔");
+	/*presentText의 메시지 : 언팔");*/
 	mark.className = "mark";
 }
 /*//////////////////////////////////////////////*/
@@ -79,11 +80,11 @@ function followState(){
 		
 		/* DB에 follow추가를 해주는걸 위해 해주는 선작업 */
 		if(presentUser2.className == "ing"){
-			console.log("ing찍혀야하는데? : " + presentUser2.className);
+
 			presentUser2.innerText = "요청됨";
 			mark.className = "mark";
 		}else if(presentUser2.className === "follow"){
-			console.log("이거아닌데? : " + presentUser2.className);
+
 			presentUser2.innerText = "언팔";
 			mark.className = "mark";
 			presentUser.className = "unfollow";

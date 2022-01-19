@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resources/css/user/edit/update.css?ver=4"></link>
+<link rel="stylesheet" href="../resources/css/user/edit/update.css?ver=2"></link>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -22,11 +22,11 @@
 			<div class="content__item1">
 				<div class="item-img">
 					<form name="userProfileImageForm" id="userProfileImageForm" method="POST" 
-					action="/insta/users/profile/${editedUser.uname}"/>
+					action="/insta/users/profile/${editedUser.uname}">
 						<input type="file" name="file" style="display: none;"
 							id="userProfileImage" />
 					
-						<img id="basicUserProfileImage" src=${editedUser.profile_img} 
+						<img id="basicUserProfileImage" src="${editedUser.profile_img}" 
 						onerror="this.src='../resources/images/originalProfile.jpg'" />
 					</form>
 				</div>
@@ -45,9 +45,11 @@
 				
 					<div class="item-title">username</div>
 					<div class="item-input">
-						<input type="text" name="uname" value=${editedUser.uname}
-						/>
+						<input type="text" name="uname" value="${editedUser.uname}" placeholder="영문자+숫자+특수문자 조합 4~15자까지 가능합니다." pattern="^[a-zA-z0-9~!@#$%^&*()_+|<>?:{}]{4,15}$" required/>
 						
+					</div>
+					<div class="invalid-feedback">
+					비밀번호를 입력해주세요.
 					</div>
 				</div>
 				
@@ -55,7 +57,7 @@
 				
 					<div class="item-title">소개</div>
 					<div class="item-input">
-						<textarea name="userIntroduce" id="" rows="5">${editedUser.user_introduce}</textarea>
+						<textarea name="userIntroduce" id="" rows="5" placeholder="30글자이하로 입력하세요." pattern=".{0,30}$">${editedUser.user_introduce}</textarea>
 						
 					</div>
 				</div>
@@ -68,7 +70,7 @@
 					</div>
 					
 					<div class="item-input">
-						<input type="checkbox" name="followAccept" class="check" id=${editedUser.follow_accept}/>
+						<input type="checkbox" name="followAccept" class="check" id="${editedUser.follow_accept}"/>
 						
 					</div>
 				</div>
@@ -91,23 +93,29 @@
 				
 					<div class="item-title">이름</div>
 					<div class="item-input">
-						<input type="text" name="realName" value=${editedUser.real_name}
-						/>
+						<input type="text" name="realName" value="${editedUser.real_name}" placeholder="20글자이내로 작성해주세요." pattern=".{1,20}$" required/>
 						
 					</div>
+
 				</div>
 				
 				<div class="content__item7">
 				
 					<div class="item-title">휴대폰 번호</div>
 					<div class="item-input">
-						<input type="text" name="phoneNumber" value=${editedUser.phone_number}
-					/>
+						<input type="text" name="phoneNumber" value="${editedUser.phone_number}" placeholder="010을 포함한 11글자 핸드폰번호를 입력하세요." pattern="010\d{8}$" required/>
 					
 					</div>
 				</div>
 				
+				<div class="content__item8">
 				
+					<div class="item-title">이메일</div>
+					<div class="item-input">
+						<input type="text" name="email" value="${editedUser.uemail}" placeholder="@를 포함한 이메일 형태로 입력하세요." pattern="[a-zA-Z0-9._+-]+@.+$" required/>
+					
+					</div>
+				</div>
 				
 				<!-- 제출버튼 -->
 				<div class="content__item8">
@@ -115,11 +123,15 @@
 					<div class="item-input">
 						<button class="btn">제출</button>
 					</div>
+				</div>
+
+				
 			</form>
 			<!-- 프로필 수정 내용 끝 -->
 		</article>
 	</section>
 	<!-- profile 셋팅 끝 -->
 </body>
-<script src="../resources/js/user/edit/update.js?ver=5"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../resources/js/user/edit/update.js?ver=2"></script>
 </html>

@@ -4,6 +4,14 @@
 
 }
 
+input::placeholder{
+	font-size : 12px;
+	color: #0b8b9c;
+}
+textarea::placeholder{
+	font-size : 12px;
+	color: #0b8b9c;
+}
 .editted-profile{
 	
 	width:935px;

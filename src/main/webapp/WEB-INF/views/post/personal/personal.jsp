@@ -63,7 +63,7 @@
 					<h2>${oneUser.uname }</h2>
 					<button id="btn1" class="subbtn" value="게시물" onclick="basicProfileEdit()">프로필 편집</button>
 					
-
+					
 					<form name="followButton" action="/insta/follow/${oneUser.uname}" method="POST">
 						<input id="followTF" name="button" value="${flwstate}" style="display:none;"></input>
 						<button id= "btn2" value=${loginUser.uname} class="${classFollow}" onclick="followState()">${follow}</button>
@@ -163,7 +163,7 @@
 	const commentManageList = JSON.parse('${commentManageList}');
 </script>
 
-<script src="../resources/js/post/personal/personalMain.js?ver=1"></script>
+<script src="../resources/js/post/personal/personalMain.js?ver=3"></script>
 
 
 <link rel="stylesheet"
