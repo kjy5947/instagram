@@ -103,7 +103,7 @@
 				
 					<div class="item-title">휴대폰 번호</div>
 					<div class="item-input">
-						<input type="text" name="phoneNumber" value="${editedUser.phone_number}" placeholder="010을 포함한 11글자 핸드폰번호를 입력하세요." pattern="010\d{8}$" required/>
+						<input type="text" name="phoneNumber" value="${editedUser.phone_number}" placeholder="010과 '-'을 포함한 13글자 핸드폰번호를 입력하세요." pattern="010-\d{4}[-]\d{4}$" required/>
 					
 					</div>
 				</div>
@@ -112,7 +112,7 @@
 				
 					<div class="item-title">이메일</div>
 					<div class="item-input">
-						<input type="text" name="email" value="${editedUser.uemail}" placeholder="@를 포함한 이메일 형태로 입력하세요." pattern="[a-zA-Z0-9._+-]+@.+$" required/>
+						<input type="text" name="uemail" value="${editedUser.uemail}" placeholder="@를 포함한 이메일 형태로 입력하세요." pattern="[a-zA-Z0-9._+-]+@.+$" required/>
 					
 					</div>
 				</div>

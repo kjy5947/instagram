@@ -92,12 +92,16 @@ public class UserController {
 		
 		PrintWriter out = response.getWriter();
 		
-		String followacpt ="";
+		String followacpt = null;
 		String editedname = editrequest.getUname();
 		String introduce = editrequest.getUserIntroduce();
 		String realName = editrequest.getRealName();
 		String phoneNum = editrequest.getPhoneNumber();
-		
+		String email = editrequest.getUemail();
+		log.info("변경할 uname 정보 : " + editedname);
+		log.info("real이름 정보 : " + realName);
+		log.info("자기소개 정보 : " + introduce);
+		log.info("email정보 : " + email);
 		if(editrequest.getFollowAccept() == null) {
 			followacpt = "N";
 		}else {
@@ -107,29 +111,44 @@ public class UserController {
 		log.info("follow state : " + followacpt);
 		
 		User exitedcheck = null;
-		log.info("extiedcheck의 존재 유무 : " + exitedcheck);
-		exitedcheck = userMapper.getUserByUsername(uname);
+		//log.info("extiedcheck의 존재 유무 : " + exitedcheck);
+		
 		
 		PrintWriter outt = response.getWriter();
 		
 		String usernameInfo ="";
+		String unamecheck = "";
+		String emailcheck = "";
 		request.setAttribute("usernameInfo", userName);
 		int updatechk = 0;
 		try {
 			//여기서 userName은 개인정보수정하는 사람이 로그인한 유저의 username인지 체크하기위한 목적이다.
-			userMapper.updateUserInfo(userName, editedname, introduce, followacpt, realName, phoneNum);
+			userMapper.updateUserInfo(userName, editedname, introduce, followacpt, realName, phoneNum, email);
 			request.setAttribute("usernameInfo", editedname);//업데이트된 username으로 editedname을 set시킨다.
 			updatechk = 1;
 		} catch (DuplicateKeyException e) {
-			outt.println("<script>alert('이미 있는 username입니다.');location.href='/insta/users/" + userName + "';</script>");
+			//exitedcheck = userMapper.getUserByUsername(editedname);
+			exitedcheck = userMapper.getUserByUsername(userName);//기존 username
+			unamecheck = userMapper.isUname(editedname);
+			emailcheck = userMapper.isEmail(email);
+			if(!exitedcheck.getUname().equals(editedname) && unamecheck != null) {
+				log.info("username에서 걸림");
+				outt.println("<script>alert('이미 있는 username입니다.');location.href='/insta/users/" + userName + "';</script>");
+				
+			}else if(!exitedcheck.getUemail().equals(email) && emailcheck != null) {
+				log.info("email에서 걸림");
+				outt.println("<script>alert('이미 있는 email입니다.');location.href='/insta/users/" + userName + "';</script>");
+			}else{
+				log.info("전화번호에서 걸림");
+				outt.println("<script>alert('이미 있는 전화번호입니다.');location.href='/insta/users/" + userName + "';</script>");
+			}
+			
 			outt.flush();
-			//return "redirect:/users/"+ userName; 
-		}
+
+		}//try-catch끝
 		
 			if(updatechk == 1) {//update가 되었다면
-				//return "post/personal/editedcookie";
 				log.info("home으로 이동");
-				//return "redirect:/home/"+ editedname;
 				if(!userName.equals(editedname)) {
 					///쿠키 재 지정
 					for(Cookie cookie : cookies) {
@@ -151,19 +170,6 @@ public class UserController {
 				log.info("업데이트 없음");
 				return "user/update";
 			}
-
-		
-		
-//		if(!exitedcheck.getUname().equals("") && !exitedcheck.getUname().equals(userName)) {
-//			log.info("이미 다른 사람이 사용하는 username");
-//			outt.println("<script>alert('이미 있는 username입니다.'); location.href='/insta/home/" + userName + "';</script>");
-//			outt.flush();
-//			return "post/personal/editedcookie";
-//		}
-		
-
-
-			//return "post/personal/editedcookie";
 	}
 	// 개인정보 수정 끝
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,6 +1,13 @@
 /**
  * 
  */
+var str = window.location.href;
+var url = location.origin + '/insta/home/' + str.substring(37, str.length);
+
+history.pushState(null, null, null);
+
+history.pushState(null,null,str.substring(37, str.length));
+//history.back();
 
 
 const passwordForm = document.getElementById('passwordForm');

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>비밀번호 재설정</title>
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/user/password/passwordChange.css"/>" />
+	href="/resources/css/user/password/passwordChange.css?ver=2" />
 </head>
 <body>
 
@@ -39,8 +39,7 @@
 		</form>
 	</div>
 
-	<script type="text/javascript"
-		src="<c:url value="/resources/js/user/password/passwordChange.js"/>"></script>
+	<script	src="/resources/js/user/password/passwordChange.js?ver=3"/></script>
 
 </body>
 </html>

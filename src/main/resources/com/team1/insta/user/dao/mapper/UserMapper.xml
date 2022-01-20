@@ -94,6 +94,7 @@
 			<if test="followAccept != ''">follow_accept=#{followAccept},</if>
 			<if test="realName != ''">real_name=#{realName},</if>
 			<if test="phoneNumber != ''">phone_number=#{phoneNumber},</if>
+			<if test="uemail != ''">uemail=#{uemail},</if>
 		</set>
 		where uname = #{stdname}
 	</update>
@@ -123,5 +124,17 @@
 	<update id="updateFollow">
 		update follow set follow_condition = #{situation} where from_user = #{cookieUser} and to_user = #{queryVar}
 	</update>
+	
+	<select id="isUname" resultType="String">
+		select uname
+		from user_info
+		where uname = #{uname}
+	</select>
+	
+	<select id="isEmail" resultType="String">
+		select uemail
+		from user_info
+		where uemail = #{uemail}
+	</select>
 	
 </mapper>

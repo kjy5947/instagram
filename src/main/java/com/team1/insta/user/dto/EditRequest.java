@@ -12,4 +12,5 @@ public class EditRequest {
 	private String followAccept;
 	private String realName;
 	private String phoneNumber;
+	private String uemail;
 }

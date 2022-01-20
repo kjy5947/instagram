@@ -27,7 +27,8 @@ public interface UserMapper {
 
 	public void updateUserInfo(@Param("stdname") String stdname, @Param("uname") String uname, 
 			@Param("userIntroduce") String userIntroduce, @Param("followAccept") String followAccept,
-			@Param("realName") String realName, @Param("phoneNumber") String phoneNumber);
+			@Param("realName") String realName, @Param("phoneNumber") String phoneNumber
+			,@Param("uemail") String uemail);
 	
 	public String existUser(@Param("uname") String uname);
 	
@@ -40,4 +41,8 @@ public interface UserMapper {
 	public void cancelFollow(@Param("cookieUser") String cookieUser, @Param("queryVar") String queryVar);
 	
 	public void updateFollow(@Param("situation") String situation, @Param("cookieUser") String cookieUser, @Param("queryVar") String queryVar);
+	
+	public String isUname(@Param("uname") String uname);
+	
+	public String isEmail(@Param("uemail") String uemail);
 }
