@@ -18,7 +18,8 @@ function moveMine(){
 
 	var params = strr.indexOf("users");
 	var xx = strr.substring(params+5);
- 	location.replace("/insta/home" + xx);
+ 	/*location.replace("/insta/home" + xx);*/
+ 	location.href='/insta/home' + xx;
 }
 
 

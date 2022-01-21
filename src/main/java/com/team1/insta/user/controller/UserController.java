@@ -3,6 +3,7 @@ package com.team1.insta.user.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,9 +49,11 @@ public class UserController {
 	//private final UserMapper usermp;
 
 	@GetMapping("/users/{userName}")
-	public String editUserPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String userName
-			)
-			throws IOException {
+	public String editUserPage(HttpServletRequest request,
+								HttpServletResponse response,
+								Model model,
+								@PathVariable String userName)
+								throws IOException {
 		
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -64,7 +68,9 @@ public class UserController {
 				log.info("현재 쿠키값 : " + mySid);
 			}
 		}//for문 끝.
-
+		
+		
+		
 		if(!mySid.equals("")) {
 			if(userName.equals(mySid)) {		
 				model.addAttribute("editedUser", userMapper.getUserByUsername(mySid));
@@ -80,11 +86,16 @@ public class UserController {
 	
 	// 개인정보 수정 페이지
 	@PostMapping("/users/{userName}")
-	public String editUser(HttpServletRequest request,HttpServletResponse response, Model model, @PathVariable String userName, @ModelAttribute EditRequest editrequest,
-			@RequestParam(name="uname") String uname, @RequestParam(name="realName") String realNames) throws IOException
+	public String editUser(HttpServletRequest request,
+							HttpServletResponse response,
+							Model model,
+							@PathVariable String userName,
+							@ModelAttribute EditRequest editrequest,
+							@RequestParam(name="uname") String uname,
+							@RequestParam(name="realName") String realNames) 
+							throws IOException,SQLException
 {
 		
-		//@RequestParam("username") String username
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
@@ -98,10 +109,7 @@ public class UserController {
 		String realName = editrequest.getRealName();
 		String phoneNum = editrequest.getPhoneNumber();
 		String email = editrequest.getUemail();
-		log.info("변경할 uname 정보 : " + editedname);
-		log.info("real이름 정보 : " + realName);
-		log.info("자기소개 정보 : " + introduce);
-		log.info("email정보 : " + email);
+
 		if(editrequest.getFollowAccept() == null) {
 			followacpt = "N";
 		}else {
@@ -111,9 +119,6 @@ public class UserController {
 		log.info("follow state : " + followacpt);
 		
 		User exitedcheck = null;
-		//log.info("extiedcheck의 존재 유무 : " + exitedcheck);
-		
-		
 		PrintWriter outt = response.getWriter();
 		
 		String usernameInfo ="";
@@ -121,8 +126,10 @@ public class UserController {
 		String emailcheck = "";
 		request.setAttribute("usernameInfo", userName);
 		int updatechk = 0;
+		
+		
 		try {
-			//여기서 userName은 개인정보수정하는 사람이 로그인한 유저의 username인지 체크하기위한 목적이다.
+			//여기서 userName은 개인정보수정하는 사람이 로그인한 유저의 username인지 체크하기위한 목적임.
 			userMapper.updateUserInfo(userName, editedname, introduce, followacpt, realName, phoneNum, email);
 			request.setAttribute("usernameInfo", editedname);//업데이트된 username으로 editedname을 set시킨다.
 			updatechk = 1;
@@ -163,8 +170,6 @@ public class UserController {
 					
 				}
 				
-//				outt.println("<script>location.href='/insta/home/" + editedname + "';</script>");
-//				outt.flush();
 				return "post/personal/editedcookie";
 			}else {
 				log.info("업데이트 없음");
@@ -172,11 +177,14 @@ public class UserController {
 			}
 	}
 	// 개인정보 수정 끝
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	
 	@PostMapping("/users/profile/{userName}")
-	public String profilehey(HttpServletRequest request, @PathVariable String userName,RedirectAttributes redirectAttribute,
-			@RequestParam MultipartFile file) throws IllegalStateException, IOException {
+	public String profilehey(HttpServletRequest request,
+							@PathVariable String userName,
+							RedirectAttributes redirectAttribute,
+							@RequestParam MultipartFile file)
+							throws IllegalStateException, IOException {
 		
 		
 		log.info(userName);
@@ -224,7 +232,7 @@ public class UserController {
 		
 		
 	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
 	
 	@GetMapping("/join")
 	public String join() {
@@ -303,8 +311,7 @@ public class UserController {
 		String userpassword = userinfo.getPassword();//로그인중인 user의 현재비밀번호.
 		String convertedpassword = request.getParameter("beforepassword");
 		String newpassword = request.getParameter("secondpassword");
-		log.info("현재 로그인중인 비밀번호 : " + userpassword);
-		log.info("작성한 이전 비밀번호 : " + convertedpassword);
+
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -325,7 +332,7 @@ public class UserController {
 				}
 			}
 		}
-		///////////////////////////////////////////////////////////////////////////////
+
 		if(userpassword.equals(convertedpassword)) {
 				userMapper.setPassword(newpassword, userinfo.getUser_id());
 				out.println("<script>alert('비밀번호를 변경하였습니다.'); location.href='" + "/insta/home/" + userName+ "';</script>");

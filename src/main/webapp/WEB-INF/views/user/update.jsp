@@ -45,7 +45,7 @@
 				
 					<div class="item-title">username</div>
 					<div class="item-input">
-						<input type="text" name="uname" value="${editedUser.uname}" placeholder="영문자+숫자+특수문자 조합 4~15자까지 가능합니다." pattern="^[a-zA-z0-9~!@#$%^&*()_+|<>?:{}]{4,15}$" required/>
+						<input type="text" name="uname" value="${editedUser.uname}" maxlength="15" placeholder="영문자+숫자+특수문자 조합이 되며 총 4~15자까지 가능합니다." pattern="^[a-zA-z0-9~!@#$%^&*()_+|<>?:{}]{4,15}$" required/>
 						
 					</div>
 					<div class="invalid-feedback">
@@ -57,7 +57,7 @@
 				
 					<div class="item-title">소개</div>
 					<div class="item-input">
-						<textarea name="userIntroduce" id="" rows="5" placeholder="30글자이하로 입력하세요." pattern=".{0,30}$">${editedUser.user_introduce}</textarea>
+						<textarea name="userIntroduce" id="" rows="5" maxlength="50" placeholder="30글자이하로 입력하세요." pattern=".{0,30}$">${editedUser.user_introduce}</textarea>
 						
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 				
 					<div class="item-title">이름</div>
 					<div class="item-input">
-						<input type="text" name="realName" value="${editedUser.real_name}" placeholder="20글자이내로 작성해주세요." pattern=".{1,20}$" required/>
+						<input type="text" name="realName" value="${editedUser.real_name}" maxlength="20" placeholder="20글자이내로 작성해주세요." pattern=".{1,20}$" required/>
 						
 					</div>
 
@@ -103,7 +103,7 @@
 				
 					<div class="item-title">휴대폰 번호</div>
 					<div class="item-input">
-						<input type="text" name="phoneNumber" value="${editedUser.phone_number}" placeholder="010과 '-'을 포함한 13글자 핸드폰번호를 입력하세요." pattern="010-\d{4}[-]\d{4}$" required/>
+						<input type="text" name="phoneNumber" value="${editedUser.phone_number}" maxlength="13" placeholder="010과 '-'을 포함한 13글자 핸드폰번호를 입력하세요." pattern="010-\d{4}[-]\d{4}$" required/>
 					
 					</div>
 				</div>
@@ -112,7 +112,7 @@
 				
 					<div class="item-title">이메일</div>
 					<div class="item-input">
-						<input type="text" name="uemail" value="${editedUser.uemail}" placeholder="@를 포함한 이메일 형태로 입력하세요." pattern="[a-zA-Z0-9._+-]+@.+$" required/>
+						<input type="text" name="uemail" value="${editedUser.uemail}" maxlength="30" placeholder="@를 포함한 이메일 형태로 입력하세요." pattern="[a-zA-Z0-9._+-]+@.+$" required/>
 					
 					</div>
 				</div>
