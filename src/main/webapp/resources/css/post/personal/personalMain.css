@@ -1,0 +1,629 @@
+
+body{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	margin:0 auto;
+	flex-wrap: wrap;
+	width: 935px;
+	box-sizing : border-box;   
+}
+
+.topProfile {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 935px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* Profile */
+
+.profile {
+
+  height: 170px;
+  display: flex;
+  margin: 54px 0 44px;
+  align-items: center;
+}
+
+
+.profile > .topProfile {
+  padding: 30px 20px 0;
+}
+.profile .profile-left,
+.profile .profile-right {
+  height: 100%;
+}
+.profile .profile-left {
+  flex-basis: 40%;
+  display: flex;
+  justify-content: center;
+}
+.profile .profile-right {
+  flex-basis: 60%;
+}
+.profile .profile-left .profile-img-wrap {
+  width: 162px;
+  height: 162px;
+  padding: 6px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+.profile .profile-left .profile-img-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+}
+.profile .profile-right .name-group {
+
+  display: flex;
+
+}
+.profile .profile-right .name-group h2 {
+  font-weight: normal;
+  font-family: "Montserrat", sans-serif;
+  margin-right: 30px;
+}
+
+
+
+.profile .profile-right .name-group .modified {
+  border: none;
+  background: none;
+  cursor : pointer;
+}
+.profile .profile-right .name-group .modified i {
+  font-size: 20px;
+  padding: 8px;
+  cursor : pointer;
+}
+
+
+.profile .profile-right .subscribe {
+  height: 28px;
+  position:relative;
+  margin-bottom: 5px;
+
+}
+.profile .profile-right .subscribe ul {
+  display: flex;
+  position: absolute;
+  top: -13px;
+  width: 500px;
+  float:left;
+  
+}
+.profile .profile-right .subscribe ul li {
+  margin-right: 25px;
+  position:relative;
+  left : -38px;
+  list-style: none;
+
+}
+.profile .profile-right .subscribe ul li a {
+  font-size: 16px;
+  color: #262626;
+
+}
+a:link {
+	text-decoration: none;
+}
+
+
+
+.profile .profile-right .subscribe ul li a span {
+  font-weight: bold;
+  margin-left: 4px; 
+}
+.state{
+	position : relative;
+
+	height: 90px;
+}
+
+.profile .profile-right .state h4 {
+  position : absolute;
+  top : -20px;
+
+  height : 100%;
+  width : 100%;
+}
+
+.subbtn {
+  margin-right: 10px;
+  margin-top : 21px;
+  height : 30px;
+  cursor : pointer;
+  
+  /*border: 1px solid rgba(var(--ca6, 219, 219, 219), 1);*/
+  border: 1px solid rgba(219, 219, 219,1);
+  border-radius: 4px;
+  color: #262626;
+  font-weight: bold;
+  background: transparent;
+}
+
+.follow{
+	margin-right: 10px;
+ 	margin-top : 25px;
+	background-color: #0095f6;
+  	color: #fff;
+ 	height : 30px;
+  	width: 60px;
+  	border: 1px solid rgba(219, 219, 219,1);
+  	border-radius: 4px;
+ 	font-weight: bold;
+  	cursor : pointer;
+}
+
+.requesting{
+	margin-right: 10px;
+ 	margin-top : 25px;
+	background-color: #0095f6;
+  	color: #fff;
+ 	height : 30px;
+  	width: 60px;
+  	border: 1px solid rgba(219, 219, 219,1);
+  	border-radius: 4px;
+ 	font-weight: bold;
+  	cursor : pointer;
+}
+
+.ing{
+	margin-right: 10px;
+ 	margin-top : 25px;
+	color: #262626;
+	background: transparent;
+ 	height : 30px;
+  	width: 60px;
+  	border: 1px solid rgba(219, 219, 219,1);
+  	border-radius: 4px;
+ 	font-weight: bold;
+  	cursor : default;
+}
+
+.unfollow{
+	margin-right: 10px;
+ 	margin-top : 25px;
+	color: #262626;
+	background: transparent;
+ 	height : 30px;
+  	width: 60px;
+  	border: 1px solid rgba(219, 219, 219,1);
+  	border-radius: 4px;
+ 	font-weight: bold;
+  	cursor : default;
+}
+/*
+unfollow는 id = "btn2"인 버튼의 class값임.
+rgba(219, 219, 219,1) : 하얀버튼 
+*/
+
+.mark{
+	display : inline;
+	margin-right: 10px;
+ 	margin-top : 25px;
+	color: #262626;
+	background: transparent;
+ 	height : 30px;
+  	width: 60px;
+  	border: 1px solid rgba(219, 219, 219,1);
+  	border-radius: 4px;
+ 	font-weight: bold;
+  	cursor : pointer;
+}
+/*
+mark는 체크 라고 적힌 박스가 생기게 할지의 유무내용임.
+rgba(219, 219, 219,1) : 하얀버튼 */
+
+.unmark{
+	display : none;
+}
+/**************************************************** content *********************************/
+
+#content {
+	display: block;
+	width: 935px;
+	text-align: center;
+	border-top: #DCDCDC 1px solid;
+}
+
+.contentBtn {
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+	margin-right: 50px;
+	color: gray;
+	padding-top: 20px;
+}
+.contentBtn > i {
+	pointer-events: none;
+}
+
+#post {
+	color: black;
+	border-top: 1px solid black;
+}
+
+#postContentOut, #taggedContentOut {
+	margin-top: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	width: 100%;
+}
+
+#taggedContentOut {
+	display: none;
+}
+
+.contentOutPost {
+	width: 31%;
+	overflow: hidden;
+	position: relative;
+	border: 10px solid transparent;
+}
+
+.contentOutPost:after {
+	content: "";
+	display: block;
+	padding-bottom: 100%;
+}
+
+.contentOutPost > img {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.textDiv {
+	width: 100%;
+	height: 100%;
+	background: #000000;
+	opacity: 0;
+	display: flex;
+	align-items: center;
+	justify-content:center;
+
+}
+
+
+.contentOutPost:hover .textDiv {
+	opacity: 0.5;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+
+/**************************** popup content ********************************/
+div[id^="popupWrapper"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+div[id^="popupWrapper"].hide {
+	display: none;
+}
+
+.popupContainer {
+	width: 1000px;
+	height: 800px; 
+	position: relative;
+}
+
+.popupSilder {
+	display: flex;
+    position:absolute;
+    width: 70%;
+    height: 100%;
+    top:0;
+    left:0;
+}
+
+.imgwrap {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.imgWrap > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.heartFadeInAndOut {
+	position: absolute;
+	top:45%;
+	left: 45%;
+	opacity: 0;
+    animation: fade 2s linear;
+    color: white;
+    font-size: 70px;
+}
+
+@keyframes fade {
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
+}
+
+
+.leftarrowBtn, .rightarrowBtn  {
+	cursor: pointer;
+  	position: absolute;
+ 	color: white;
+ 	font-weight: bold;
+	font-size: 22px;
+}
+
+.leftarrowBtn {
+	position:absolute;
+	top: 50%;
+    left:1%;
+}
+.leftarrowBtn > i {
+	border-radius: 50%;
+	box-shadow: 0px 0px 5px 2px gray;
+}
+.rightarrowBtn  {
+ 	position:absolute;
+ 	top: 50%;
+    right:1%;
+}
+.rightarrowBtn > i {
+	border-radius: 50%;
+	box-shadow: 0px 0px 5px 2px gray;
+}
+
+/********************* POPUP COMMENT************/
+
+.popupCommentContainer {
+	display: flex;
+    position:absolute;
+    width: 30%;
+    height: 100%;
+    top:0;
+    right:0;
+    background-color: white;
+    flex-direction: column;
+}
+/* popupHead(poster info)  */
+.postingUser {
+	height: 60px;
+	width: 100%;
+	align-items: center;
+	display: flex;
+	border-bottom: 1px #DCDCDC solid;
+}
+
+.postingUser > img {
+	width : 30px; 
+	height: 30px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.postingUname {
+	font-weight: bold;
+	font-size: 12px;
+}
+.postingUname  > a {
+	text-decoration: none;
+	color: black;
+	
+}
+
+button[id^="followBtn"] {
+	background-color: transparent;
+	color: #0096FF;
+	border-color: transparent;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+button[id^="followBtn"].following {
+	color: black;
+}
+
+.postComments{
+	height: 80%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+}
+/* post popup comment scroll bar hide*/
+.postComments { 
+	-ms-overflow-style: none;
+}
+
+.postComments::-webkit-scrollbar{ 
+	display:none;
+}
+
+
+.postCommentsLi, .otherUserComment {
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+	width: 80%;
+}
+
+.postCommentsLi > img, .otherUserComment > img {
+	width : 30px; 
+	height: 30px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin-left: -29px;
+	margin-right: 10px;
+}
+
+.postingUnameComment, .otherUserUnameComment {
+	display: inline-block;
+	font-size: 12px;
+}
+.postingUnameComment > a, .otherUserUnameComment > a {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+
+
+.commentFooter {
+	position: absolute;
+	width: 100%;
+	height: 130px;
+	bottom: 0;
+	right: 0;
+	border-top: #DCDCDC 1px solid;
+}
+
+.likeHeart {
+	margin-left: 10px;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.likeHeart.heart {
+	color : red;
+}
+
+.likeHeart > i {
+	pointer-events: none;
+}
+
+.commentIcon {
+	margin-left: 15px;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.viewLikeCnt {
+	margin-top: 10px;
+	font-weight: bold;
+	margin-left: 10px;
+	font-size: 15px;
+}
+
+.leaveCommentDiv {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	border-top: #DCDCDC 1px solid;
+}
+
+.leaveComment {
+	border-color: transparent;
+	height: 40px;
+	width: 77%;
+	padding-left: 10px;
+}
+
+.leaveComment:focus {
+	outline: none;
+}
+
+.leaveCommentBtn {
+	background-color: transparent;
+	color: #0096FF;
+	font-size: 15px;
+	border-color: transparent;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+
+.leaveCommentBtn:disabled {
+	color: #99d7ff;
+	cursor: default;
+}
+
+/********************************************  */
+.modal-image {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  
+  align-items: center;
+  justify-content: center;
+}
+.modal-image .modal {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-image .modal button {
+  border: 0;
+  background-color: transparent;
+  height: 48px;
+  cursor: pointer;
+}
+.modal-image .modal button:first-child {
+  line-height: 50px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  color: #222;
+  font-size: 18px;
+}
+
+
+
+@media screen and (max-width: 935px) {
+  .topProfile {
+    width: 100%;
+  }
+}
+
+
+
+/* .modal-info . */
+.modal-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-info .modal {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-info .modal button {
+  border: 0;
+  background-color: transparent;
+  height: 48px;
+  cursor: pointer;
+}

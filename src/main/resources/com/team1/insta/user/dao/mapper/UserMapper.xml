@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team1.insta.user.dao.mapper.UserMapper">
+
+
+	<select id="getList" resultType="com.team1.insta.user.dto.User">
+		select * from user_info order by user_id
+	</select>
+	
+	<select id="getUser" resultType="com.team1.insta.user.dto.User">
+		select * from user_info where user_id = #{user_id}
+	
+	</select>
+	
+	<insert id="newUser">
+		INSERT INTO user_info(user_id, uname, uemail, real_name, password,
+		phone_number)
+		VALUES (
+		user_id_seq.nextval,
+		#{uname},
+		#{uemail},
+		#{real_name},
+		#{password},
+		#{phone_number}
+		)
+	</insert>
+	
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(uname) FROM user_info WHERE uname = #{uname}
+	</select>
+	<select id="getUserBytype"
+		resultType="com.team1.insta.user.dto.User">
+		SELECT * FROM user_info
+		<choose>
+			<when test="keyType == 'email'">
+				WHERE uemail = #{key}
+			</when>
+			<when test="keyType == 'phone'">
+				WHERE phone_number = #{key}
+			</when>
+			<otherwise>
+				WHERE uname = #{key}
+			</otherwise>
+
+		</choose>
+	</select>
+	
+	
+	
+	<select id = "getUserLoginInfo" resultType="com.team1.insta.user.dto.User">
+		select * from user_info
+		
+		<where>
+			<if test="email !=null">
+				OR uemail = #{email}
+			</if>
+			<if test= "phone != null">
+				OR phone_number = #{phone}
+			</if>
+			<if test= "uname != null">
+				OR uname = #{uname}
+			</if>
+		</where>
+	</select>
+	
+	<update id="setPassword">
+		UPDATE user_info SET password = #{newPassword} WHERE user_id = #{userId}
+
+
+	</update>
+
+
+
+
+	<select id="getUserByUsername"
+		resultType="com.team1.insta.user.dto.User">
+		select * from user_info where uname = #{uname}
+	</select>
+
+
+	<update id="updateUser">
+		update user_info set profile_img = #{profile_img} where uname = #{uname}
+	</update>
+
+
+
+	<update id="updateUserInfo" parameterType="map">
+		update user_info
+		<set>
+			<if test="uname != ''">uname=#{uname},</if>
+			<if test="userIntroduce != ''">user_introduce=#{userIntroduce},</if>
+			<if test="followAccept != ''">follow_accept=#{followAccept},</if>
+			<if test="realName != ''">real_name=#{realName},</if>
+			<if test="phoneNumber != ''">phone_number=#{phoneNumber},</if>
+			<if test="uemail != ''">uemail=#{uemail},</if>
+		</set>
+		where uname = #{stdname}
+	</update>
+	
+
+	<select id="existUser" resultType="String">
+	
+		select user_id from user_info where uname = #{uname}
+		
+	</select>
+
+	<select id="getFollowInfo" resultType="com.team1.insta.post.dto.UserToUserFollow">
+  		SELECT DISTINCT f.from_user, f.to_user, u.follow_accept, f.fid, f.follow_time, f.follow_condition
+  		FROM user_info u INNER JOIN follow f
+  		ON (f.from_user = #{cookieUser} and f.to_user = #{queryVar} and u.user_id = #{queryVar})
+  	</select>
+  	
+  	<insert id="addFollow">
+  		insert into follow values(follow_seq.nextval, #{cookieUser}, #{queryVar}, sysdate, #{situation})
+  	</insert>
+	
+	<delete id="cancelFollow">
+		delete from follow where from_user = #{cookieUser} AND to_user = #{queryVar}  
+		
+	</delete>
+	
+	<update id="updateFollow">
+		update follow set follow_condition = #{situation} where from_user = #{cookieUser} and to_user = #{queryVar}
+	</update>
+	
+	<select id="isUname" resultType="String">
+		select uname
+		from user_info
+		where uname = #{uname}
+	</select>
+	
+	<select id="isEmail" resultType="String">
+		select uemail
+		from user_info
+		where uemail = #{uemail}
+	</select>
+	
+</mapper>

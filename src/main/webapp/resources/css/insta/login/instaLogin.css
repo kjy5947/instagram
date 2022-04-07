@@ -1,0 +1,118 @@
+@charset "UTF-8";
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    width:1403px; 
+    display:block; 
+    margin:auto; 
+    height:812px;
+    margin-top: 130px;
+}
+
+main > div {
+    display:flex;
+    position:relative; 
+    margin-top:50px; 
+    padding-bottom:45px;
+}
+
+main > div > div:nth-of-type(1) {
+    text-align:left; 
+    padding: 0 0 100px 0;
+    margin-left: 200px;
+}
+
+main > div > div:nth-of-type(2){
+    display:flex;
+}
+
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) {
+    border:1px solid #d3d3d3;
+    width:350px; 
+    margin-bottom:20px;
+    margin-left: 50px;
+    height: 350px;
+}
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) > h1{
+    font-size: 50px;
+    text-align:center;
+    margin-bottom:20px;
+    font-family: 'Ephesis', cursive;
+    margin-top:20px;
+}
+
+
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1){
+    width:350px;
+    height:280px;
+    text-align: center;
+}
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > form > input{
+    width:268px;
+    height:38px;
+    margin-bottom: 5px;
+    border:1px solid #d3d3d3;
+}
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > form > button{
+    width:268px;
+    height:38px;
+    margin-top: 10px;
+    background-color: skyblue;
+    color:white;
+    border: 0px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1){
+    display:flex;
+    text-align:center;
+}
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div > div:nth-of-type(1){
+    width: 100px;
+    margin-top:10px;
+    margin-left:50px;
+}
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div > div:nth-of-type(3){
+    width: 100px;
+    margin-top:10px;
+}
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2){
+    margin-top: 10px;
+}
+
+main > div > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a{
+    color: midnightblue;
+    font-size:14px;
+    text-decoration:none;
+}
+
+main > div > div:nth-of-type(2) > div > div:nth-of-type(2){
+    width:350px;
+    height:63px;
+    border:1px solid #d3d3d3;
+    text-align:center;
+}
+
+main > div > div:nth-of-type(2) > div > div:nth-of-type(2){
+    padding:20px;
+    font-size:14px;
+}
+
+main > div > div:nth-of-type(2) > div > div:nth-of-type(2) > a{
+    color:#0080FF;
+    text-decoration:none;
+    font-weight:bold;
+}

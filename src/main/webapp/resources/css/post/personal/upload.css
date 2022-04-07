@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+
+
+.uploadContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+}
+
+.upload {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 40px;
+  border: 1px solid #d4d2d2;
+}
+
+.upload .upload-top, .upload-form {
+  text-align: center;
+}
+
+
+.upload .upload-form .upload-img {
+  width: 400px;
+  height: 300px;
+  margin-bottom: 5px;
+}

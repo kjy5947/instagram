@@ -1,0 +1,164 @@
+.main{
+	box-sizing: border-box;
+	padding-top:55px;
+
+}
+
+input::placeholder{
+	font-size : 12px;
+	color: #0b8b9c;
+}
+textarea::placeholder{
+	font-size : 12px;
+	color: #0b8b9c;
+}
+.editted-profile{
+	
+	width:935px;
+	height: 935px;
+	margin: 0 auto;
+	border:1px solid gainsboro;
+	margin-top:30px;
+	display:flex;
+	border-radius:4px;
+}
+
+.editted-profile .editted-content{
+
+	/*border:1px solid green;*/
+	float : right;
+	width : 800px;
+	border-left : 1px solid gainsboro;
+	display : flex;
+	flex-direction : column;
+	padding-top:32px;
+	/*margin-right:10%;*/
+}
+
+
+/* 이미지 프로필 영역 */
+.editted-profile .editted-content .content__item1{
+	
+	display:flex;
+	padding-left:100px;
+	margin-right : 50%;
+	margin-bottom:20px;
+}
+
+/* 아래 모든 form들의 content_item시리즈 */
+.editted-profile .editted-content form > div{
+
+	display:flex;
+	margin-top:20px;
+}
+
+/* 이미지, form 바로 감싸는 영역*/
+.editted-profile .editted-content .content__item1 .item-img{
+	flex: 2;
+	text-align: right;
+	padding-right:30px;
+}
+
+
+.editted-profile .editted-content .content__item1 .item-img img{
+	width:50px;
+	height:50px;
+	margin-top:26px;
+	margin-left:50px;
+	background-size: contain;
+	border-radius:50%;
+}
+
+/* 이미지옆에 보이는 username*/
+.editted-profile .editted-content .content__item1 .item-username{
+	
+	margin-top:17px;
+	flex:4;
+	
+}
+.item-username > div{
+	cursor : pointer;
+	color : #0095f6;
+}
+
+.item-username h2{
+	
+	cursor : pointer;
+}
+
+.editted-profile .editted-content > form{
+	/*border : 1px solid red;*/
+	float : right;
+	width: 80%;
+	
+}
+
+.editted-profile .editted-content .item-title{
+	
+	flex: 2;
+	/*border : 3px solid orange;*/
+	padding-right:30px;
+	text-align:right;
+	font-size:17px;
+	font-weight: 600;
+	padding-top:7px;
+}
+/* input 감싸는 div 넓이 조정 */
+.item-input{
+	
+	width : 65%;
+}
+.item-input > input{
+	border: 1px solid #dbdbdb;
+	height:32px;
+	width: 100%;
+	padding: 0 10px;
+	border-radius : 3px;
+	font-size: 16px;
+	
+}
+
+.content__item4 .item-input{
+	display : flex;
+	justify-content : flex-start;
+	margin-top: 6px;
+	height:20px;
+}
+
+.check{
+	zoom : 0.7;
+	margin-right : 93%;
+}
+
+
+.editted-profile .editted-content .content__item5 .item-input{
+	display: block;
+}
+
+.editted-profile .editted-content div .item-input span{
+  color: #8e8e8e;
+  font-size: 12px;
+  padding-top: 10px;	
+  
+}
+textarea{
+		width: 100%;
+	  border: 1px solid #dbdbdb;
+	  padding: 5px 10px;
+	  border-radius: 3px;
+	  font-size: 16px;
+}
+
+
+.content__item8{
+	
+	/*border: 1px solid pink;*/
+}
+
+.content__item8 .item-input .btn{
+	background-color: #0095f6;
+  	color: #fff;
+  border: 0;
+  padding: 5px 9px;
+  cursor: pointer;
+}

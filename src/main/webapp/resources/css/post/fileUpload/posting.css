@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+
+.shareBtn{
+	display: none;
+	background-color: transparent;
+	color: #0096FF;
+	border-color: transparent;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+
+#ImgContentsModal {
+	display: none;
+	width: 100%;
+}
+
+.contentImg {
+	display: flex;
+    width: 90%;
+    height: 500px;
+    background-color: black;
+    border-color: black;
+	overflow: hidden;
+}
+.contentImg > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.contentDiv {
+	display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.contentUserInfo {
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	margin-top: 10px;
+}
+
+.contentUserInfo > img{
+	width : 30px; 
+	height: 30px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.contentUname {
+	font-weight: bold;
+	font-size: 12px;
+	display: inline-block;
+	
+}
+
+.contentUname > a {
+	text-decoration: none;
+	color: black;
+}
+.contentArea {
+	width: 100%;
+	height: 200px;
+}
+
+.contentArea > textarea{
+	width: 100%;
+	height: 100%;
+	resize: none;
+	border: none;
+}
+
+.contentArea > textarea:focus{
+	outline: none;
+}
+
+#postCompleted {
+	display: none;
+	font-size: 50px;
+	
+}
