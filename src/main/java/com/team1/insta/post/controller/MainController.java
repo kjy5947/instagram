@@ -1,6 +1,5 @@
 package com.team1.insta.post.controller;
 
-
 import java.util.ArrayList;
 
 import java.util.List;
@@ -17,20 +16,16 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class MainController {
-	
+
 	@Autowired
 	MainXMLMapper mainMapper;
-	
-//	@GetMapping("/mainpage/main")  
-//	public void getMain() {
-//		log.info("메인화면 정상적인 작동");
-//	}
-	
+
+
 	@GetMapping("/mainpage/main")
 	public void index(Model model) {
 		List<Post> post = (ArrayList<Post>) mainMapper.getPostList();
 		post.get(0).getPid();
-		
+
 		for (int i = 0, len = post.size(); i < len; ++i) {
 			Post temp;
 			temp = post.get(i);
@@ -43,9 +38,9 @@ public class MainController {
 			post.remove(i);
 			post.add(i, temp);
 		}
-		
+
 		model.addAttribute("posts", post);
-		
+
 	}
-	
+
 }

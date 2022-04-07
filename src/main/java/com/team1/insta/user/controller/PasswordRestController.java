@@ -150,7 +150,7 @@ public class PasswordRestController {
 					+ "</html>"; 
 
 
-			messageHelper.setText(htmlContent,true); // 硫붿씪 �궡�슜
+			messageHelper.setText(htmlContent,true);
 
 
 			mailSender.send(message);
